@@ -1,0 +1,5 @@
+venv
+autoconstruccion/instance
+.iml
+.idea/*
+*.pyc
