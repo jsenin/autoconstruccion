@@ -31,9 +31,19 @@ echo $($python -V)
 mkdir venv
 $python -m venv ./venv
 
+if [[ $? != 0 ]]; then 
+	echo "something is wrong, maybe you need to install pip for python";
+	echo "Maybe this helps: sudo apt-get install python3-pip ";
+	exit;
+fi ;
+
 source ./venv/bin/activate
 
 pip="$python -m pip"
+if $( cat $pip | grep-i 'No module' ); then
+	echo "necesitas instalar pip"
+fi ;
+ 
 echo $($pip -V)
 
 $pip install -r requirements-dev.txt
