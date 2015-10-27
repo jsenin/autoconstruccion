@@ -19,7 +19,7 @@ def create_app():
     db.init_app(app)
 
     # Register blueprints
-    app.register_blueprint(web, url_prefix='/projects', static_folder='static')
+    app.register_blueprint(web, url_prefix='/', static_folder='static')
 
     return app
 
