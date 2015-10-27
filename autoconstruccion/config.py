@@ -1,3 +1,4 @@
+import os
 
 
 class BaseConfig:
@@ -8,6 +9,8 @@ class BaseConfig:
 
 class Development(BaseConfig):
     DEBUG = True
+    SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(os.path.abspath(os.path.dirname(__file__)),
+                                                          'instance', 'app.db')
 
 
 class Testing(BaseConfig):
