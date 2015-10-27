@@ -1,12 +1,14 @@
 from flask import Blueprint
+from flask import render_template
 
 from autoconstruccion.models import Project
 
-bp = Blueprint('web', __name__)
+bp = Blueprint('web', __name__, template_folder='templates', static_folder='static')
 
 
 @bp.route('/')
 def hello_world():
     project = Project('proyectito', 'pedazo de proyecto')
     project_text = project.__repr__()
-    return project_text
+    
+    return render_template('index.html', projects=[project])

@@ -1,0 +1,10 @@
+This paper describe tools used for researching and building the project.
+
+
+# frontend / web 
+
+http://www.initializr.com/
+html5 boilerplate template generator, very usefull for starting a website from scratch with all needed configuration
+normalizer, bootstrap, google analytics, jquery local and remote loading, etc...
+
+

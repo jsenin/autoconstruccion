@@ -31,11 +31,16 @@ echo $($python -V)
 mkdir venv
 $python -m venv ./venv
 
-#if [[ $? != 0 ]]; then 
-#	echo "something is wrong, maybe you need to install pip for python";
-#	echo "Maybe this helps: sudo apt-get install python3-pip ";
-#	exit;
-#fi ;
+if [[ $? != 0 ]]; then
+	echo "module venv fails, maybe this is beacause debiand and ubuntu has a pip issue "
+	echo "http://askubuntu.com/questions/488529/pyvenv-3-4-error-returned-non-zero-exit-status-1"
+	echo "trying to install with a workaround"
+	$python -m venv --without-pip ./venv
+	source venvdir/bin/activate
+	curl https://bootstrap.pypa.io/get-pip.py | python
+	deactivate
+
+fi ;
 
 source ./venv/bin/activate
 
