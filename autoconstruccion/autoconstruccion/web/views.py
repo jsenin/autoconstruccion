@@ -1,7 +1,7 @@
 from flask import Blueprint
-from flask import render_template
+from flask import render_template, request
 
-from autoconstruccion.models import Project
+from autoconstruccion.models import Project, db
 
 bp = Blueprint('web', __name__,
                template_folder='templates',
@@ -9,9 +9,15 @@ bp = Blueprint('web', __name__,
                static_url_path='static/web')
 
 
-@bp.route('/')
+@bp.route('/', methods=['GET', 'POST'])
 def hello_world():
-    project = Project('proyectito', 'pedazo de proyecto')
-    project_text = project.__repr__()
+ 
     
-    return render_template('index.html', projects=[project])
+    if request.method == 'POST':
+        project = Project()
+        project.parse(request.form)
+        db.session.add(project)
+        db.session.commit()
+
+    projects = Project.query.all()
+    return render_template('index.html', projects=projects)
