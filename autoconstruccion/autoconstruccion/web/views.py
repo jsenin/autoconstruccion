@@ -10,7 +10,7 @@ bp = Blueprint('web', __name__,
 
 
 @bp.route('/', methods=['GET', 'POST'])
-def hello_world():
+def index():
  
     
     if request.method == 'POST':
@@ -20,4 +20,4 @@ def hello_world():
         db.session.commit()
 
     projects = Project.query.all()
-    return render_template('index.html', projects=projects)
+    return render_template('Projects/add.html', projects=projects)
