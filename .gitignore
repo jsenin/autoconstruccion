@@ -1,5 +1,5 @@
 venv
-autoconstruccion/instance
+server_app/instance
 .iml
 .idea/*
 *.pyc
