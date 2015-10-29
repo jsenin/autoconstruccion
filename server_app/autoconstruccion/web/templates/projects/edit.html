@@ -1,0 +1,35 @@
+{% extends "layout.html" %}
+{% block title %}Projects{% endblock %}
+
+{% block body %}
+    <a href="{{ url_for('web.project_index') }}" class="btn btn-primary">Project index</a>
+<div class="container">
+
+
+
+
+		<h1>edit Projects</h1>
+		<form role="form" action="{{ url_for('web.project_edit',project_id=project.id) }}" method="POST">
+
+		    <div class="row">
+		        <div class="form-group">
+		            <label for="code">Name</label>
+                    <input name="name" type="text" class="form-control input-lg" value="{{project.name}}">
+		        </div>
+		    </div>
+
+		    <div class="row">
+		        <div class="form-group">
+		            <label for="code">Description</label>
+                    <textarea name="description" class="form-control input-lg" rows="7">{{project.description}}</textarea>
+		        </div>
+		    </div>
+
+		    <div class="row">
+		        <button type="submit" class="btn btn-default">Submit</button>
+		    </div>
+		</form>
+
+    </div> <!-- /container -->        
+
+{% endblock %}
