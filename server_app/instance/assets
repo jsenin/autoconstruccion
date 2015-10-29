@@ -1,0 +1,8 @@
+jinnja filters to manage assets
+
+js_asset
+css_asset
+
+generar un diccionario con nombres a sustituir, si el nombre no esta en el dict pasarlo el texto directamente.
+Si esta en el dict comprobar el modo de funcionamiento de la app y pasar el fichero correcto .min o lo que sea.
+
