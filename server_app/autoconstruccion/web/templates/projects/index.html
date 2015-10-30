@@ -1,8 +1,11 @@
 {% extends "layout.html" %}
 {% block title %}Projects{% endblock %}
 
+
 {% block body %}
     
+    <a href="{{ url_for('web.project_add') }}" class="btn btn-primary">Add new project</a>
+
     {% include 'projects/list.html' %}
 
 {% endblock %}

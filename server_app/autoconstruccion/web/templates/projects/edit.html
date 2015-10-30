@@ -8,21 +8,20 @@
 
 
 
-		<h1>Add Projects</h1>
-		<h2>add a new project</h2>
-		<form role="form" action="{{ url_for('web.project_add') }}" method="POST">
+		<h1>edit Projects</h1>
+		<form role="form" action="{{ url_for('web.project_edit',project_id=project.id) }}" method="POST">
 
 		    <div class="row">
 		        <div class="form-group">
 		            <label for="code">Name</label>
-		            <input name="name" type="text" class="form-control input-lg">
+                    <input name="name" type="text" class="form-control input-lg" value="{{project.name}}">
 		        </div>
 		    </div>
 
 		    <div class="row">
 		        <div class="form-group">
 		            <label for="code">Description</label>
-		            <textarea name="description" class="form-control input-lg" rows="7"></textarea>
+                    <textarea name="description" class="form-control input-lg" rows="7">{{project.description}}</textarea>
 		        </div>
 		    </div>
 
@@ -32,9 +31,5 @@
 		</form>
 
     </div> <!-- /container -->        
-
-
-{% include 'projects/list.html' %}
-
 
 {% endblock %}
