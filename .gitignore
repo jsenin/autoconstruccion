@@ -4,3 +4,4 @@ server_app/instance
 .idea/*
 *.pyc
 .ropeproject
+.cache
