@@ -3,3 +3,4 @@ server_app/instance
 .iml
 .idea/*
 *.pyc
+.ropeproject

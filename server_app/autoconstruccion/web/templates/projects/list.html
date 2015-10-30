@@ -4,7 +4,7 @@
 
         <div class="list-group">
         {% for project in projects %}
-          <a href="#" class="list-group-item ">
+        <a href="{{ url_for('web.project_edit',project_id=project.id) }} " class="list-group-item ">
             <h4 class="list-group-item-heading">{{ project.name }}</h4>
             <p class="list-group-item-text">{{ project.description }}</p>
           </a>
