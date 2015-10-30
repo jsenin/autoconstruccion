@@ -1,0 +1,13 @@
+language: python
+python:
+  - "3.4"
+  - "3.5"
+
+cache: pip
+
+# install dev dependencies
+install: "pip install -r requirements-dev.txt"
+# install app dependencies
+install: "pip install -r requirements.txt"
+
+script: py.test
