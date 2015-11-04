@@ -9,7 +9,7 @@ class Project(db.Model):
     description = db.Column(db.Text, nullable=False)
 
     def __init__(self, name=None, description=None):
-        self.parse( {'name': name, 'description': description} );
+        self.parse({'name': name, 'description': description})
 
     def __repr__(self):
         return "Project: {} \nDescription: {}".format(self.name, self.description)
@@ -29,13 +29,13 @@ class User(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     full_name = db.Column(db.String(250), nullable=False)
     email = db.Column(db.String(255), nullable=False)
-    tel = db.Column(db.String(9), nullable=False)
+    phone_number = db.Column(db.String(9), nullable=False)
 
-    def __init__(self, full_name, email, tel):
+    def __init__(self, full_name, email, phone_number):
         self.full_name = full_name
         self.email = email
-        self.tel = tel
+        self.phone_number = phone_number
 
     def __repr__(self):
-        text = "Usuario: \t{}\n\t\temail: {}\n\t\ttelefono: {}"
-        return text.format(self.full_name, self.email, self.tel)
+        text = "User: \t{}\n\t\tEmail: {}\n\t\tPhone Number: {}"
+        return text.format(self.full_name, self.email, self.phone_number)
