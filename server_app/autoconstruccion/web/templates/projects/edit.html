@@ -8,8 +8,8 @@
 
 
 
-		<h1>edit Projects</h1>
-		<form role="form" action="{{ url_for('web.project_edit',project_id=project.id) }}" method="POST">
+		<h1>Edit Projects</h1>
+		<form role="form" action="{{ url_for('web.project_edit',project_id=project.id) }}" enctype="multipart/form-data" method="POST">
 
 		    <div class="row">
 		        <div class="form-group">
@@ -25,6 +25,46 @@
 		        </div>
 		    </div>
 
+    	    <div class="row">
+		        <div class="form-group">
+		            <label for="code">Start date</label>
+                    <input class="datepicker form-control input-lg" name="start_date" value="{{project.start_date}}">
+		        </div>
+		    </div>
+            <div class="row">
+		        <div class="form-group">
+		            <label for="code">End date</label>
+                    <input class="datepicker form-control input-lg" name="end_date" value="{{project.start_date}}">
+		        </div>
+		    </div>
+
+		    <div class="row">
+		        <div class="form-group">
+		            <label for="code">Localizacion</label>
+                    <input name="localization" type="text" class="form-control input-lg" value="{{project.localization}}">
+		        </div>
+		    </div>
+		    <div class="row">
+		        <div class="form-group">
+		            <label for="code">Manager</label>
+                    <input name="manager" type="text" class="form-control input-lg" value="{{project.manager}}">
+		        </div>
+		    </div>
+		    <div class="row">
+		        <div class="form-group">
+		            <label for="code">Contact Phone</label>
+                    <input name="contact_phone" type="text" class="form-control input-lg" value="{{project.contact_phone}}">
+		        </div>
+		    </div>
+
+		    <div class="row">
+		        <div class="form-group">
+		            <label for="code">Image</label>
+                    <input name="image" type="file" class="form-control input-lg"> 
+		        </div>
+		    </div>
+
+
 		    <div class="row">
 		        <button type="submit" class="btn btn-default">Submit</button>
 		    </div>
@@ -32,4 +72,17 @@
 
     </div> <!-- /container -->        
 
+    
+
+
+{% endblock %}
+
+{% block script_custom %}
+<script>
+$(function(){
+    $('.datepicker').datepicker(
+            {format: 'dd/mm/yyyy'}
+    );
+});
+</script>
 {% endblock %}
