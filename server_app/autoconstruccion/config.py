@@ -5,6 +5,7 @@ class BaseConfig:
     DEBUG = False
     TESTING = False
     SECRET_KEY = 'secret'
+    SQLALCHEMY_TRACK_MODIFICATIONS = False
 
 
 class Development(BaseConfig):
@@ -15,14 +16,15 @@ class Development(BaseConfig):
 
 
 class Testing(BaseConfig):
-    pass
+    TESTING = True
 
 
 class Production(BaseConfig):
     DEBUG = False
+    TESTING = False
 
 
-config = {
+app_config = {
     'DEFAULT': BaseConfig,
     'DEVELOPMENT': Development,
     'PRODUCTION': Production,

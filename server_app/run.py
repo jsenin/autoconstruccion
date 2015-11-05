@@ -1,6 +1,6 @@
 from autoconstruccion import create_app, create_db
 
-application = create_app()
+application = create_app('DEVELOPMENT')
 
 # Create database
 create_db()
