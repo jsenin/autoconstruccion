@@ -1,13 +1,14 @@
 from flask import Flask
+from autoconstruccion.config import app_config
 from autoconstruccion.web import bp as web
 from autoconstruccion.models import db
 
 
-def create_app():
+def create_app(config_name='PRODUCTION'):
     app = Flask(__name__, instance_relative_config=True)
 
     # Load config
-    app.config.from_object('config.Development')
+    app.config.from_object(app_config[config_name])
 
     # Load config from instance folder.
     app.config.from_pyfile('config.py')
@@ -24,8 +25,8 @@ def create_app():
     return app
 
 
-def create_db():
-    app = create_app()
+def create_db(config_name='PRODUCTION'):
+    app = create_app(config_name)
     db.init_app(app)
     with app.test_request_context():
         from autoconstruccion.models import Project
