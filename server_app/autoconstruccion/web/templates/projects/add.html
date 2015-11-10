@@ -26,6 +26,45 @@
 		        </div>
 		    </div>
 
+    	    <div class="row">
+		        <div class="form-group">
+		            <label for="code">Start date</label>
+                    <input class="datepicker form-control input-lg" name="start_date"> 
+		        </div>
+		    </div>
+            <div class="row">
+		        <div class="form-group">
+		            <label for="code">End date</label>
+                    <input class="datepicker form-control input-lg" name="end_date"> 
+		        </div>
+		    </div>
+
+		    <div class="row">
+		        <div class="form-group">
+		            <label for="code">Localizacion</label>
+                    <input name="localization" type="text" class="form-control input-lg">
+		        </div>
+		    </div>
+		    <div class="row">
+		        <div class="form-group">
+		            <label for="code">Manager</label>
+                    <input name="manager" type="text" class="form-control input-lg" >
+		        </div>
+		    </div>
+		    <div class="row">
+		        <div class="form-group">
+		            <label for="code">Contact Phone</label>
+                    <input name="contact_phone" type="text" class="form-control input-lg" >
+		        </div>
+		    </div>
+
+		    <div class="row">
+		        <div class="form-group">
+		            <label for="code">Image</label>
+                    <input name="image" type="file" class="form-control input-lg"> 
+		        </div>
+		    </div>
+
 		    <div class="row">
 		        <button type="submit" class="btn btn-default">Submit</button>
 		    </div>
@@ -37,4 +76,14 @@
 {% include 'projects/list.html' %}
 
 
+{% endblock %}
+
+{% block script_custom %}
+<script>
+$(function(){
+    $('.datepicker').datepicker(
+            {format: 'dd/mm/yyyy'}
+    );
+});
+</script>
 {% endblock %}
