@@ -35,14 +35,6 @@ class User(db.Model):
     tools = db.Column(db.Text(), nullable=True)
     materials = db.Column(db.Text(), nullable=True)
 
-    @classmethod
-    def from_dict(cls, data=None):
-        cls.full_name = data['name']
-        cls.email = data['email']
-        cls.phone_number = data['phone_number']
-        cls.habilities = data['habilities']
-        cls.tools = data['tools']
-        cls.materials = data['materials']
 
     def __repr__(self):
         text = "User: \t{}\n\t\tEmail: {}\n\t\tPhone Number: {}"

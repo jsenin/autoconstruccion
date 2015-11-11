@@ -1,8 +1,15 @@
 import unittest
 from autoconstruccion.forms import ProjectForm
+from autoconstruccion import create_app
 
 
 class TestProject(unittest.TestCase):
+
+    def setUp(self):
+        app = create_app()
+        app.config['TESTING'] = True
+        app.config['WTF_CSRF_ENABLED'] = False
+        app.app_context().push()
 
     def test_should_throw_exception_when_is_empty(self):
         fixture = {}
