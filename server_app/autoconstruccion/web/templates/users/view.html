@@ -1,0 +1,81 @@
+{% extends "layout.html" %}
+{% block title %}Users{% endblock %}
+
+{% block body %}
+    <a href="{{ url_for('web.user_index') }}" class="btn btn-primary">User index</a>
+<div class="container">
+
+
+
+
+		<h1>Edit Users</h1>
+		<form role="form" action="{{ url_for('web.user_edit',user_id=user.id) }}" enctype="multipart/form-data" method="POST">
+
+		    <div class="row">
+		        <div class="form-group">
+		            <label for="code">Name</label>
+                    {{user.name}}
+		        </div>
+		    </div>
+
+		    <div class="row">
+		        <div class="form-group">
+		            <label for="code">Description</label>
+                    {{user.description}}
+		        </div>
+		    </div>
+
+    	    <div class="row">
+		        <div class="form-group">
+		            <label for="code">Start date</label>
+                    {{user.start_date}}
+		        </div>
+		    </div>
+            <div class="row">
+		        <div class="form-group">
+		            <label for="code">End date</label>
+                    {{user.start_date}}
+		        </div>
+		    </div>
+
+		    <div class="row">
+		        <div class="form-group">
+		            <label for="code">Localizacion</label>
+                    {{user.localization}}
+		        </div>
+		    </div>
+		    <div class="row">
+		        <div class="form-group">
+		            <label for="code">Manager</label>
+                    {{user.manager}}
+		        </div>
+		    </div>
+
+		    <div class="row">
+		        <div class="form-group">
+		            <label for="code">Contact Phone</label>
+                    {{user.contact_phone}}
+		        </div>
+		    </div>
+
+		    <div class="row">
+		        <div class="form-group">
+		            <label for="code">Image</label>
+                    <input name="image" type="file" class="form-control input-lg"> 
+		        </div>
+		    </div>
+
+
+		    <div class="row">
+                <a href="{{ url_for('web.user_index') }}" class="bnt bnt-primary">back</a>
+		    </div>
+		</form>
+
+    </div> <!-- /container -->        
+
+    
+
+
+{% endblock %}
+
+

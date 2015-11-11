@@ -1,0 +1,47 @@
+{% extends "layout.html" %}
+{% block title %}Users{% endblock %}
+
+{% from "_formhelpers.html" import render_field %}
+
+{% block body %}
+    <a href="{{ url_for('web.user_index') }}" class="btn btn-primary">User index</a>
+<div class="container">
+
+
+
+
+		<h1>Add Users</h1>
+		<h2>add a new user</h2>
+
+
+		<form role="form" action="{{ url_for('web.user_add') }}" method="POST">
+
+            {{ render_field( form.full_name) }}
+
+            {{ render_field( form.email  ) }}
+
+            {{ render_field( form.phone_number  ) }}
+
+            {{ render_field( form.habilities  ) }}
+
+            {{ render_field( form.availability  ) }}
+
+            {{ render_field( form.tools  ) }}            
+
+            {{ render_field( form.materials  ) }}            
+
+
+		    <div class="row">
+		        <button type="submit" class="btn btn-default">Submit</button>
+		    </div>
+		</form>
+
+    </div> <!-- /container -->        
+
+
+
+
+{% endblock %}
+
+{% block script_custom %}
+{% endblock %}

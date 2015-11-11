@@ -1,7 +1,11 @@
 from flask import Blueprint
-from flask import render_template, request
+from flask import flash
+from flask import render_template, request, redirect, url_for
 
 from autoconstruccion.models import Project, db
+from autoconstruccion.models import User
+
+from autoconstruccion.forms import UserForm
 
 bp = Blueprint('web', __name__,
                template_folder='templates',
@@ -45,10 +49,47 @@ def project_edit(project_id):
 
 
 @bp.route('users', methods=['GET', 'POST'])
-def users():
-    return "Users"
+def user_index():
+    users = User.query.all()
+    return render_template('users/index.html', users=users)
 
 
-@bp.route('users/<int:user_id>')
-def get_user(user_id):
-    return "user: {}".format(user_id)
+@bp.route('users/add', methods=['GET', 'POST'])
+def user_add():
+
+    form = UserForm(request.form)
+    if request.method == 'POST':
+
+        if (form.validate()):
+            user = User()
+            form.populate_obj(user)
+            db.session.add(user)
+            db.session.commit()
+
+            flash('Data saved successfully', 'success')
+            return redirect(url_for('web.user_index'))
+
+        flash('Data not valid, please review the fields')
+
+    return render_template('users/add.html', form=form)
+
+
+
+@bp.route('users/<int:user_id>', methods=['GET','POST'])
+def user_edit(user_id):
+
+    user = User.query.get(user_id)
+    form = UserForm(request.form, user)
+
+    if request.method == 'POST':
+        if form.validate():
+            form.populate_obj(user)
+            db.session.commit()
+
+            flash('Data saved successfully', 'success')
+            return redirect(url_for('web.user_index'))
+
+        flash('Data not valid, please review the fields')
+
+
+    return render_template('users/edit.html',form=form, user_id=user_id)
