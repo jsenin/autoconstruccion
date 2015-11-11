@@ -1,0 +1,11 @@
+{% extends "layout.html" %}
+{% block title %}Users{% endblock %}
+
+
+{% block body %}
+    
+    <a href="{{ url_for('web.user_add') }}" class="btn btn-primary">Add new user</a>
+
+    {% include 'users/list.html' %}
+
+{% endblock %}

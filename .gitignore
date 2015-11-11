@@ -5,3 +5,4 @@ server_app/instance
 *.pyc
 .ropeproject
 .cache
+*swp
