@@ -1,7 +1,6 @@
 import re
 
 
-def remove_not_numbers(data=None):
-    return re.sub(r'\D', '' , data)
-
-
+def remove_not_numbers(data=''):
+    if data:
+        return re.sub(r'\D', '', data)
