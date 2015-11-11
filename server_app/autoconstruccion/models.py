@@ -30,11 +30,19 @@ class User(db.Model):
     full_name = db.Column(db.String(250), nullable=False)
     email = db.Column(db.String(255), nullable=False)
     phone_number = db.Column(db.String(9), nullable=False)
+    habilities = db.Column(db.Text(), nullable=True)
+    availability = db.Column(db.Text(), nullable=True)
+    tools = db.Column(db.Text(), nullable=True)
+    materials = db.Column(db.Text(), nullable=True)
 
-    def __init__(self, full_name, email, phone_number):
-        self.full_name = full_name
-        self.email = email
-        self.phone_number = phone_number
+    @classmethod
+    def from_dict(cls, data=None):
+        cls.full_name = data['name']
+        cls.email = data['email']
+        cls.phone_number = data['phone_number']
+        cls.habilities = data['habilities']
+        cls.tools = data['tools']
+        cls.materials = data['materials']
 
     def __repr__(self):
         text = "User: \t{}\n\t\tEmail: {}\n\t\tPhone Number: {}"
