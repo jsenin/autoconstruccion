@@ -4,9 +4,8 @@ from flask import render_template, request, redirect, url_for
 
 from autoconstruccion.models import Project, db
 from autoconstruccion.models import User
-
-from autoconstruccion.forms import UserForm
-from autoconstruccion.forms import ProjectForm
+from autoconstruccion.web.forms import ProjectForm
+from autoconstruccion.web.forms import UserForm
 
 bp = Blueprint('web', __name__,
                template_folder='templates',

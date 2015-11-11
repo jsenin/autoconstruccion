@@ -2,7 +2,8 @@ from flask_wtf import Form
 from flask_wtf.file import FileField, FileAllowed
 from wtforms import StringField, TextAreaField, DateField
 from wtforms import validators
-from autoconstruccion.validators import remove_not_numbers
+
+from autoconstruccion.web.validators import remove_not_numbers
 
 
 class ProjectForm(Form):

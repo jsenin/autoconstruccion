@@ -1,6 +1,7 @@
 import unittest
-from autoconstruccion.forms import ProjectForm
+
 from autoconstruccion import create_app
+from autoconstruccion.web.forms import ProjectForm
 
 
 class TestProject(unittest.TestCase):
