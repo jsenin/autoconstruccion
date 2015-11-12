@@ -1,0 +1,31 @@
+{% macro show_flash_messages() %}
+{% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+
+    {% for category, message in messages %}
+        {{ render_flash( message, category ) }}
+    {% endfor %}
+
+  {% endif %}
+{% endwith %}
+{% endmacro %}
+
+{# TODO : REFACTOR #}
+{% macro render_flash(message,category='error') %}
+
+    {% set flash_class = 'alert-danger' %}
+
+    {% if category == 'error' %}
+        {% set flash_class = 'alert-danger' %}
+    {% elif category == 'success' %}
+        {% set flash_class = 'alert-success' %}
+    {% elif category == 'warning' %}
+        {% set flash_class = 'alert-warning' %}
+    {% endif %}
+
+    <div class="alert {{ flash_class }} fade in">  
+        <a href="#" class="close" data-dismiss="alert">&times;</a>
+        {{ message }}
+    </div>
+
+{% endmacro %}

@@ -16,6 +16,9 @@
 
 		<form role="form" action="{{ url_for('web.user_add') }}" method="POST">
 
+{{ form.hidden_tag() }}
+
+
             {{ render_field( form.full_name) }}
 
             {{ render_field( form.email  ) }}
