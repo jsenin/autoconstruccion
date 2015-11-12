@@ -14,7 +14,7 @@ class Project(db.Model):
     image = db.Column(db.BLOB)
     location = db.Column(db.String(200), nullable=False)
     contact_phone = db.Column(db.String(15), nullable=False)
-    manager_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    manager_id = db.Column(db.Integer, db.ForeignKey('users.id'))
     manager = db.relationship('User', uselist=False)
 
     def __repr__(self):
@@ -22,6 +22,8 @@ class Project(db.Model):
 
 
 class User(db.Model):
+    __tablename__ = 'users'
+
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     full_name = db.Column(db.String(250), nullable=False)
     email = db.Column(db.String(255), nullable=False)
@@ -30,7 +32,6 @@ class User(db.Model):
     availability = db.Column(db.Text(), nullable=True)
     tools = db.Column(db.Text(), nullable=True)
     materials = db.Column(db.Text(), nullable=True)
-
 
     def __repr__(self):
         text = "User: \t{}\n\t\tEmail: {}\n\t\tPhone Number: {}"
