@@ -1,6 +1,7 @@
 import unittest
-from autoconstruccion.forms import UserForm
+
 from autoconstruccion import create_app
+from autoconstruccion.web.forms import UserForm
 
 
 class TestUserForm(unittest.TestCase):

@@ -4,8 +4,8 @@ from flask import render_template, request, redirect, url_for
 
 from autoconstruccion.models import Project, db
 from autoconstruccion.models import User
-
-from autoconstruccion.forms import UserForm
+from autoconstruccion.web.forms import ProjectForm
+from autoconstruccion.web.forms import UserForm
 
 bp = Blueprint('web', __name__,
                template_folder='templates',
@@ -27,25 +27,37 @@ def project_index():
 @bp.route('projects/add', methods=['GET', 'POST'])
 def project_add():
     if request.method == 'POST':
+        project_form = ProjectForm(request.form)
         project = Project()
-        project.parse(request.form)
+        project_form.populate_obj(project)
+        if project_form.image.has_file():
+            project.image = request.files['image']
+        else:
+            project.image = None
         db.session.add(project)
         db.session.commit()
+    else:
+        project_form = ProjectForm()
 
     projects = Project.query.all()
-    return render_template('projects/add.html', projects=projects)
+    return render_template('projects/add.html', projects=projects, form=project_form)
 
 
-@bp.route('projects/<int:project_id>', methods=['GET','POST'])
+@bp.route('projects/<int:project_id>', methods=['GET', 'POST'])
 def project_edit(project_id):
 
     project = Project.query.get(project_id)
 
     if request.method == 'POST':
-        project.parse(request.form)
+        project_form = ProjectForm(request.form)
+        project_form.populate_obj(project)
+        if project_form.image.has_file():
+            project.image = request.files['image']
+        else:
+            project.image = None
         db.session.commit()
 
-    return render_template('projects/edit.html',project=project)
+    return render_template('projects/edit.html', project=project)
 
 
 @bp.route('users', methods=['GET', 'POST'])
@@ -60,7 +72,7 @@ def user_add():
     form = UserForm(request.form)
     if request.method == 'POST':
 
-        if (form.validate()):
+        if form.validate():
             user = User()
             form.populate_obj(user)
             db.session.add(user)
@@ -70,12 +82,10 @@ def user_add():
             return redirect(url_for('web.user_index'))
 
         flash('Data not valid, please review the fields')
-
     return render_template('users/add.html', form=form)
 
 
-
-@bp.route('users/<int:user_id>', methods=['GET','POST'])
+@bp.route('users/<int:user_id>', methods=['GET', 'POST'])
 def user_edit(user_id):
 
     user = User.query.get(user_id)
@@ -90,6 +100,4 @@ def user_edit(user_id):
             return redirect(url_for('web.user_index'))
 
         flash('Data not valid, please review the fields')
-
-
-    return render_template('users/edit.html',form=form, user_id=user_id)
+    return render_template('users/edit.html', form=form, user_id=user_id)
