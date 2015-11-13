@@ -11,8 +11,7 @@ requires = [
 setup(
     name='autoconstruccion',
     version='0.0.0.dev0',
-    package_dir={'': 'autoconstruccion'},
-    packages=find_packages('autoconstruccion'),
+    packages=['autoconstruccion'],
     url='https://github.com/autoconstruccion/autoconstruccion',
     author='Creepy Coconuts',
     author_email='',
