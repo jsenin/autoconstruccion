@@ -1,5 +1,9 @@
 flask>=0.10.1
 Flask-SQLAlchemy>=2.0
-jinja2
+jinja2==2.8
 Flask-WTF>=0.12
 wtforms>=2.0.2
+psycopg2
+
+# install autoconstruccion package on the env in 'editable' mode
+-e ./server_app

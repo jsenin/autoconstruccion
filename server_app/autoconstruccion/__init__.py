@@ -5,7 +5,7 @@ from flask_sqlalchemy import SQLAlchemy
 db = SQLAlchemy()
 
 
-def create_app(config_name='PRODUCTION'):
+def create_app(config_name='PRODUCTION', config_file=None):
     app = Flask(__name__, instance_relative_config=True)
 
     # Load config
@@ -16,6 +16,10 @@ def create_app(config_name='PRODUCTION'):
 
     # Load the file specified by the APP_CONFIG_FILE env variable
     app.config.from_envvar('APP_CONFIG_FILE', silent=True)
+
+    # Load config from an specified location, mainly for testing.
+    if config_file:
+        app.config.from_pyfile(config_file, silent=True)
 
     # Load database
     db.init_app(app)
