@@ -131,4 +131,5 @@ target/
 pyvenv.cfg
 pip-selfcheck.json
 
-
+# mi test.sh 
+test.sh
