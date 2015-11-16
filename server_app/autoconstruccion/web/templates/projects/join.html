@@ -3,10 +3,11 @@
 
 {% block body %}
 
-<h1>Join to project<h1>
-<h2>{{ project.name }}</h2>
+<h1>Join to {{ project.name }}</h1>
 
+<div class="col-lg-12">
 
+    
 {% from "_formhelpers.html" import render_field %}
 		<form role="form" action="{{ url_for('web.project_join', project_id=project.id) }}" method="POST">
 
@@ -34,4 +35,5 @@
 		</form>
 
 
+</div>
 {% endblock %}

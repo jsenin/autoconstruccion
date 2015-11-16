@@ -20,9 +20,11 @@
 {% from "_helpers.html" import show_flash_messages %}
 {{ show_flash_messages() }}
    
+<div class="container-fluid">
 {% block body %}
   <p>This is the page body.</p>
 {% endblock %}
+</div>
 
 {% include 'theme/scripts_footer.html' %}
 

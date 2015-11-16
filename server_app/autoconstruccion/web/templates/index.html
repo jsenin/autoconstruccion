@@ -10,10 +10,13 @@
 
 <div class="row">
     {% for project in projects %}
-    <h2>
-        <a href="{{ url_for('web.project_view', project_id=project.id) }}">{{ project.name }}</a>
-    </h2>
-    <div class="col-lg-3 col-sm-4 col-xs-6"><a title="Image 1" href="#"><img class="thumbnail img-responsive" src="//placehold.it/600x350"></a></div>
+    
+    <div class="col-lg-3 col-sm-4 col-xs-6">
+        <h2>
+           <a href="{{ url_for('web.project_view', project_id=project.id) }}">{{ project.name }}</a>
+        </h2>
+            <a title="Image 1" href="#"><img class="thumbnail img-responsive" src="//placehold.it/600x350"></a>
+    </div>
     {% endfor %}
    
     {% if not projects %}

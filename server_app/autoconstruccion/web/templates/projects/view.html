@@ -3,9 +3,6 @@
 
 {% block body %}
     <a href="{{ url_for('web.project_index') }}" class="btn btn-primary">Project index</a>
-<div class="container">
-
-
 
 
     <h1>{{ project.name }}</h1>
@@ -15,12 +12,12 @@
         </div>
 
     </div>
+
 		<h2>Description</h2>
         <p>{{ project.description }}</p>
 
-
-        <div class="row">
+        <p>
             <a href="{{ url_for('web.project_join', project_id=project.id) }}" class="btn btn-primary btn-large">join to the project!</a>
-        </div>
+        </p>
 {% endblock %}
 
