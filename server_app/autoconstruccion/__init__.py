@@ -1,7 +1,8 @@
 from flask import Flask
 from autoconstruccion.config import app_config
-from autoconstruccion.web import bp as web
-from autoconstruccion.models import db
+from flask_sqlalchemy import SQLAlchemy
+
+db = SQLAlchemy()
 
 
 def create_app(config_name='PRODUCTION'):
@@ -20,6 +21,7 @@ def create_app(config_name='PRODUCTION'):
     db.init_app(app)
 
     # Register blueprints
+    from autoconstruccion.web import bp as web
     app.register_blueprint(web, url_prefix='/', static_folder='static')
 
     return app
@@ -29,5 +31,4 @@ def create_db(config_name='PRODUCTION'):
     app = create_app(config_name)
     db.init_app(app)
     with app.test_request_context():
-        from autoconstruccion.models import Project
         db.create_all()

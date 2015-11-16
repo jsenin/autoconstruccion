@@ -3,7 +3,8 @@ from flask import Blueprint
 from flask import flash, send_file, abort
 from flask import render_template, request, redirect, url_for
 
-from autoconstruccion.models import Project, db
+from autoconstruccion import db
+from autoconstruccion.models import Project
 from autoconstruccion.models import User
 from autoconstruccion.web.forms import ProjectForm
 from autoconstruccion.web.forms import UserForm
@@ -55,7 +56,7 @@ def project_edit(project_id):
     return render_template('projects/edit.html', project=project)
 
 
-@bp.route('projects/<int:project_id>/image.jpg')
+@bp.route('projects/<int:project_id>/image')
 def get_project_image(project_id):
     project = Project.query.get(project_id)
     if project.image:

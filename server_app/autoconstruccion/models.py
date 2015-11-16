@@ -1,6 +1,4 @@
-from flask_sqlalchemy import SQLAlchemy
-
-db = SQLAlchemy()
+from autoconstruccion import db
 
 
 class Project(db.Model):

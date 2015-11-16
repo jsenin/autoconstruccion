@@ -47,7 +47,7 @@ class TestProject(unittest.TestCase):
         project = ProjectForm(data=fixture)
         assert not project.description.validate(project)
         assert 'description' in project.errors
-        assert 'Field must be at least 5 characters long.' \
+        assert 'Field must be at least 5 characters long.' or 'This field is required.' \
             in project.errors['description']
 
 if __name__ == '__main__':
