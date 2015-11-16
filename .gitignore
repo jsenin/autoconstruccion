@@ -1,5 +1,6 @@
 venv
 server_app/instance
+server_app/instance/*
 .iml
 .idea/*
 *.pyc
