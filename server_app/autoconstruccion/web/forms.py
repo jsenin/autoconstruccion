@@ -8,13 +8,14 @@ from autoconstruccion.web.validators import remove_not_numbers
 
 class ProjectForm(Form):
 
-    name = StringField('name', [validators.DataRequired(), validators.Length(min=3, max=255) ])
-    description = TextAreaField('description', validators=[validators.Length(min=5)])
+    name = StringField('name', [validators.DataRequired(), validators.Length(min=3, max=255)])
+    description = TextAreaField('description', validators=[validators.DataRequired(), validators.Length(min=5)])
     start_date = DateField('start_date', format='%d/%m/%Y', validators=[validators.DataRequired()])
     end_date = DateField('end_date', format='%d/%m/%Y', validators=[validators.DataRequired()])
     location = StringField('location', validators=[validators.DataRequired()])
     contact_phone = StringField('phone_number', validators=[validators.DataRequired()])
-    image = FileField('image', validators=[FileAllowed(['jrp', 'png'], 'Only jpg or png images please.')])
+    image = FileField('image', validators=[FileAllowed(['jpg'], 'Only jpg images please.')])
+
 
 class UserForm(Form):
     full_name = StringField('Full name', [validators.DataRequired(), validators.Length(min=3, max=255)],

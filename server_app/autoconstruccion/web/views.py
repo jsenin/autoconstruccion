@@ -1,11 +1,14 @@
+from io import BytesIO
 from flask import Blueprint
-from flask import flash
+from flask import flash, send_file, abort
 from flask import render_template, request, redirect, url_for
 
 from autoconstruccion.models import Project, db
 from autoconstruccion.models import User
 from autoconstruccion.web.forms import ProjectForm
 from autoconstruccion.web.forms import UserForm
+
+from .utils import get_image_from_file_field
 
 bp = Blueprint('web', __name__,
                template_folder='templates',
@@ -26,18 +29,13 @@ def project_index():
 
 @bp.route('projects/add', methods=['GET', 'POST'])
 def project_add():
-    if request.method == 'POST':
-        project_form = ProjectForm(request.form)
+    project_form = ProjectForm()
+    if project_form.validate_on_submit():
         project = Project()
         project_form.populate_obj(project)
-        if project_form.image.has_file():
-            project.image = request.files['image']
-        else:
-            project.image = None
+        project.image = get_image_from_file_field(project_form.image, request)
         db.session.add(project)
         db.session.commit()
-    else:
-        project_form = ProjectForm()
 
     projects = Project.query.all()
     return render_template('projects/add.html', projects=projects, form=project_form)
@@ -51,13 +49,20 @@ def project_edit(project_id):
     if request.method == 'POST':
         project_form = ProjectForm(request.form)
         project_form.populate_obj(project)
-        if project_form.image.has_file():
-            project.image = request.files['image']
-        else:
-            project.image = None
+        project.image = get_image_from_file_field(project_form.image, request)
         db.session.commit()
 
     return render_template('projects/edit.html', project=project)
+
+
+@bp.route('projects/<int:project_id>/image.jpg')
+def get_project_image(project_id):
+    project = Project.query.get(project_id)
+    if project.image:
+        return send_file(BytesIO(project.image), mimetype='image/jpg')
+    else:
+        #return default image
+        abort(404)
 
 
 @bp.route('users', methods=['GET', 'POST'])
