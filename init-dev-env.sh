@@ -1,6 +1,6 @@
 #!/bin/bash
 
-app='autoconstruccion'
+app='server_app'
 
 python="python"
 major=$($python  -c 'import sys; print(sys.version_info[0])')
@@ -28,24 +28,25 @@ echo "Using Python:" $python_version
 echo $($python -V)
 
 # create virtual environment
-mkdir venv
-$python -m venv ./venv
+# mkdir venv 
+
+$python -m venv ./venv > /dev/null
 
 if [[ $? != 0 ]]; then
 	echo "module venv fails, maybe this is beacause debiand and ubuntu has a pip issue "
 	echo "http://askubuntu.com/questions/488529/pyvenv-3-4-error-returned-non-zero-exit-status-1"
 	echo "trying to install with a workaround"
-	$python -m venv --without-pip ./venv
-	source venvdir/bin/activate
+	$python -m venv --without-pip venv
+	source venv/bin/activate
 	curl https://bootstrap.pypa.io/get-pip.py | python
-	deactivate
+    deactivate
 
 fi ;
 
 source ./venv/bin/activate
 
 pip="$python -m pip"
-if $( cat $pip | grep-i 'No module' ); then
+if $( cat $pip | grep -i 'No module' ); then
 	echo "necesitas instalar pip"
 fi ;
  

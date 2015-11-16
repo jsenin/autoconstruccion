@@ -21,7 +21,7 @@ class UserForm(Form):
                             description='Your full name')
     email = StringField('Email', [validators.DataRequired(), validators.email('Email not valid')])
     phone_number = StringField('Phone number', filters=(remove_not_numbers,))
-    habilities = TextAreaField('Describe your habilities', [])
+    abilities = TextAreaField('Describe your abilities', [])
     availability = TextAreaField('Describe your availability', [])
     tools = TextAreaField('Do you have some useful tools? What?', [])
     materials = TextAreaField('Do you have some useful materials? What?', [])

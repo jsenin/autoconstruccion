@@ -11,7 +11,7 @@ class TestUserForm(unittest.TestCase):
             'full_name': 'joe mallony',
             'email': 'joe@malony.it',
             'phone_number': '912345678',
-            'habilities': 'se cocinar pasta',
+            'abilities': 'se cocinar pasta',
             'availability': 'todos los dias, no trabajo',
             'tools': 'picos y palas',
             'materials': 'cal y arena',
