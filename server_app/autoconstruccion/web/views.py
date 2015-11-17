@@ -79,6 +79,9 @@ def project_join(project_id):
         db.session.add(user)
         db.session.commit()
 
+        user.projects.append(project)
+        db.session.commit()
+
         flash('Success', 'success')
         return redirect(url_for('web.project_view',project_id=project_id))
 
