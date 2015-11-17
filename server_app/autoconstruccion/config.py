@@ -22,7 +22,7 @@ class Testing(BaseConfig):
 
 
 class TestingMemory(Testing):
-    SQLALCHEMY_DATABASE_URI = 'sqlite://:memory:'
+    SQLALCHEMY_DATABASE_URI = 'sqlite:///:memory:'
 
 
 class Production(BaseConfig):
