@@ -1,0 +1,30 @@
+{% macro render_field(field,label=None) %}
+
+<div class="row">
+    <div class="form-group {% if field.errors %}has-error{% endif %}">
+         
+    {{ field.label(label) }} {% if field.flags.required %}*{% endif %}
+
+    {{ field(class="form-control input-lg", placeholder=field.description) }}
+
+    {% if field.errors %}
+        {% for error in field.errors %}<span class="help-block">{{ error }}</span>{% endfor %}</ul>
+    {% endif %}
+    </div>
+</div>
+
+{% endmacro %}
+
+
+{% macro render_form(template,submit,cancel=None) %}
+
+    {% include template %}
+
+{% endmacro %}
+
+
+{% macro render_user_form(submit,cancel=None) %}
+ {{ render_form('users/_form.html', submit=submit, cancel=cancel ) }}
+{% endmacro %}
+
+

@@ -15,7 +15,9 @@ bp = Blueprint('web', __name__,
 
 @bp.route('/')
 def index():
-    return render_template('index.html')
+    projects = Project.query.all()
+    return render_template('index.html', projects=projects)
+
 
 
 @bp.route('projects')
@@ -43,7 +45,13 @@ def project_add():
     return render_template('projects/add.html', projects=projects, form=project_form)
 
 
-@bp.route('projects/<int:project_id>', methods=['GET', 'POST'])
+@bp.route('projects/<int:project_id>', methods=['GET'])
+def project_view(project_id):
+    project= Project.query.get(project_id)
+    return render_template('projects/view.html', project=project)
+
+
+@bp.route('projects/edit/<int:project_id>', methods=['GET', 'POST'])
 def project_edit(project_id):
 
     project = Project.query.get(project_id)
@@ -58,6 +66,14 @@ def project_edit(project_id):
         db.session.commit()
 
     return render_template('projects/edit.html', project=project)
+
+
+@bp.route('projects/<int:project_id>/join', methods=['GET', 'POST'])
+def project_join(project_id):
+    project = Project.query.get(project_id)
+    form = UserForm(request.form)
+
+    return render_template('projects/join.html', project=project, form=form)
 
 
 @bp.route('users', methods=['GET', 'POST'])
