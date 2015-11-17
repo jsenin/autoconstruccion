@@ -44,4 +44,15 @@ class User(db.Model):
         return text.format(self.full_name, self.email, self.phone_number)
 
 
+class Event(db.Model):
+    __tablename__ = 'events'
 
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    name = db.Column(db.String(250), nullable=False)
+    description = db.Column(db.String(255), nullable=False)
+    start_date = db.Column(db.Date, nullable=False)
+    project_id = db.Column(db.Integer, db.ForeignKey('projects.id'))
+
+    def __repr__(self):
+        text = "Event: \t{}\n\t\tDescription: {}\n\t\tDay: {}"
+        return text.format(self.name, self.description, self.start_date)
