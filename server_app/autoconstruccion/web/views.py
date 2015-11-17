@@ -30,7 +30,7 @@ def project_index():
 
 @bp.route('projects/add', methods=['GET', 'POST'])
 def project_add():
-    project_form = ProjectForm()
+    project_form = ProjectForm(request.form)
     if project_form.validate_on_submit():
         project = Project()
         project_form.populate_obj(project)
