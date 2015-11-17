@@ -11,7 +11,7 @@ def create_app(config_name='PRODUCTION'):
     app.config.from_object(app_config[config_name])
 
     # Load config from instance folder.
-    app.config.from_pyfile('config.py')
+    app.config.from_pyfile('config.py', silent=True)
 
     # Load the file specified by the APP_CONFIG_FILE env variable
     app.config.from_envvar('APP_CONFIG_FILE', silent=True)
