@@ -73,6 +73,15 @@ def project_join(project_id):
     project = Project.query.get(project_id)
     form = UserForm(request.form)
 
+    if form.validate_on_submit():
+        user = User()
+        form.populate_obj(user)
+        db.session.add(user)
+        db.session.commit()
+
+        flash('Success', 'success')
+        return redirect(url_for('web.project_view',project_id=project_id))
+
     return render_template('projects/join.html', project=project, form=form)
 
 
