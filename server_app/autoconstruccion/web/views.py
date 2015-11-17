@@ -1,13 +1,8 @@
 from io import BytesIO
-from flask import Blueprint
-from flask import flash, send_file, abort
-from flask import render_template, request, redirect, url_for
+from flask import Blueprint, flash, send_file, abort, render_template, request, redirect, url_for
 
-from autoconstruccion import db
-from autoconstruccion.models import Project
-from autoconstruccion.models import User
-from autoconstruccion.web.forms import ProjectForm
-from autoconstruccion.web.forms import UserForm
+from autoconstruccion.models import Project, db, Event, User
+from autoconstruccion.web.forms import ProjectForm, UserForm
 
 from .utils import get_image_from_file_field
 
@@ -133,3 +128,9 @@ def user_edit(user_id):
 
         flash('Data not valid, please review the fields')
     return render_template('users/edit.html', form=form, user_id=user_id)
+
+
+@bp.route('events', methods=['GET'])
+def event_index():
+    events = Event.query.all()
+    return render_template('events/index.html', events=events)
