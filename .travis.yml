@@ -12,5 +12,7 @@ install: "pip install -r requirements.txt"
 
 script:
   - export PYTHONPATH=$PYTHONPATH:$(pwd)/server_app
-  - py.test
   - python server_app/create_db.py
+  - py.test
+
+
