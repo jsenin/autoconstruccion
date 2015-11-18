@@ -1,6 +1,4 @@
-from flask_sqlalchemy import SQLAlchemy
-
-db = SQLAlchemy()
+from autoconstruccion import db
 
 
 class Project(db.Model):
@@ -11,7 +9,7 @@ class Project(db.Model):
     description = db.Column(db.Text, nullable=False)
     start_date = db.Column(db.Date, nullable=False)
     end_date = db.Column(db.Date, nullable=False)
-    image = db.Column(db.BLOB)
+    image = db.Column(db.LargeBinary)
     location = db.Column(db.String(200), nullable=False)
     contact_phone = db.Column(db.String(15), nullable=False)
     manager_id = db.Column(db.Integer, db.ForeignKey('users.id'))
