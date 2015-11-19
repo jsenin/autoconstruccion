@@ -1,83 +1,29 @@
 {% extends "layout.html" %}
 {% block title %}Projects{% endblock %}
 
+{% from "_formhelpers.html" import render_field %}
+
 {% block body %}
     <a href="{{ url_for('web.project_index') }}" class="btn btn-primary">Project index</a>
-<div class="container">
-
-
-
-
-		<h1>Add Projects</h1>
-		<h2>add a new project</h2>
-		<form role="form" action="{{ url_for('web.project_add') }}" method="POST" enctype="multipart/form-data">
+    <div class="container">
+        <h1>Add Projects</h1>
+        <h2>add a new project</h2>
+        <form role="form" action="{{ url_for('web.project_add') }}" method="POST" enctype="multipart/form-data">
             {{ form.hidden_tag() }}
-
-		    <div class="row">
-		        <div class="form-group">
-		            <label for="code">Name</label>
-		            <input name="name" type="text" class="form-control input-lg">
-		        </div>
-		    </div>
-
-		    <div class="row">
-		        <div class="form-group">
-		            <label for="code">Description</label>
-		            <textarea name="description" class="form-control input-lg" rows="7"></textarea>
-		        </div>
-		    </div>
-
-    	    <div class="row">
-		        <div class="form-group">
-		            <label for="code">Start date</label>
-                    <input class="datepicker form-control input-lg" name="start_date"> 
-		        </div>
-		    </div>
+            {{ render_field(form.name) }}
+            {{ render_field(form.description) }}
+            {{ render_field(form.start_date) }}
+            {{ render_field(form.end_date) }}
+            {{ render_field(form.location) }}
+            {{ render_field(form.contact_phone) }}
+            {{ render_field(form.image) }}
             <div class="row">
-		        <div class="form-group">
-		            <label for="code">End date</label>
-                    <input class="datepicker form-control input-lg" name="end_date"> 
-		        </div>
-		    </div>
+                <button type="submit" class="btn btn-default">Submit</button>
+            </div>
+        </form>
+    </div>
 
-		    <div class="row">
-		        <div class="form-group">
-		            <label for="code">Localizacion</label>
-                    <input name="localization" type="text" class="form-control input-lg">
-		        </div>
-		    </div>
-		    <div class="row">
-		        <div class="form-group">
-		            <label for="code">Manager</label>
-                    <input name="manager" type="text" class="form-control input-lg" >
-		        </div>
-		    </div>
-		    <div class="row">
-		        <div class="form-group">
-		            <label for="code">Contact Phone</label>
-                    <input name="contact_phone" type="text" class="form-control input-lg" >
-		        </div>
-		    </div>
-
-		    <div class="row">
-		        <div class="form-group">
-                    {{ form.image() }}
-{#		              <label for="code">Image</label>#}
-{#                    <input name="image" type="file" class="form-control input-lg"> #}
-		        </div>
-		    </div>
-
-		    <div class="row">
-		        <button type="submit" class="btn btn-default">Submit</button>
-		    </div>
-		</form>
-
-    </div> <!-- /container -->        
-
-
-{% include 'projects/list.html' %}
-
-
+    {% include 'projects/list.html' %}
 {% endblock %}
 
 {% block script_custom %}
