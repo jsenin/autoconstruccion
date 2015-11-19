@@ -45,7 +45,7 @@ def project_add():
     return render_template('projects/add.html', projects=projects, form=project_form)
 
 
-@bp.route('projects/<int:project_id>', methods=['GET'])
+@bp.route('projects/<int:project_id>'):
 def project_view(project_id):
     project= Project.query.get(project_id)
     return render_template('projects/view.html', project=project)
