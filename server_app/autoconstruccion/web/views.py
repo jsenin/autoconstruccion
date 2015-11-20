@@ -51,14 +51,16 @@ def project_view(project_id):
 def project_edit(project_id):
 
     project = Project.query.get(project_id)
+    form = ProjectForm( request.form, project )
 
-    if request.method == 'POST':
-        project_form = ProjectForm(request.form)
-        project_form.populate_obj(project)
-        project.image = get_image_from_file_field(project_form.image, request)
+    if form.validate_on_submit():
+        project.image = get_image_from_file_field(form.image, request)
         db.session.commit()
 
-    return render_template('projects/edit.html', project=project)
+        flash('Project edited', 'success')
+        return redirect(url_for('web.project_index'))
+
+    return render_template('projects/edit.html', form=form, project_id=project_id )
 
 
 @bp.route('projects/<int:project_id>/join', methods=['GET', 'POST'])

@@ -7,7 +7,6 @@
     <a href="{{ url_for('web.project_index') }}" class="btn btn-primary">Project index</a>
     <div class="container">
         <h1>Add Projects</h1>
-        <h2>add a new project</h2>
         <form role="form" action="{{ url_for('web.project_add') }}" method="POST" enctype="multipart/form-data">
             {{ form.hidden_tag() }}
             {{ render_field(form.name) }}
@@ -23,7 +22,6 @@
         </form>
     </div>
 
-    {% include 'projects/list.html' %}
 {% endblock %}
 
 {% block script_custom %}
