@@ -49,7 +49,7 @@ Use your github account to fork this proyect
 https://github.com/autoconstruccion/autoconstruccion#fork-destination-box
 
 Once you have a fork download it into your box
-
+```
 # download your code using git 
 git clone https://github.com/<youruser>/autoconsturccion src
 # add upstream aka oficial repo 
@@ -57,16 +57,16 @@ cd src
 git remote add upstream http://github.com/autoconstruccion/autoconstruccion
 # update your code with the upstream
 git pull upstream master
-
+```
 when you want to do contributing do it using a new branch
-
+```
 git checkout -b fix_this_feature
 git add .
 git commit -m"this fix that"
 ...
 # upload your branch to your github repo
 git push origin fix_this_feature
-
+```
 and then use the github panel to do a pull request.
 Use you branch to do the pull request against autoconstruccion master branch
 
