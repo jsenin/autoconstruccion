@@ -18,7 +18,6 @@ def index():
     return render_template('index.html', projects=projects)
 
 
-
 @bp.route('projects')
 def project_index():
     projects = Project.query.all()
@@ -27,7 +26,9 @@ def project_index():
 
 @bp.route('projects/add', methods=['GET', 'POST'])
 def project_add():
+
     project_form = ProjectForm(request.form)
+
     if project_form.validate_on_submit():
         project = Project()
         project_form.populate_obj(project)
@@ -51,7 +52,7 @@ def project_view(project_id):
 def project_edit(project_id):
 
     project = Project.query.get(project_id)
-    form = ProjectForm( request.form, project )
+    form = ProjectForm(request.form, project)
 
     if form.validate_on_submit():
         project.image = get_image_from_file_field(form.image, request)
@@ -89,7 +90,7 @@ def get_project_image(project_id):
         return send_file(BytesIO(project.image), mimetype='image/jpg')
     else:
         #return default image
-        abort(404)
+        return send_file('web/static/img/image_not_found.jpg', mimetype='image/jpg')
 
 
 @bp.route('users', methods=['GET', 'POST'])
