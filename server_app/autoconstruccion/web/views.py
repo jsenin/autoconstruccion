@@ -33,9 +33,12 @@ def project_add():
         project_form.populate_obj(project)
         project.image = get_image_from_file_field(project_form.image, request)
         db.session.add(project)
+        db.session.commit()
 
-    projects = Project.query.all()
-    return render_template('projects/add.html', projects=projects, form=project_form)
+        flash('Project created', 'success')
+        return redirect(url_for('web.project_index'))
+
+    return render_template('projects/add.html', form=project_form)
 
 
 @bp.route('projects/<int:project_id>')
