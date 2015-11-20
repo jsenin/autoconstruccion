@@ -12,7 +12,7 @@
             {{ form.hidden_tag() }}
             {{ render_field(form.name) }}
             {{ render_field(form.description) }}
-            {{ render_field(form.start_date) }}
+            {{ render_field(form.start_date ) }}
             {{ render_field(form.end_date) }}
             {{ render_field(form.location) }}
             {{ render_field(form.contact_phone) }}
@@ -27,11 +27,5 @@
 {% endblock %}
 
 {% block script_custom %}
-<script>
-$(function(){
-    $('.datepicker').datepicker(
-            {format: 'dd/mm/yyyy'}
-    );
-});
-</script>
+        <script src="{{ url_for('web.static', filename='js/_formhelpers.js')}}"></script>
 {% endblock %}

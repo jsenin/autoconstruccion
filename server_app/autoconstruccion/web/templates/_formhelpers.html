@@ -5,11 +5,15 @@
          
     {{ field.label(label) }} {% if field.flags.required %}*{% endif %}
 
-    {{ field(class="form-control input-lg", placeholder=field.description) }}
-
-    {% if field.errors %}
-        {% for error in field.errors %}<span class="help-block">{{ error }}</span>{% endfor %}</ul>
+    {% set input_class = "form-control input-lg" %}
+   
+    {% if field.type == 'DateField' %}
+        {% set input_class = input_class + " datepicker" %}
     {% endif %}
+
+    {{ field(class=input_class , placeholder=field.description) }}
+
+    {% for error in field.errors %}<span class="help-block">{{ error }}</span>{% endfor %}</ul>
     </div>
 </div>
 
