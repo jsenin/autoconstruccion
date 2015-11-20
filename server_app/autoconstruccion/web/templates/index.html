@@ -3,9 +3,26 @@
 
 {% block body %}
 
-    <h1>Autoconstruccion</h1>
+<h1>Autoconstruccion</h1>
 
-    <a href="{{ url_for('web.project_index') }}">Proyectos</a>
-    <a href="{{ url_for('web.user_index') }}">Usuarios</a>
+<a href="{{ url_for('web.project_index') }}">Proyectos</a>
+<a href="{{ url_for('web.user_index') }}">Usuarios</a>
+
+<div class="row">
+    {% for project in projects %}
+    
+    <div class="col-lg-3 col-sm-4 col-xs-6">
+        <h2>
+           <a href="{{ url_for('web.project_view', project_id=project.id) }}">{{ project.name }}</a>
+        </h2>
+            <a title="Image 1" href="#"><img class="thumbnail img-responsive" src="//placehold.it/600x350"></a>
+    </div>
+    {% endfor %}
+   
+    {% if not projects %}
+        <h2>There are any project yet</h2>
+    {% endif %}
+
+</div>
 
 {% endblock %}
