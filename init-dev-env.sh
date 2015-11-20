@@ -47,6 +47,9 @@ function install_venv  {
 }
 
 function require_python_pip {
+
+    PYTHON=$(which python3);
+
     PIP="${PYTHON} -m pip"
     if $( ${PIP} | grep -i 'No module' ); then
         install_error 'PIP module not present.'
@@ -65,14 +68,19 @@ function install_requirements {
     deactivate
 }
 
+
+function configure_database {
+    mkdir -p ./${APP_DIR}/instance 
+    touch ./${APP_DIR}/instance/config.py
+
+    source ./venv/bin/activate
+    python server_app/create_db.py
+}
+
 require_python_mayor_minor_version_installed ${PYTHON_MAYOR_REQUIRED} ${PYTHON_MINOR_REQUIRED}
 install_venv
+require_python_pip
 install_requirements
+configure_database 
 
-# make development config file
 
-mkdir -p ./${APP_DIR}/instance 
-touch ./${APP_DIR}/instance/config.py
-
-source ./venv/bin/activate
-python server_app/create_db.py
