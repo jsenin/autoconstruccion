@@ -1,6 +1,6 @@
 from io import BytesIO
 
-from flask import Blueprint, flash, send_file, render_template, request, redirect, url_for
+from flask import Blueprint, flash, send_file, render_template, request, redirect, url_for, abort
 
 from autoconstruccion.models import Project, db, Event, User
 from autoconstruccion.web.forms import ProjectForm, UserForm, EventForm
@@ -112,6 +112,14 @@ def event_add(project_id):
 
         flash('Data not valid, please review the fields')
     return render_template('events/add.html', project_id=project_id, form=form)
+
+
+@bp.route('projects/<int:project_id>/events/<int:event_id>', methods=['GET'])
+def get_event(project_id, event_id):
+    conditions = (Event.id == event_id,
+                  Event.project_id == project_id)
+    event = Event.query.filter(*conditions).first()
+    return render_template('events/view.html', event=event) if event else abort(404)
 
 
 @bp.route('users', methods=['GET', 'POST'])
