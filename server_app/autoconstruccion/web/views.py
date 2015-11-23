@@ -1,9 +1,9 @@
 from io import BytesIO
-from flask import Blueprint, flash, send_file, abort, render_template, request, redirect, url_for
+
+from flask import Blueprint, flash, send_file, render_template, request, redirect, url_for
 
 from autoconstruccion.models import Project, db, Event, User
-from autoconstruccion.web.forms import ProjectForm, UserForm
-
+from autoconstruccion.web.forms import ProjectForm, UserForm, EventForm
 from .utils import get_image_from_file_field
 
 bp = Blueprint('web', __name__,
@@ -44,7 +44,7 @@ def project_add():
 
 @bp.route('projects/<int:project_id>')
 def project_view(project_id):
-    project= Project.query.get(project_id)
+    project = Project.query.get(project_id)
     return render_template('projects/view.html', project=project)
 
 
@@ -61,7 +61,7 @@ def project_edit(project_id):
         flash('Project edited', 'success')
         return redirect(url_for('web.project_index'))
 
-    return render_template('projects/edit.html', form=form, project_id=project_id )
+    return render_template('projects/edit.html', form=form, project_id=project_id)
 
 
 @bp.route('projects/<int:project_id>/join', methods=['GET', 'POST'])
@@ -92,6 +92,26 @@ def get_project_image(project_id):
     else:
         # return default image
         return send_file('web/static/img/image_not_found.jpg', mimetype='image/jpg')
+
+
+@bp.route('projects/<int:project_id>/events/add', methods=['GET', 'POST'])
+def event_add(project_id):
+
+    form = EventForm(request.form)
+    if request.method == 'POST':
+
+        if form.validate():
+            event = Event()
+            form.populate_obj(event)
+            event.project_id = project_id
+            db.session.add(event)
+            db.session.commit()
+
+            flash('Data saved successfully', 'success')
+            return redirect(url_for('web.project_view', project_id=project_id))
+
+        flash('Data not valid, please review the fields')
+    return render_template('events/add.html', project_id=project_id, form=form)
 
 
 @bp.route('users', methods=['GET', 'POST'])
