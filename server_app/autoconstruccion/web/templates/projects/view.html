@@ -16,6 +16,29 @@
 <h2>Description</h2>
 <p>{{ project.description }}</p>
 
+<h2>Events</h2>
+
+<div class="row">
+    {% for event in project.events %}
+
+    <div class="col-lg-3 col-sm-4 col-xs-6">
+        <h2>
+            {{ event.name }}
+        </h2>
+        <a title="{{ event.name }}" href="#"><img class="thumbnail img-responsive" src="{{ url_for('web.get_project_image', project_id=project.id) }}"></a>
+    </div>
+    {% endfor %}
+
+    {% if not project.events %}
+        <p>There are any event yet</p>
+    {% endif %}
+
+</div>
+
+<p>
+    <a href="{{ url_for('web.event_add', project_id=project.id) }}" class="btn btn-primary btn-large">add a new event</a>
+</p>
+
 <h2>Volunteers for this projects ({{ project.users|length }})</h2>
         <div class="list-group">
         {% for volunteer in project.users %}
