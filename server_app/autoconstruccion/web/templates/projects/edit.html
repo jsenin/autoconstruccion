@@ -1,89 +1,29 @@
 {% extends "layout.html" %}
 {% block title %}Projects{% endblock %}
 
+{% from "_formhelpers.html" import render_field %}
+
 {% block body %}
     <a href="{{ url_for('web.project_index') }}" class="btn btn-primary">Project index</a>
-<div class="container">
-
-
-
-
-		<h1>Edit Projects</h1>
-		<form role="form" action="{{ url_for('web.project_edit',project_id=project.id) }}" enctype="multipart/form-data" method="POST">
-
-		    <div class="row">
-		        <div class="form-group">
-		            <label for="code">Name</label>
-                    <input name="name" type="text" class="form-control input-lg" value="{{project.name}}">
-		        </div>
-		    </div>
-
-		    <div class="row">
-		        <div class="form-group">
-		            <label for="code">Description</label>
-                    <textarea name="description" class="form-control input-lg" rows="7">{{project.description}}</textarea>
-		        </div>
-		    </div>
-
-    	    <div class="row">
-		        <div class="form-group">
-		            <label for="code">Start date</label>
-                    <input class="datepicker form-control input-lg" name="start_date" value="{{project.start_date}}">
-		        </div>
-		    </div>
+    <div class="container">
+        <h1>Add Projects</h1>
+        <form role="form" action="{{ url_for('web.project_edit',project_id=project_id) }}" method="POST" enctype="multipart/form-data">
+            {{ form.hidden_tag() }}
+            {{ render_field(form.name) }}
+            {{ render_field(form.description) }}
+            {{ render_field(form.start_date ) }}
+            {{ render_field(form.end_date) }}
+            {{ render_field(form.location) }}
+            {{ render_field(form.contact_phone) }}
+            {{ render_field(form.image) }}
             <div class="row">
-		        <div class="form-group">
-		            <label for="code">End date</label>
-                    <input class="datepicker form-control input-lg" name="end_date" value="{{project.start_date}}">
-		        </div>
-		    </div>
-
-		    <div class="row">
-		        <div class="form-group">
-		            <label for="code">Localizacion</label>
-                    <input name="localization" type="text" class="form-control input-lg" value="{{project.localization}}">
-		        </div>
-		    </div>
-		    <div class="row">
-		        <div class="form-group">
-		            <label for="code">Manager</label>
-                    <input name="manager" type="text" class="form-control input-lg" value="{{project.manager}}">
-		        </div>
-		    </div>
-
-		    <div class="row">
-		        <div class="form-group">
-		            <label for="code">Contact Phone</label>
-                    <input name="contact_phone" type="text" class="form-control input-lg" value="{{project.contact_phone}}">
-		        </div>
-		    </div>
-
-		    <div class="row">
-		        <div class="form-group">
-		            <label for="code">Image</label>
-                    <input name="image" type="file" class="form-control input-lg"> 
-		        </div>
-		    </div>
-
-
-		    <div class="row">
-		        <button type="submit" class="btn btn-default">Submit</button>
-		    </div>
-		</form>
-
-    </div> <!-- /container -->        
-
-    
-
+                <button type="submit" class="btn btn-default">Submit</button>
+            </div>
+        </form>
+    </div>
 
 {% endblock %}
 
 {% block script_custom %}
-<script>
-$(function(){
-    $('.datepicker').datepicker(
-            {format: 'dd/mm/yyyy'}
-    );
-});
-</script>
+        <script src="{{ url_for('web.static', filename='js/_formhelpers.js')}}"></script>
 {% endblock %}
