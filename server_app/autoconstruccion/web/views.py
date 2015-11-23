@@ -79,9 +79,10 @@ def project_join(project_id):
         db.session.commit()
 
         flash('Success', 'success')
-        return redirect(url_for('web.project_view',project_id=project_id))
+        return redirect(url_for('web.project_view', project_id=project_id))
 
     return render_template('projects/join.html', project=project, form=form)
+
 
 @bp.route('projects/<int:project_id>/image')
 def get_project_image(project_id):
@@ -89,7 +90,7 @@ def get_project_image(project_id):
     if project.image:
         return send_file(BytesIO(project.image), mimetype='image/jpg')
     else:
-        #return default image
+        # return default image
         return send_file('web/static/img/image_not_found.jpg', mimetype='image/jpg')
 
 
