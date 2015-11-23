@@ -1,0 +1,21 @@
+{% extends "layout.html" %}
+{% block title %}Events{% endblock %}
+
+{% block body %}
+
+<h1><a href="{{ url_for('web.project_view', project_id=event.project_id) }}">{{ event.project.name }}</a></h1>
+<h2>{{ event.name }}</h2>
+<div class="row">
+    <div class="col-lg-3 col-sm-4 col-xs-6">
+        <a title="{{ event.name }}" href="#"><img class="thumbnail img-responsive" src="{{ url_for('web.get_project_image', project_id=event.project_id) }}"></a>
+    </div>
+
+</div>
+
+<h2>Description</h2>
+<p>{{ event.description }}</p>
+
+<h2>Start date</h2>
+<p>{{ event.start_date }}</p>
+
+{% endblock %}
