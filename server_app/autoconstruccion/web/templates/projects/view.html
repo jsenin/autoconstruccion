@@ -25,15 +25,15 @@
         <h2>
             {{ event.name }}
         </h2>
-        <a title="{{ event.name }}" href="#"><img class="thumbnail img-responsive" src="{{ url_for('web.get_project_image', project_id=project.id) }}"></a>
+        <a title="{{ event.name }}" href="{{ url_for('web.get_event', project_id=event.project_id, event_id=event.id) }}"><img class="thumbnail img-responsive" src="{{ url_for('web.get_project_image', project_id=project.id) }}"></a>
     </div>
     {% endfor %}
 
-    {% if not project.events %}
-        <p>There are any event yet</p>
-    {% endif %}
-
 </div>
+
+{% if not project.events %}
+<p>There are any event yet</p>
+{% endif %}
 
 <p>
     <a href="{{ url_for('web.event_add', project_id=project.id) }}" class="btn btn-primary btn-large">add a new event</a>
