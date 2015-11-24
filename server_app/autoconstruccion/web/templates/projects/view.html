@@ -5,14 +5,26 @@
 
 <h1>{{ project.name }}</h1>
 <div class="row">
-    <div class="col-lg-3 col-sm-4 col-xs-6"><a title="Image 1" href="#">
-        <a title="{{ project.name }}" href="#"><img class="thumbnail img-responsive" src="{{ url_for('web.get_project_image', project_id=project.id) }}"></a>
+    <div class="col-lg-6 col-sm-4 col-xs-6"><a title="Image 1" href="#">
+        <a title="{{ project.name }}" href="#">
+            <img class="thumbnail img-responsive" src="{{ url_for('web.get_project_image', project_id=project.id) }}">
+        </a>
     </div>
-
 </div>
 
 <h2>Description</h2>
 <p>{{ project.description }}</p>
+
+
+<h2>Localizacion</h2>
+<div class="">
+     <img class="img-responsive" src="https://maps.googleapis.com/maps/api/staticmap?v=2&center={{ project.location }}&size=400x200&zoom=15">
+        <address>
+            <strong>Localizacion</strong><br>
+            {{ project.location }}<br/>
+        </address>
+
+</div>
 
 <h2>Events</h2>
 
@@ -57,4 +69,8 @@
 <p>
 <a href="{{ url_for('web.project_join', project_id=project.id) }}" class="btn btn-primary btn-large">join to the project!</a>
 </p>
+{% endblock %}
+
+
+{% block script_custom %}
 {% endblock %}
