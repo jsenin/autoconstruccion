@@ -22,7 +22,7 @@
         <h2>
             <a href="{{ url_for('web.project_view', project_id=project.id) }}">{{ project.name }}</a> <small>({{ project.users|length }})</small>
         </h2>
-        <a title="{{ project.name }}" href="#"><img class="thumbnail img-responsive" src="{{ url_for('web.get_project_image', project_id=project.id) }}"></a>
+        <a title="{{ project.name }}" href="{{ url_for('web.project_view', project_id=project.id) }}"><img class="thumbnail img-responsive" src="{{ url_for('web.get_project_image', project_id=project.id) }}"></a>
     </div>
     {% endfor %}
    
