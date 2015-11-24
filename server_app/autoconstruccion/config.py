@@ -8,6 +8,8 @@ class BaseConfig:
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(os.path.abspath(os.path.dirname(os.path.dirname(__file__))),
                                                           'instance', 'app.db')
+    WTF_CSRF_SECRET_KEY = SECRET_KEY
+    WTF_CSRF_ENABLED = True
 
 
 class Development(BaseConfig):
@@ -18,7 +20,6 @@ class Development(BaseConfig):
 class Testing(BaseConfig):
     DEBUG = True
     TESTING = True
-    WTF_CSRF_ENABLED = False
 
 
 class TestingMemory(Testing):
