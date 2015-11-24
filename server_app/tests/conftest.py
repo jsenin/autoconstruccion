@@ -1,5 +1,6 @@
 import pytest
 from autoconstruccion import create_app, db
+from sqlalchemy.exc import OperationalError
 
 
 # define app fixture for pytest-flask
@@ -14,7 +15,12 @@ def app(request):
         db_uri = test_app.config['SQLALCHEMY_DATABASE_URI']
         if not db_uri.endswith('_test'):
             pytest.skip(msg="Testing over a none '_test' database. Skipping")
-        db.create_all()
+        try:
+            # Start the database clean.
+            db.drop_all()
+            db.create_all()
+        except OperationalError:
+            pytest.fail(msg="The tables can't be created. Maybe the db don't exists or it didn't have access")
 
     def teardown():
         with test_app.test_request_context():
