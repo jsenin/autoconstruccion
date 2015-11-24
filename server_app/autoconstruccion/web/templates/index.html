@@ -3,10 +3,17 @@
 
 {% block body %}
 
-<h1>Autoconstruccion</h1>
-
 <a href="{{ url_for('web.project_index') }}">Proyectos</a>
 <a href="{{ url_for('web.user_index') }}">Usuarios</a>
+
+<div class="jumbotron">
+  <div class="container">
+    <h1>Construye en comunidad</h1>
+    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+    tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+    <p><a class="btn btn-primary btn-lg" role="button">Leer más</a></p>
+  </div>
+</div>
 
 <div class="row">
     {% for project in projects %}
@@ -15,7 +22,7 @@
         <h2>
             <a href="{{ url_for('web.project_view', project_id=project.id) }}">{{ project.name }}</a> <small>({{ project.users|length }})</small>
         </h2>
-        <a title="{{ project.name }}" href="#"><img class="thumbnail img-responsive" src="{{ url_for('web.get_project_image', project_id=project.id) }}"></a>
+        <a title="{{ project.name }}" href="{{ url_for('web.project_view', project_id=project.id) }}"><img class="thumbnail img-responsive" src="{{ url_for('web.get_project_image', project_id=project.id) }}"></a>
     </div>
     {% endfor %}
    
