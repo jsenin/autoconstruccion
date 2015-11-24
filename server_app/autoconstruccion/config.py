@@ -30,10 +30,30 @@ class Production(BaseConfig):
     TESTING = False
 
 
-app_config = {
+configs = {
     'DEFAULT': BaseConfig,
     'DEVELOPMENT': Development,
     'PRODUCTION': Production,
     'TESTING': Testing,
     'TESTING_MEMORY': TestingMemory
 }
+
+
+def config_app(app, config_name='DEFAULT'):
+
+    # Load config from default app configs
+    if config_name in configs:
+        app.config.from_object(configs[config_name])
+    else:
+        raise ValueError("The config_name is not a defined config")
+
+    # Load config from instance folder.
+    app.config.from_pyfile('config.py', silent=True)
+
+    # Load the file specified by the APP_CONFIG_FILE env variable
+    app.config.from_envvar('AUTOCONSTRUCCION_APP_CONFIG_FILE', silent=True)
+
+    # If we are on a TESTING app change the batabase uri to append '_test'
+    # to avoid crushing actual data.
+    if app.config['TESTING']:
+        app.config['SQLALCHEMY_DATABASE_URI'] += '_test'
