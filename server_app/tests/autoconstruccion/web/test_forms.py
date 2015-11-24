@@ -37,9 +37,12 @@ def test_should_throw_exception_when_is_empty(project_form):
 
 
 # ------ Test name field
-def test_should_fail_if_name_is_empty(project_form):
+def test_should_fail_if_name_is_empty_none(project_form):
     project_form.name.data = None
     assert not project_form.validate()
+
+
+def test_should_fail_if_name_is_empty_string(project_form):
     project_form.name.data = ''
     assert not project_form.validate()
     # test if error message appears
@@ -64,9 +67,12 @@ def test_should_fail_if_name_has_more_than_255_chars(project_form):
 
 
 # ------ Test description field
-def test_should_fail_if_description_is_empty(project_form):
+def test_should_fail_if_description_is_empty_none(project_form):
     project_form.description.data = None
     assert not project_form.validate()
+
+
+def test_should_fail_if_description_is_empty_string(project_form):
     project_form.description.data = ''
     assert not project_form.validate()
     assert 'description' in project_form.errors
@@ -130,9 +136,12 @@ def test_get_valid_user_form(user_form):
     assert validity
 
 
-def test_should_fail_if_full_name_is_empty(user_form):
+def test_should_fail_if_full_name_is_empty_none(user_form):
     user_form.full_name.data = None
     assert not user_form.validate()
+
+
+def test_should_fail_if_full_name_is_empty_string(user_form):
     user_form.full_name.data = ''
     assert not user_form.validate()
 
@@ -147,9 +156,12 @@ def test_should_fail_if_full_name_is_greater_than_255_chars(user_form):
     assert not user_form.validate()
 
 
-def test_should_fail_if_email_is_empty(user_form):
+def test_should_fail_if_email_is_empty_none(user_form):
     user_form.email.data = None
     assert not user_form.validate()
+
+
+def test_should_fail_if_email_is_empty_string(user_form):
     user_form.email.data = ''
     assert not user_form.validate()
 
