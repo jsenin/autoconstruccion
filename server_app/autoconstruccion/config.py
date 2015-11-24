@@ -56,4 +56,5 @@ def config_app(app, config_name='DEFAULT'):
     # If we are on a TESTING app change the batabase uri to append '_test'
     # to avoid crushing actual data.
     if app.config['TESTING']:
-        app.config['SQLALCHEMY_DATABASE_URI'] += '_test'
+        if app.config['SQLALCHEMY_DATABASE_URI'] != 'sqlite:///:memory:':
+            app.config['SQLALCHEMY_DATABASE_URI'] += '_test'

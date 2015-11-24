@@ -13,7 +13,7 @@ def app(request):
         # test that the database on we are testing it's ended with '_test'
         # to avoid data corruption and/or deletion
         db_uri = test_app.config['SQLALCHEMY_DATABASE_URI']
-        if not db_uri.endswith('_test'):
+        if not (db_uri.endswith('_test') or db_uri == 'sqlite:///:memory:'):
             pytest.skip(msg="Testing over a none '_test' database. Skipping")
         try:
             # Start the database clean.
