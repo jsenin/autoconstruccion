@@ -52,6 +52,7 @@ class Event(db.Model):
     description = db.Column(db.String(255), nullable=False)
     start_date = db.Column(db.Date, nullable=False)
     project_id = db.Column(db.Integer, db.ForeignKey('projects.id'))
+    project = db.relationship('Project', backref=db.backref('events'))
 
     def __repr__(self):
         text = "Event: \t{}\n\t\tDescription: {}\n\t\tDay: {}"
