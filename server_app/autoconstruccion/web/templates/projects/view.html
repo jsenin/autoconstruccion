@@ -17,12 +17,21 @@
 
 
 <h2>Localizacion</h2>
-<div class="">
-     <img class="img-responsive" src="https://maps.googleapis.com/maps/api/staticmap?v=2&center={{ project.location }}&size=400x200&zoom=15">
+<div class="row">
+
+    <div class="col-md-6">
+
+    <a href="http://maps.google.com/maps?q={{ project.location|replace(' ','+')  }}" target="_blank">
+         <img src="https://maps.googleapis.com/maps/api/staticmap?v=2&center={{ project.location|replace(' ','+') }}&size=400x200&zoom=15">
+    </a>
         <address>
             <strong>Localizacion</strong><br>
             {{ project.location }}<br/>
         </address>
+
+    <a href="http://maps.google.com/maps?q={{ project.location|replace(' ','+') }}" target="_blank">ver mapa</a>
+
+    </div>
 
 </div>
 
