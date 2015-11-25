@@ -1,20 +1,13 @@
 {% macro render_field(field,label=None) %}
-
-<div class="row">
-    <div class="form-group {% if field.errors %}has-error{% endif %}">
-         
-    {{ field.label(label) }} {% if field.flags.required %}*{% endif %}
-
-    {% set input_class = "form-control input-lg" %}
-   
-    {% if field.type == 'DateField' %}
-        {% set input_class = input_class + " datepicker" %}
-    {% endif %}
-
-    {{ field(class=input_class , placeholder=field.description) }}
-
-    {% for error in field.errors %}<span class="help-block">{{ error }}</span>{% endfor %}</ul>
+    <div class="row">
+        <div class="form-group {% if field.errors %}has-error{% endif %}">
+            {{ field.label(label) }} {% if field.flags.required %}*{% endif %}
+            {% set input_class = "form-control input-lg" %}
+            {% if field.type == 'DateField' %}
+                {% set input_class = input_class + " datepicker" %}
+            {% endif %}
+            {{ field(class=input_class , placeholder=field.description) }}
+            {% for error in field.errors %}<span class="help-block">{{ error }}</span>{% endfor %}
+        </div>
     </div>
-</div>
-
 {% endmacro %}

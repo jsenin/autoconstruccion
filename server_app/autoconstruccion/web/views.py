@@ -1,7 +1,5 @@
 from io import BytesIO
-
 from flask import Blueprint, flash, send_file, render_template, request, redirect, url_for, abort
-
 from autoconstruccion.models import Project, db, Event, User
 from autoconstruccion.web.forms import ProjectForm, UserForm, EventForm
 from .utils import get_image_from_file_field
@@ -27,7 +25,9 @@ def project_index():
 @bp.route('projects/add', methods=['GET', 'POST'])
 def project_add():
 
-    project_form = ProjectForm(request.form)
+    # Don't pass request.form as flask_wtf do it automatically, and
+    # if request.form is passed it won't load the images!!!!
+    project_form = ProjectForm()
 
     if project_form.validate_on_submit():
         project = Project()
@@ -38,7 +38,6 @@ def project_add():
 
         flash('Project created', 'success')
         return redirect(url_for('web.project_index'))
-
     return render_template('projects/add.html', form=project_form)
 
 
@@ -50,9 +49,8 @@ def project_view(project_id):
 
 @bp.route('projects/edit/<int:project_id>', methods=['GET', 'POST'])
 def project_edit(project_id):
-
     project = Project.query.get(project_id)
-    form = ProjectForm(request.form, project)
+    form = ProjectForm(obj=project)
 
     if form.validate_on_submit():
         project.image = get_image_from_file_field(form.image, request)
@@ -60,7 +58,6 @@ def project_edit(project_id):
 
         flash('Project edited', 'success')
         return redirect(url_for('web.project_index'))
-
     return render_template('projects/edit.html', form=form, project_id=project_id)
 
 
@@ -74,13 +71,11 @@ def project_join(project_id):
         form.populate_obj(user)
         db.session.add(user)
         db.session.commit()
-
         user.projects.append(project)
         db.session.commit()
 
         flash('Success', 'success')
         return redirect(url_for('web.project_view', project_id=project_id))
-
     return render_template('projects/join.html', project=project, form=form)
 
 
@@ -90,16 +85,14 @@ def get_project_image(project_id):
     if project.image:
         return send_file(BytesIO(project.image), mimetype='image/jpg')
     else:
-        # return default image
+        # return default image for a project
         return send_file('web/static/img/image_not_found.jpg', mimetype='image/jpg')
 
 
 @bp.route('projects/<int:project_id>/events/add', methods=['GET', 'POST'])
 def event_add(project_id):
-
     form = EventForm(request.form)
     if request.method == 'POST':
-
         if form.validate():
             event = Event()
             form.populate_obj(event)
@@ -109,7 +102,6 @@ def event_add(project_id):
 
             flash('Data saved successfully', 'success')
             return redirect(url_for('web.project_view', project_id=project_id))
-
         flash('Data not valid, please review the fields')
     return render_template('events/add.html', project_id=project_id, form=form)
 
@@ -130,10 +122,8 @@ def user_index():
 
 @bp.route('users/add', methods=['GET', 'POST'])
 def user_add():
-
     form = UserForm(request.form)
     if request.method == 'POST':
-
         if form.validate():
             user = User()
             form.populate_obj(user)
@@ -142,17 +132,14 @@ def user_add():
 
             flash('Data saved successfully', 'success')
             return redirect(url_for('web.user_index'))
-
         flash('Data not valid, please review the fields')
     return render_template('users/add.html', form=form)
 
 
 @bp.route('users/<int:user_id>', methods=['GET', 'POST'])
 def user_edit(user_id):
-
     user = User.query.get(user_id)
     form = UserForm(request.form, user)
-
     if request.method == 'POST':
         if form.validate():
             form.populate_obj(user)
@@ -160,7 +147,6 @@ def user_edit(user_id):
 
             flash('Data saved successfully', 'success')
             return redirect(url_for('web.user_index'))
-
         flash('Data not valid, please review the fields')
     return render_template('users/edit.html', form=form, user_id=user_id)
 
