@@ -63,9 +63,6 @@
 <p>There are any event yet</p>
 {% endif %}
 
-<p>
-    <a href="{{ url_for('web.event_add', project_id=project.id) }}" class="btn btn-primary btn-large">add a new event</a>
-</p>
 
 <h2>Volunteers for this projects ({{ project.users|length }})</h2>
 
