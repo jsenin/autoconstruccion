@@ -107,12 +107,19 @@ def event_add(project_id):
 
 
 @bp.route('projects/<int:project_id>/events/<int:event_id>', methods=['GET'])
-def get_event(project_id, event_id):
+def project_event(project_id, event_id):
     conditions = (Event.id == event_id,
                   Event.project_id == project_id)
     event = Event.query.filter(*conditions).first()
     return render_template('events/view.html', event=event) if event else abort(404)
 
+
+@bp.route('projects/<int:project_id>/events', methods=['GET'])
+def project_events(project_id):
+    conditions = (Event.project_id == project_id,)
+    events = Event.query.filter(*conditions).all()
+
+    return render_template('projects/events.html', events=events, project_id=project_id)
 
 @bp.route('users', methods=['GET', 'POST'])
 def user_index():

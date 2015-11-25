@@ -2,11 +2,36 @@
 
     <h2>Event list</h2>
 
-    <div class="list-group">
-    {% for event in events %}
-        <h4 class="list-group-item-heading">{{ event.name }}</h4>
-        <p class="list-group-item-text">{{ event.description }}</p>
-        <p class="list-group-item-text">{{ event.start_date }}</p>
-    {% endfor %}
-    </div>
+
+    <div class="row">
+        <div class="panel panel-primary filterable">
+            <div class="panel-heading">
+                <h3 class="panel-title">events</h3>
+            </div>
+            <table class="table">
+                <thead>
+                    <tr class="">
+                        <th> ID </th>
+                        <th> Name </th>
+                        <th> Starts at </th>
+                        <th> Actions </th>
+                    </tr>
+                </thead>
+                <tbody>
+                        {% for event in events %}
+                        <tr>
+                            <td>{{ event.id }}</td>
+                            <td>{{ event.name }}</td>
+                            <td>{{ event.start_date }}</td>
+
+                            <td> 
+                                <a href="{{ url_for('web.event_edit', event_id=event.id) }}">Edit <i class="fa fa-edit"></i></a> 
+                                <a href="{{ url_for('web.event_view', event_id=event.id) }}">View <i class="fa fa-eye"></i></a> 
+                            </td>
+                        </tr>
+                       {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
 </div>
