@@ -101,9 +101,31 @@ def event_add(project_id):
             db.session.commit()
 
             flash('Data saved successfully', 'success')
-            return redirect(url_for('web.project_view', project_id=project_id))
+            return redirect(url_for('web.project_events', project_id=project_id))
+
         flash('Data not valid, please review the fields')
+
     return render_template('events/add.html', project_id=project_id, form=form)
+
+
+
+@bp.route('projects/<int:project_id>/events/edit', methods=['GET', 'POST'])
+def event_edit(project_id):
+    form = EventForm(request.form)
+    if request.method == 'POST':
+        if form.validate():
+            event = Event()
+            form.populate_obj(event)
+            event.project_id = project_id
+            db.session.add(event)
+            db.session.commit()
+
+            flash('Data saved successfully', 'success')
+            return redirect(url_for('web.project_events', project_id=project_id))
+
+        flash('Data not valid, please review the fields')
+
+    return render_template('events/edit.html', project_id=project_id, form=form)
 
 
 @bp.route('projects/<int:project_id>/events/<int:event_id>', methods=['GET'])
@@ -156,6 +178,11 @@ def user_edit(user_id):
             return redirect(url_for('web.user_index'))
         flash('Data not valid, please review the fields')
     return render_template('users/edit.html', form=form, user_id=user_id)
+
+@bp.route('project/<int:project_id>/events/<int:event_id>', methods=['GET'])
+def event_view():
+    events = Event.query.all()
+    return render_template('events/view.html', event=event)
 
 
 @bp.route('events', methods=['GET'])

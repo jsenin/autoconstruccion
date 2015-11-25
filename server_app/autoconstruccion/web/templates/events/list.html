@@ -25,8 +25,8 @@
                             <td>{{ event.start_date }}</td>
 
                             <td> 
-                                <a href="{{ url_for('web.event_edit', event_id=event.id) }}">Edit <i class="fa fa-edit"></i></a> 
-                                <a href="{{ url_for('web.event_view', event_id=event.id) }}">View <i class="fa fa-eye"></i></a> 
+                                <a href="{{ url_for('web.event_edit', project_id=event.project.id, event_id=event.id) }}">Edit <i class="fa fa-edit"></i></a> 
+                                <a href="{{ url_for('web.event_view', project_id=event.project.id, event_id=event.id) }}">View <i class="fa fa-eye"></i></a> 
                             </td>
                         </tr>
                        {% endfor %}
