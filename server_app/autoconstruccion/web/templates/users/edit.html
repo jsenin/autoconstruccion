@@ -4,11 +4,7 @@
 {% from "_formhelpers.html" import render_field %}
 
 {% block body %}
-    <a href="{{ url_for('web.user_index') }}" class="btn btn-primary">User index</a>
 <div class="container">
-
-
-
 
 		<h1>Edit Users</h1>
 		<form role="form" action="{{ url_for('web.user_edit',user_id=user_id) }}" enctype="multipart/form-data" method="POST">
