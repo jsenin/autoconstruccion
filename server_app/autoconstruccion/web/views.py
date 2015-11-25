@@ -155,3 +155,9 @@ def user_edit(user_id):
 def event_index():
     events = Event.query.all()
     return render_template('events/index.html', events=events)
+
+
+
+@bp.route('admin')
+def admin_index():
+    return render_template('admin/index.html')
