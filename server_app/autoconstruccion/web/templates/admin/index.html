@@ -1,7 +1,10 @@
-{% extends "layout.html" %}
+{% extends "admin_layout.html" %}
 {% block title %}Autoconstruccion{% endblock %}
 
 {% block body %}
+
+
+{% include 'admin/breadcrumb.html' %}
 
 <h1>Admin panel</h1>
 <a href="{{ url_for('web.project_index') }}">Proyectos</a>
