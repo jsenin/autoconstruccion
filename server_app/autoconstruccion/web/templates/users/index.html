@@ -6,4 +6,10 @@
 
     {% include 'users/list.html' %}
 
+    <div class="container">
+        <a href="{{ url_for('web.user_add') }}" class="btn btn-primary pull-right">Add new user</a>
+    </div>
+
+
+
 {% endblock %}
