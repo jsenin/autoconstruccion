@@ -126,7 +126,7 @@ def event_edit(project_id, event_id):
 
 
 @bp.route('projects/<int:project_id>/events/<int:event_id>', methods=['GET'])
-def project_event(project_id, event_id):
+def event_view(project_id, event_id):
     conditions = (Event.id == event_id,
                   Event.project_id == project_id)
     event = Event.query.filter(*conditions).first()
@@ -175,17 +175,6 @@ def user_edit(user_id):
             return redirect(url_for('web.user_index'))
         flash('Data not valid, please review the fields')
     return render_template('users/edit.html', form=form, user_id=user_id)
-
-@bp.route('project/<int:project_id>/events/<int:event_id>', methods=['GET'])
-def event_view():
-    events = Event.query.all()
-    return render_template('events/view.html', event=event)
-
-
-@bp.route('events', methods=['GET'])
-def event_index():
-    events = Event.query.all()
-    return render_template('events/index.html', events=events)
 
 
 

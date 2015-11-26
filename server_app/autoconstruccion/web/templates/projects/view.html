@@ -43,7 +43,7 @@
         <div class="row">
             <div class="col-md-4">
                 <h3><span class="label label-info">
-                    <a title="{{ event.name }}" href="{{ url_for('web.project_event', project_id=event.project_id, event_id=event.id) }}">
+                    <a title="{{ event.name }}" href="{{ url_for('web.event_view', project_id=event.project_id, event_id=event.id) }}">
                         {{ event.start_date }}
                     </a>
                 </span></h3>
