@@ -140,6 +140,11 @@ def project_events(project_id):
 
     return render_template('projects/events.html', events=events, project_id=project_id)
 
+@bp.route('projects/<int:project_id>/volunteers', methods=['GET'])
+def project_volunteers(project_id):
+    project = Project.query.get(project_id)
+    return render_template('projects/volunteers.html', project_id=project_id, users=project.users)
+
 @bp.route('users', methods=['GET', 'POST'])
 def user_index():
     users = User.query.all()

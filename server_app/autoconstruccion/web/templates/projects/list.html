@@ -32,6 +32,7 @@
                                 <a href="{{ url_for('web.project_edit', project_id=project.id) }}">Edit <i class="fa fa-edit"></i></a> 
                                 <a href="{{ url_for('web.project_view', project_id=project.id) }}">View <i class="fa fa-eye"></i></a> 
                                 <a href="{{ url_for('web.project_events', project_id=project.id) }}">View Events <i class="fa fa-calendar"></i></a> 
+                                <a href="{{ url_for('web.project_volunteers', project_id=project.id) }}">View Volunteers <i class="fa fa-group"></i></a> 
                             </td>
                         </tr>
                        {% endfor %}
