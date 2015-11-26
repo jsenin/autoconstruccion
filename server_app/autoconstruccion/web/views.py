@@ -109,7 +109,6 @@ def event_add(project_id):
     return render_template('events/add.html', project_id=project_id, form=form)
 
 
-
 @bp.route('projects/<int:project_id>/events/<int:event_id>/edit', methods=['GET', 'POST'])
 def event_edit(project_id, event_id):
     event = Event.query.get(event_id)
@@ -140,10 +139,12 @@ def project_events(project_id):
 
     return render_template('projects/events.html', events=events, project_id=project_id)
 
+
 @bp.route('projects/<int:project_id>/volunteers', methods=['GET'])
 def project_volunteers(project_id):
     project = Project.query.get(project_id)
     return render_template('projects/volunteers.html', project_id=project_id, users=project.users)
+
 
 @bp.route('users', methods=['GET', 'POST'])
 def user_index():
@@ -182,7 +183,6 @@ def user_edit(user_id):
     return render_template('users/edit.html', form=form, user_id=user_id)
 
 
-
-@bp.route('admin')
+@bp.route('admin', methods=['GET', 'POST'])
 def admin_index():
     return render_template('admin/index.html')
