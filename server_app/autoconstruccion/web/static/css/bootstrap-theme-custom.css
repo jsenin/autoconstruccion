@@ -1,0 +1,14 @@
+body {
+    padding-top: 50px;
+    padding-bottom: 20px;
+}
+.img-logo {width: 170px; margin-top: 5px}
+.navbar-inverse {
+    background-image: -webkit-linear-gradient(top, #EDC951 0%, #EDC951 100%);
+    background-image:      -o-linear-gradient(top, #EDC951 0%, #EDC951 100%);
+    background-image: -webkit-gradient(linear, left top, left bottom, from(#EDC951), to(#EDC951));
+    background-image:         linear-gradient(to bottom, #EDC951 0%, #EDC951 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffEDC951', endColorstr='#ffEDC951', GradientType=0);
+    filter: progid:DXImageTransform.Microsoft.gradient(enabled = false);
+    background-repeat: repeat-x;
+}
