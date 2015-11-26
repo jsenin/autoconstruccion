@@ -4,6 +4,7 @@ jinja2==2.8
 Flask-WTF>=0.12
 wtforms>=2.0.2
 psycopg2
+alembic
 
 # install autoconstruccion package on the env in 'editable' mode
 -e ./server_app

@@ -1,6 +1,5 @@
 pip>=7.1
 pytest
-alembic
 coverage
 pytest-flask
 pytest-xdist
