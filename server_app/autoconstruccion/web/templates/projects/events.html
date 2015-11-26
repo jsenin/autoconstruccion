@@ -1,0 +1,11 @@
+{% extends "admin_layout.html" %}
+{% block title %}Project Events{% endblock %}
+
+
+{% block body %}
+
+
+    {% include 'events/list.html' %}
+
+        <a href="{{ url_for('web.event_add', project_id=project_id) }}" class="btn btn-primary pull-right">Add new event</a>
+{% endblock %}

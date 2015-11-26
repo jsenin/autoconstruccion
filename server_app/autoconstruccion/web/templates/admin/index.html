@@ -1,0 +1,11 @@
+{% extends "admin_layout.html" %}
+{% block title %}Autoconstruccion{% endblock %}
+
+{% block body %}
+
+<h1>Admin panel</h1>
+<a href="{{ url_for('web.project_index') }}" class="btn btn-primary ">Proyectos</a>
+<a href="{{ url_for('web.user_index') }}" class="btn btn-primary ">Usuarios</a>
+
+
+{% endblock %}

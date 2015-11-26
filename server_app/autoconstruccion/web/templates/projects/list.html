@@ -2,13 +2,43 @@
 
 		<h2>Project list</h2>
 
-        <div class="list-group">
-        {% for project in projects %}
-        <a href="{{ url_for('web.project_edit',project_id=project.id) }} " class="list-group-item ">
-            <h4 class="list-group-item-heading">{{ project.name }}</h4>
-            <p class="list-group-item-text">{{ project.description }}</p>
-          </a>
-        {% endfor %}
+        
+        <div class="row">
+        <div class="panel panel-primary filterable">
+            <div class="panel-heading">
+                <h3 class="panel-title">Projects</h3>
+            </div>
+            <table class="table">
+                <thead>
+                    <tr class="">
+                        <th> ID </th>
+                        <th> Name</th>
+                        <th> Volunteers </th>
+                        <th> Events </th>
+                        <th> Location </th>
+                        <th> Actions </th>
+                    </tr>
+                </thead>
+                <tbody>
+                        {% for project in projects %}
+                        <tr>
+                            <td>{{ project.id }}</td>
+                            <td>{{ project.name }}</td>
+                            <td>{{ project.users|count }}</td>
+                            <td>{{ project.events|count }}</td>
+                            <td>{{ project.location }}</td>
+
+                            <td> 
+                                <a href="{{ url_for('web.project_edit', project_id=project.id) }}">Edit <i class="fa fa-edit"></i></a> 
+                                <a href="{{ url_for('web.project_view', project_id=project.id) }}">View <i class="fa fa-eye"></i></a> 
+                                <a href="{{ url_for('web.project_events', project_id=project.id) }}">View Events <i class="fa fa-calendar"></i></a> 
+                                <a href="{{ url_for('web.project_volunteers', project_id=project.id) }}">View Volunteers <i class="fa fa-group"></i></a> 
+                            </td>
+                        </tr>
+                       {% endfor %}
+                </tbody>
+            </table>
         </div>
+
         <a href="{{ url_for('web.project_add') }}" class="btn btn-primary pull-right">Add new project</a>
     </div>

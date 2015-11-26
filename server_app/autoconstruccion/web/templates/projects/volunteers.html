@@ -7,9 +7,7 @@
     {% include 'users/list.html' %}
 
     <div class="container">
-        <a href="{{ url_for('web.user_add') }}" class="btn btn-primary pull-right">Add new user</a>
+        
+        <a href="{{ url_for('web.project_join', project_id=project_id) }}" class="btn btn-primary pull-right">Add new user to this project</a>
     </div>
-
-
-
 {% endblock %}

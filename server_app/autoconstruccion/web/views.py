@@ -53,6 +53,7 @@ def project_edit(project_id):
     form = ProjectForm(obj=project)
 
     if form.validate_on_submit():
+        form.populate_obj(project)
         project.image = get_image_from_file_field(form.image, request)
         db.session.commit()
 
@@ -101,18 +102,48 @@ def event_add(project_id):
             db.session.commit()
 
             flash('Data saved successfully', 'success')
-            return redirect(url_for('web.project_view', project_id=project_id))
+            return redirect(url_for('web.project_events', project_id=project_id))
+
         flash('Data not valid, please review the fields')
+
     return render_template('events/add.html', project_id=project_id, form=form)
 
 
+
+@bp.route('projects/<int:project_id>/events/<int:event_id>/edit', methods=['GET', 'POST'])
+def event_edit(project_id, event_id):
+    event = Event.query.get(event_id)
+
+    form = EventForm(obj=event)
+    if form.validate_on_submit():
+        form.populate_obj(event)
+        db.session.commit()
+
+        flash('Data saved successfully', 'success')
+        return redirect(url_for('web.project_events', project_id=project_id))
+
+    return render_template('events/edit.html', project_id=project_id, event_id=event_id, form=form)
+
+
 @bp.route('projects/<int:project_id>/events/<int:event_id>', methods=['GET'])
-def get_event(project_id, event_id):
+def event_view(project_id, event_id):
     conditions = (Event.id == event_id,
                   Event.project_id == project_id)
     event = Event.query.filter(*conditions).first()
     return render_template('events/view.html', event=event) if event else abort(404)
 
+
+@bp.route('projects/<int:project_id>/events', methods=['GET'])
+def project_events(project_id):
+    conditions = (Event.project_id == project_id,)
+    events = Event.query.filter(*conditions).all()
+
+    return render_template('projects/events.html', events=events, project_id=project_id)
+
+@bp.route('projects/<int:project_id>/volunteers', methods=['GET'])
+def project_volunteers(project_id):
+    project = Project.query.get(project_id)
+    return render_template('projects/volunteers.html', project_id=project_id, users=project.users)
 
 @bp.route('users', methods=['GET', 'POST'])
 def user_index():
@@ -151,7 +182,7 @@ def user_edit(user_id):
     return render_template('users/edit.html', form=form, user_id=user_id)
 
 
-@bp.route('events', methods=['GET'])
-def event_index():
-    events = Event.query.all()
-    return render_template('events/index.html', events=events)
+
+@bp.route('admin')
+def admin_index():
+    return render_template('admin/index.html')

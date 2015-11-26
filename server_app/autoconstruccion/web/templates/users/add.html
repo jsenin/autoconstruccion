@@ -1,18 +1,12 @@
-{% extends "layout.html" %}
+{% extends "admin_layout.html" %}
 {% block title %}Users{% endblock %}
 
 {% from "_formhelpers.html" import render_field %}
 
 {% block body %}
-    <a href="{{ url_for('web.user_index') }}" class="btn btn-primary">User index</a>
 <div class="container">
 
-
-
-
 		<h1>Add Users</h1>
-		<h2>add a new user</h2>
-
 
 		<form role="form" action="{{ url_for('web.user_add') }}" method="POST">
 

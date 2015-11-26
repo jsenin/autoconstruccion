@@ -1,12 +1,11 @@
-{% extends "layout.html" %}
+{% extends "admin_layout.html" %}
 {% block title %}Projects{% endblock %}
 
 {% from "_formhelpers.html" import render_field %}
 
 {% block body %}
-    <a href="{{ url_for('web.project_index') }}" class="btn btn-primary">Project index</a>
     <div class="container">
-        <h1>Add Projects</h1>
+        <h1>Edit Projects</h1>
         <form role="form" action="{{ url_for('web.project_edit',project_id=project_id) }}" method="POST" enctype="multipart/form-data">
             {{ form.hidden_tag() }}
             {{ render_field(form.name) }}

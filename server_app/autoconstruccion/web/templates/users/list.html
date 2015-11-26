@@ -1,14 +1,40 @@
-    <div class="container">
+<div class="container">
 
-		<h2>User list</h2>
+<h2>User list</h2>
+    
+    <div class="row">
+        <div class="panel panel-primary filterable">
+            <div class="panel-heading">
+                <h3 class="panel-title">Users</h3>
+            </div>
+            <table class="table">
+                <thead>
+                    <tr class="">
+                        <th> ID </th>
+                        <th> Full Name</th>
+                        <th> Email </th>
+                        <th> Phone </th>
+                        <th> Actions </th>
+                    </tr>
+                </thead>
+                <tbody>
+                        {% for user in users %}
+                        <tr>
+                            <td>{{ user.id }}</td>
+                            <td>{{ user.full_name }}</td>
+                            <td>{{ user.email }}</td>
+                            <td>{{ user.phone }}</td>
 
-        <div class="list-group">
-        {% for user in users %}
-        <a href="{{ url_for('web.user_edit',user_id=user.id) }} " class="list-group-item ">
-            <h4 class="list-group-item-heading">{{ user.full_name }}</h4>
-            <p class="list-group-item-text">{{ user.email }}</p>
-          </a>
-        {% endfor %}
+                            <td> 
+                                <a href="{{ url_for('web.user_edit', user_id=user.id) }}">Edit <i class="fa fa-edit"></i></a> 
+                            </td>
+                        </tr>
+                       {% endfor %}
+                </tbody>
+            </table>
         </div>
-        <a href="{{ url_for('web.user_add') }}" class="btn btn-primary pull-right">Add new user</a>
     </div>
+
+
+</div>
+
