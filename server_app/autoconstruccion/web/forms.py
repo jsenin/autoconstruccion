@@ -5,13 +5,13 @@ from autoconstruccion.web.validators import remove_not_numbers
 
 
 class ProjectForm(Form):
-    name = StringField('name', validators=[validators.DataRequired(), validators.Length(min=3, max=255)])
-    description = TextAreaField('description', validators=[validators.DataRequired(), validators.Length(min=5)])
-    start_date = DateField('start_date', format='%d/%m/%Y', validators=[validators.DataRequired()])
-    end_date = DateField('end_date', format='%d/%m/%Y', validators=[validators.DataRequired()])
-    location = StringField('location', validators=[validators.DataRequired()])
-    contact_phone = StringField('phone_number', validators=[validators.DataRequired()])
-    image = FileField('image', validators=[FileAllowed(['jpg'], 'Only jpg images please.')])
+    name = StringField('Name', validators=[validators.DataRequired(), validators.Length(min=3, max=255)])
+    description = TextAreaField('Description', validators=[validators.DataRequired(), validators.Length(min=5)])
+    start_date = DateField('Start date', format='%d/%m/%Y', validators=[validators.DataRequired()])
+    end_date = DateField('End date', format='%d/%m/%Y', validators=[validators.DataRequired()])
+    location = StringField('Location', validators=[validators.DataRequired()])
+    contact_phone = StringField('Phone number', validators=[validators.DataRequired()])
+    image = FileField('Image', validators=[FileAllowed(['jpg'], 'Only jpg images please.')])
 
 
 class UserForm(Form):
