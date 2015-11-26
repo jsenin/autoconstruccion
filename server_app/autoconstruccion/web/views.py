@@ -53,6 +53,7 @@ def project_edit(project_id):
     form = ProjectForm(obj=project)
 
     if form.validate_on_submit():
+        form.populate_obj(project)
         project.image = get_image_from_file_field(form.image, request)
         db.session.commit()
 
