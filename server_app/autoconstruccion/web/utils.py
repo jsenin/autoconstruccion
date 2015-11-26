@@ -1,3 +1,5 @@
+import io
+
 
 
 def get_image_from_file_field(file_field, request):
@@ -9,7 +11,11 @@ def get_image_from_file_field(file_field, request):
     """
     if file_field.has_file():
         storage = request.files['image']
-        file = storage.stream.getbuffer()
+        # Depending on size storage.stream could be BytestIO or BufferedRandom
+        if hasattr(storage.stream, 'getbuffer'):
+            file = storage.stream.getbuffer()
+        else:
+            file = io.BytesIO(storage.stream.read()).getbuffer()
         return file
     else:
         return None
