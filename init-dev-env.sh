@@ -58,6 +58,7 @@ function require_python_pip {
 }
 
 function install_requirements {
+    echo "### Installing requirements"
 
     source ./venv/bin/activate
 
@@ -68,6 +69,14 @@ function install_requirements {
     deactivate
 }
 
+function install_app {
+    echo "### Installing app in development mode"
+    source ./venv/bin/activate
+
+    pip install -e ./server_app --upgrade -v
+
+    deactivate
+}
 
 function configure_database {
     mkdir -p ./${APP_DIR}/instance 
@@ -81,6 +90,5 @@ require_python_mayor_minor_version_installed ${PYTHON_MAYOR_REQUIRED} ${PYTHON_M
 install_venv
 require_python_pip
 install_requirements
+install_app
 configure_database 
-
-
