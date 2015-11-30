@@ -83,7 +83,10 @@ function configure_database {
     touch ./${APP_DIR}/instance/config.py
 
     source ./venv/bin/activate
-    python server_app/create_db.py
+    cd server_app
+    alembic upgrade head
+    cd ..
+    # python server_app/create_db.py
 }
 
 require_python_mayor_minor_version_installed ${PYTHON_MAYOR_REQUIRED} ${PYTHON_MINOR_REQUIRED}
