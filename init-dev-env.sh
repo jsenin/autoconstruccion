@@ -28,7 +28,7 @@ function install_venv_and_pip_at_debian_as_workaround {
         echo "trying to install with a workaround"
         ${PYTHON} -m venv --without-pip venv
         source venv/bin/activate
-        curl https://bootstrap.pypa.io/get-pip.py | python
+        curl https://bootstrap.pypa.io/get-pip.py | ${PYTHON}
         deactivate
 
 }
@@ -73,7 +73,8 @@ function install_app {
     echo "### Installing app in development mode"
     source ./venv/bin/activate
 
-    pip install -e ./server_app --upgrade -v
+    PIP=$(which pip);
+    ${PIP} install -e ./server_app --upgrade -v
 
     deactivate
 }
@@ -83,10 +84,8 @@ function configure_database {
     touch ./${APP_DIR}/instance/config.py
 
     source ./venv/bin/activate
-    cd server_app
+    cd ./${APP_DIR}
     alembic upgrade head
-    cd ..
-    # python server_app/create_db.py
 }
 
 require_python_mayor_minor_version_installed ${PYTHON_MAYOR_REQUIRED} ${PYTHON_MINOR_REQUIRED}
