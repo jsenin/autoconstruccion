@@ -5,6 +5,7 @@ requires = [
     'Flask-SQLAlchemy==2.1',
     'Flask-WTF==0.12',
     'SQLAlchemy==1.0.9',
+    'alembic>=0.8.3'
 ]
 
 
