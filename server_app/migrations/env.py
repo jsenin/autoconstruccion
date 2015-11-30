@@ -4,12 +4,12 @@ from sqlalchemy import engine_from_config, pool
 from logging.config import fileConfig
 
 # load app directory so packages can be imported
-import sys
-from os.path import abspath, dirname
-sys.path.insert(0, dirname(dirname(abspath(__file__))))
+# import sys
+# from os.path import abspath, dirname
+# sys.path.insert(0, dirname(dirname(abspath(__file__))))
 # import flask configurations: app, db
-from autoconstruccion import create_app
-from autoconstruccion.models import db
+from autoconstruccion import create_app, db
+from autoconstruccion.models import *
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
