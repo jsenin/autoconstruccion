@@ -17,6 +17,8 @@ def create_app(config_name='PRODUCTION'):
     # Register blueprints
     from autoconstruccion.web import bp as web
     app.register_blueprint(web, url_prefix='/', static_folder='static')
+    from autoconstruccion.admin import bp as admin
+    app.register_blueprint(admin, url_prefix='/admin', static_folder='static')
 
     return app
 

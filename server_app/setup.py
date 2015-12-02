@@ -8,10 +8,14 @@ requires = [
     'alembic>=0.8.3'
 ]
 
+package_data={
+  'static': 'autoconstruccion/static/*',
+  'templates': 'autoconstruccion/templates/*'
+},
 
 setup(
     name='autoconstruccion',
-    version='0.0.0.dev0',
+    version='0.0.0.dev1',
     packages=find_packages(),
     url='https://github.com/autoconstruccion/autoconstruccion',
     author='Creepy Coconuts',
@@ -19,4 +23,5 @@ setup(
     description='Autoconstruccion web app',
     install_requires=requires,
     zip_safe=False,
+    include_package_data=True,
 )
