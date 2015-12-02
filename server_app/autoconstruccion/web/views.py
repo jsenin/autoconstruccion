@@ -182,7 +182,3 @@ def user_edit(user_id):
         flash('Data not valid, please review the fields')
     return render_template('users/edit.html', form=form, user_id=user_id)
 
-
-@bp.route('admin', methods=['GET', 'POST'])
-def admin_index():
-    return render_template('admin/index.html')
