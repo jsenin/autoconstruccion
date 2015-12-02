@@ -5,8 +5,8 @@
 
 {% block body %}
     <div class="container">
-        <h1>Edit Event</h1>
-        <form role="form" action="{{ url_for('web.event_edit', project_id=project_id, event_id=event_id) }}" method="POST" enctype="multipart/form-data">
+        <h1>Add Event</h1>
+        <form role="form" action="{{ url_for('web.event_add', project_id=project_id) }}" method="POST" enctype="multipart/form-data">
             {{ form.hidden_tag() }}
             {{ render_field(form.name) }}
             {{ render_field(form.description) }}
@@ -20,5 +20,5 @@
 {% endblock %}
 
 {% block script_custom %}
-        <script src="{{ url_for('web.static', filename='js/_formhelpers.js')}}"></script>
+        <script src="{{ url_for('static', filename='js/_formhelpers.js')}}"></script>
 {% endblock %}

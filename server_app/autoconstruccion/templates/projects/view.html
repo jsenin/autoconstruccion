@@ -76,7 +76,7 @@
         {% for volunteer in project.users %}
 <div class="media">
     <a href="#" class="pull-left">        
-        <img alt="64x64" class="media-object img-thumbnail" style="width: 64px; height: 64px;" src="{{ url_for('web.static', filename='img/worker.png') }}">      
+        <img alt="64x64" class="media-object img-thumbnail" style="width: 64px; height: 64px;" src="{{ url_for('static', filename='img/worker.png') }}">
     </a>
     <div class="media-body">
       <h3 class="media-heading"><strong>{{ volunteer.full_name }}</strong></h3>
