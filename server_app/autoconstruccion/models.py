@@ -36,6 +36,20 @@ class User(db.Model):
     materials = db.Column(db.Text(), nullable=True)
     projects = db.relationship('Project', secondary=users_projects)
 
+    password = db.Column(db.String(256), default='1234')
+
+    def is_authenticated(self):
+        return True
+
+    def is_active(self):
+        return True
+
+    def is_anonymous(self):
+        return False
+
+    def get_id(self):
+        return str(self.id)
+
     def __repr__(self):
         text = "User: \t{}\n\t\tEmail: {}\n\t\tPhone Number: {}"
         return text.format(self.full_name, self.email, self.phone_number)
