@@ -134,3 +134,7 @@ pip-selfcheck.json
 
 # mi test.sh 
 test.sh
+
+.DS_Store
+*.sublime-project
+*.sublime-workspace

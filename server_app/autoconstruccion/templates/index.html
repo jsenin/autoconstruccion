@@ -1,33 +1,91 @@
 {% extends "layout.html" %}
 {% block title %}Autoconstrucci&oacute;n{% endblock %}
+{% block navigation %}
+
+{% endblock %}
 
 {% block body %}
 
-<div class="jumbotron">
-  <div class="container">
-    <h1>Construye en comunidad</h1>
-    <p>...<em> "la ciudadanía vuelva a tener ese papel protagonista que perdió en los últimos años"</em>.
-    los españoles se comportaron durante mucho tiempo como simples consumidores de un tipo de urbanismo que les era ofrecido como un producto.
-    Ahora, en cambio, Cirugeda pretende que sea la ciudadanía la que diga <em>"el urbanismo lo hacemos nosotros."</em> </p>
-    <p><a class="btn btn-primary btn-lg" role="button" href="http://arq.clarin.com/arquitectura/Santiago-Cirugeda-Defensor-autoconstruccion_0_1393061046.html" target="_blank">Read more</a></p>
-  </div>
+<div class="row">
+    <div class="col-sm-6">
+        <div class="gray-bg block-wrapper">
+            <div class="block-inner">
+                <img src="{{url_for('static', filename='img/logo1_transp.png')}}">
+                <p>
+                Desde esta plataforma podrás apuntarte y participar en los procesos de autoconstrucción del estudio “recetas Urbanas”
+                </p>
+            </div>
+        </div>
+    </div>
+        <div class="col-sm-6">
+            <a role="button"  class="btn btn-warning" style="float:right" href="admin">Entrar/Registro <span class="glyphicon glyphicon-log-in" aria-hidden="true"></span></a>
+        </div>
 </div>
 
 <div class="row">
+    <div class="col-sm-6">
+        <div class="yellow-bg block-wrapper">
+            <div class="block-inner">
+                <h1> PROYECTOS <br/> EN CURSO </h1>
+            </div>
+        </div>
+    </div>
     {% for project in projects %}
     
-    <div class="col-lg-3 col-sm-4 col-xs-6">
-        <h2>
+    <div class="col-sm-6">
+        <a href="{{ url_for('web.project_view', project_id=project.id) }}">
+            <div class="project-thumbnail-block block-wrapper" style="background-image: url('{{ url_for('web.get_project_image', project_id=project.id) }}')">
+                <div class="block-inner">
+                    <h2>
+                        {{ project.name|truncate(30)  }}
+                    </h2>
+
+                </div>
+                <div class="project-thumbnail-info">
+                    <h5 class="place"> 
+                        {{ project.location }}
+                    </h5>
+                    <h5 class="date">
+                        Fecha <!-- TODO reemplazar fecha real -->
+                    </h5>
+                </div>
+            </div>
+        </a>
+       <!-- <h2>
             <a href="{{ url_for('web.project_view', project_id=project.id) }}">{{ project.name|truncate(30)  }}</a> <small>({{ project.users|length }})</small>
         </h2>
-        <a title="{{ project.name }}" href="{{ url_for('web.project_view', project_id=project.id) }}"><img class="thumbnail img-responsive" src="{{ url_for('web.get_project_image', project_id=project.id) }}"></a>
+        <a title="{{ project.name }}" href="{{ url_for('web.project_view', project_id=project.id) }}"><img class="thumbnail img-responsive" src="{{ url_for('web.get_project_image', project_id=project.id) }}"></a>-->
     </div>
     {% endfor %}
    
     {% if not projects %}
+    <div class="col-sm-6">
         <h2>There are any project yet</h2>
+        </div>
     {% endif %}
+    
 
+</div>
+<div class="row">
+    <div class="col-sm-4">
+         <div class="gray-bg block-wrapper">
+            <div class="block-inner">
+                <h3>
+                ¿Qué son todos estos proyectos?
+                </h3>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-sm-8">
+        <div class="gray-bg block-wrapper">
+            <div class="block-inner">
+                <p class="textos">
+                    Todo este entrenamiento nos sirve para afrontar dos proyectos clave que desarrollaremos este otoño donde administraciones y ciudadanos intentan coordinarse para mejorar espacios educativos públicos. 
+                </p>
+            </div>
+        </div>
+    </div>
 </div>
 
 {% endblock %}

@@ -1,0 +1,220 @@
+/** GENERAL STUFF USED IN ALL PARTS **/
+.lato-Light {
+  font-family: 'Lato', sans-serif;
+  font-weight: 300;
+}
+.lato-Bold {
+  font-family: 'Lato', sans-serif;
+  font-weight: 700;
+}
+.block {
+  box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.5);
+  background-position: center;
+  background-size: cover;
+}
+.project-thumbnail-block {
+  box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.5);
+  background-position: center;
+  background-size: cover;
+  min-height: 300px;
+  position: relative;
+}
+.project-thumbnail-block .project-thumbnail-info {
+  /* Rectangle 5: */
+  background: rgba(0, 0, 0, 0.52);
+  min-height: 50px;
+  height: 50px;
+  z-index: 200;
+  position: absolute;
+  bottom: 0px;
+  width: 100%;
+  padding: 5px 50px;
+}
+.div-main-container {
+  min-height: 95vh;
+}
+.map123-container {
+  margin-top: 30px;
+  background: url('../img/bgline.png');
+  background-repeat: repeat-x;
+  background-position: 0px 50%;
+  height: auto;
+  position: relative;
+  overflow: auto;
+  /*trick to xpand in height when the inner div height expands.*/
+}
+.map123-element {
+  display: inline-block;
+  /* Rectangle 28 Copy 2: */
+  background: #FFFFFF;
+  border: 1px solid #CCCCCC;
+  border-radius: 3px;
+  padding: 8px;
+  text-align: center;
+  font-family: 'Lato', sans-serif;
+  font-weight: 700;
+  width: 90%;
+}
+.map123-element.inactive {
+  color: black;
+  background: white;
+}
+.map123-element.active {
+  color: white;
+  border: 0px;
+  background-color: #58B957;
+}
+nav.navbar {
+  background: rgba(241, 195, 15, 0.8);
+  border: none;
+  min-height: 36px;
+}
+.box-shadow-1 {
+  box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.5);
+}
+.block-inner {
+  padding: 50px 25px;
+}
+.block-wrapper {
+  box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.5);
+  margin-bottom: 30px;
+}
+.body-main-container {
+  background-image: url('../img/wall4.png');
+  background-repeat: repeat;
+  padding-bottom: 0px;
+}
+/*** peculiares ***/
+.textos {
+  /* Desde esta plataform: */
+  font-family: 'Lato', sans-serif;
+  font-weight: 300;
+  font-size: 20px;
+  color: #FFFFFF;
+  line-height: 24px;
+}
+.textos-oscuro {
+  /* Desde esta plataform: */
+  font-family: 'Lato', sans-serif;
+  font-weight: 300;
+  font-size: 20px;
+  color: #FFFFFF;
+  line-height: 24px;
+  color: #000000;
+}
+a.whity {
+  color: white;
+}
+a.whity:hover {
+  text-decoration: none;
+  text-shadow: none;
+}
+a:hover {
+  text-decoration: none;
+  color: #EDC951;
+  box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.5);
+}
+.gray-bg {
+  /* Rectangle 5 Copy 3: */
+  background: #738A97;
+  box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.5);
+  /* Desde esta plataform: */
+  font-family: 'Lato', sans-serif;
+  font-weight: 300;
+  font-size: 20px;
+  color: #FFFFFF;
+  line-height: 24px;
+}
+.yellow-bg {
+  opacity: 0.84;
+  background: #EDC951;
+  min-height: 300px;
+}
+.white-bg {
+  background: #ffffff;
+}
+a.btn-warning {
+  background: #EDC951;
+  border-radius: 2px;
+  color: black;
+  border: none;
+  padding: 16px 22px;
+  /* 12:12:12:12: */
+  font-family: 'Lato';
+  font-size: 14px;
+  color: #000000;
+  line-height: 21px;
+}
+a.btn-primary {
+  background: #58B957;
+  border-radius: 2px;
+  color: white;
+  border: none;
+}
+/***proyecto *******/
+.project-header-block {
+  box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.5);
+  background-position: center;
+  background-size: cover;
+  min-height: 225px;
+  position: relative;
+}
+.project-header-block h2 {
+  font-weight: 700;
+}
+.project-page .textos-descripcion {
+  /* Desde esta plataform: */
+  font-family: 'Lato', sans-serif;
+  font-weight: 300;
+  font-size: 20px;
+  color: #FFFFFF;
+  line-height: 24px;
+  color: #000000;
+  font-size: 15px;
+}
+.project-page .btn-apunta {
+  width: 100%;
+  margin-top: 3em;
+}
+h1 {
+  /* PROYECTOS EN CURSO: */
+  font-family: 'Lato', sans-serif;
+  font-weight: 700;
+  font-size: 34px;
+  color: #4A4A4A;
+  line-height: 36px;
+}
+h2 {
+  /* Comedor: */
+  font-family: 'Montserrat';
+  font-size: 40px;
+  color: #FFFFFF;
+  line-height: 49px;
+  text-shadow: 0px 2px 4px rgba(0, 0, 0, 0.5);
+}
+h5 {
+  font-family: 'Lato', sans-serif;
+  font-weight: 700;
+  font-size: 18px;
+  opacity: 1.0;
+  color: #FFFFFF;
+  line-height: 27px;
+}
+h5.date {
+  float: right;
+  display: inline-block;
+}
+h5.place {
+  float: left;
+  display: inline-block;
+}
+.footer {
+  /* Rectangle 5 Copy 7: */
+  background: #4A4A4A;
+  /* Line: */
+  border: 1px solid #979797;
+  width: 100%;
+  height: 100px;
+  padding: 30px;
+  margin-top: 30px;
+}
