@@ -21,7 +21,7 @@ def login():
         user = User.query.filter_by(email=form.user_mail.data).one_or_none()
         if not user:
             flask.flash('Incorrect user email or password.', 'error')
-            return flask.render_template('login.html', form=form)
+            return flask.render_template('login/login.html', form=form)
 
         login_user(user)
 
@@ -34,7 +34,7 @@ def login():
             return flask.abort(400)
 
         return flask.redirect(next_url or flask.url_for('web.index'))
-    return flask.render_template('login.html', form=form)
+    return flask.render_template('login/login.html', form=form)
 
 
 @bp.route('logout')
