@@ -8,20 +8,40 @@
 
         {% include 'theme/metas.html' %}
 
-        {% include 'theme/scripts_header.html' %}   
+        {% include 'theme/scripts_header.html' %} 
+        {% include 'admin/scripts_header_admin.html' %}   
 
     </head>
 
     <body>
 
 {% include 'theme/update_your_browser_if_deprecated.html' %}
-{% include 'theme/navigation.html' %}
+
 
 {% from "_helpers.html" import show_flash_messages %}
 {{ show_flash_messages() }}
    
-<div class="container">
-{% include 'admin/breadcrumb.html' %}
+<div id="wrapper">
+<!--{% include 'admin/breadcrumb.html' %}-->
+{% include 'admin/navigation.html' %}
+				{% block sidebar1 %}
+                    <!--<li>
+                        <a href="index.html"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
+                    </li>
+                    <li>
+                        <a href="index.html"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
+                    </li>
+                    <li>
+                        <a href="index.html"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
+                    </li> -->
+                {% endblock %}
+                <!--tengo que añadir esta ñapilla para evitar meter el block sidebar dentro de navigation 1 que no funcionaria-->
+            </ul> 
+        </div>  
+        <!-- /.sidebar-collapse -->
+    </div>
+    <!-- /.navbar-static-side -->
+</nav>
 
 {% block body %}
   <p>This is the page body.</p>
@@ -29,6 +49,7 @@
 </div>
 
 {% include 'theme/scripts_footer.html' %}
+{% include 'admin/scripts_footer_admin.html' %}
 
 {% block script_custom %}
 {% endblock %}

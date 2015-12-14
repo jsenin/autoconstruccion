@@ -3,12 +3,14 @@
 
 
 {% block body %}
-
+<div id="page-wrapper">
+		<div class="row">
     {% include 'users/list.html' %}
 
-    <div class="container">
+    
         <a href="{{ url_for('web.user_add') }}" class="btn btn-primary pull-right">Add new user</a>
     </div>
+</div>
 
 
 
