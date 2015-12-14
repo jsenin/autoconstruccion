@@ -6,8 +6,7 @@ class BaseConfig:
     TESTING = False
     SECRET_KEY = 'secret'
     SQLALCHEMY_TRACK_MODIFICATIONS = False
-    SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(os.path.abspath(os.path.dirname(os.path.dirname(__file__))),
-                                                          'instance', 'app.db')
+    SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join( '../','instance', 'app.db')
     WTF_CSRF_SECRET_KEY = SECRET_KEY
     WTF_CSRF_ENABLED = True
 
