@@ -1,0 +1,28 @@
+HOWTO DEPLOY AT OPENSHIFT
+
+# create app using our github repo with python-3.3 cartige 
+rhc app-create autoconstruccion python-3.3 -e OPENSHIFT_PYTHON_WSGI_APPLICATION="\${OPENSHIFT_REPO_DIR}/server_app/autoconstruccion.wsgi" --from-code https://github.com/autoconstruccion/autoconstruccion
+
+# clone openshift deploy project
+rhc git-clone -a autoconstruccion
+
+cd autoconstruccion/
+
+# add a hook for verifying creating db
+mkdir -p .openshift/action_hooks/
+cat <<EOF > .openshift/action_hooks/pre_start
+echo "running $0..."
+echo "force create instance..."
+mkdir \${OPENSHIFT_REPO_DIR}/server_app/instance
+python \${OPENSHIFT_REPO_DIR}/server_app/create_db.py
+EOF
+
+# sure pre_start has execution permisions
+chmod +x .openshift/action_hooks/pre_start
+
+# commit and push changes
+git add .openshift/action_hooks/pre_start
+git commit -m"add pre_start hook, force create instance on every app start"
+git push origin master
+
+
