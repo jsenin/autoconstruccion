@@ -1,0 +1,10 @@
+{% macro skill_selector(title, skill_image ) -%}
+<div class="skill-wrapper col-md-3">
+            <div class="title-image" style="background-image:url({{ skill_image }})">
+                <span class="skill-title"> {{ title }} </span>
+            </div>
+            <input type="text" class="span2 slider" value="" data-slider-min="0" data-slider-max="5" data-slider-step="1" data-slider-value="1" data-slider-orientation="horizontal" data-slider-selection="after" data-slider-tooltip="hide">
+            <span class="desc-text"> description text </span>
+        </div>
+{%- endmacro %}
+
