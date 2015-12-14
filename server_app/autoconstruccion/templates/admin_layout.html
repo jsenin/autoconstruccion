@@ -25,21 +25,23 @@
 <!--{% include 'admin/breadcrumb.html' %}-->
 {% include 'admin/navigation.html' %}
 				{% block sidebar1 %}
-                     <li>
-                        <a href="#"><i class="fa fa-dashboard "></i> General</a>
-                    </li>
-                    <li>
-                        <a href="{{ url_for('web.project_volunteers', project_id=project_id) }}"><i class="fa fa-users"></i> Participantes</a>
-                    </li>
-                    <li>
-                        <a href="#"><i class="fa fa-shopping-cart fa-fw"></i> Materiales</a>
-                    </li>
-                    <li>
-                        <a href="#"><i class="fa fa-wrench fa-fw"></i> Herramientas</a>
-                    </li>
-                    <li>
-                        <a href="{{ url_for('web.project_events', project_id=project_id) }}"><i class="fa fa-calendar fa-fw"></i> Eventos</a>
-                    </li>
+					{% if project_id is defined %} <!--this is the default menu for projects, only if we are inside a project and project_id is defined -->
+	                     <li>
+	                        <a href="#"><i class="fa fa-dashboard "></i> General</a>
+	                    </li>
+	                    <li>
+	                        <a href="{{ url_for('web.project_volunteers', project_id=project_id) }}"><i class="fa fa-users"></i> Participantes</a>
+	                    </li>
+	                    <li>
+	                        <a href="#"><i class="fa fa-shopping-cart fa-fw"></i> Materiales</a>
+	                    </li>
+	                    <li>
+	                        <a href="#"><i class="fa fa-wrench fa-fw"></i> Herramientas</a>
+	                    </li>
+	                    <li>
+	                        <a href="{{ url_for('web.project_events', project_id=project_id) }}"><i class="fa fa-calendar fa-fw"></i> Eventos</a>
+	                    </li>
+                    {% endif %}
                 {% endblock %}
                 <!--tengo que añadir esta ñapilla para evitar meter el block sidebar dentro de navigation 1 que no funcionaria-->
             </ul> 
