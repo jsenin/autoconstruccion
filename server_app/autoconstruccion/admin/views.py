@@ -1,5 +1,6 @@
 from flask import Blueprint, render_template
-
+from autoconstruccion.models import Project, db, Event, User
+#Esto lo he cambiado yo(sergio espero no haber metido la pata) 
 
 bp = Blueprint('admin', __name__,
                template_folder='templates',
@@ -9,4 +10,5 @@ bp = Blueprint('admin', __name__,
 
 @bp.route('/', methods=['GET', 'POST'])
 def admin_index():
-    return render_template('admin/index.html')
+	projects = Project.query.all()
+	return render_template('admin/index.html', projects=projects)

@@ -3,8 +3,12 @@
 
 {% from "_formhelpers.html" import render_field %}
 
+
+
+
 {% block body %}
-    <div class="container">
+<div id="page-wrapper">
+    <div class="row">
         <h1>Edit Projects</h1>
         <form role="form" action="{{ url_for('web.project_edit',project_id=project_id) }}" method="POST" enctype="multipart/form-data">
             {{ form.hidden_tag() }}
@@ -20,6 +24,7 @@
             </div>
         </form>
     </div>
+</div>
 
 {% endblock %}
 

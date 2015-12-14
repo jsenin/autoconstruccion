@@ -25,15 +25,21 @@
 <!--{% include 'admin/breadcrumb.html' %}-->
 {% include 'admin/navigation.html' %}
 				{% block sidebar1 %}
-                    <!--<li>
-                        <a href="index.html"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
+                     <li>
+                        <a href="#"><i class="fa fa-dashboard "></i> General</a>
                     </li>
                     <li>
-                        <a href="index.html"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
+                        <a href="{{ url_for('web.project_volunteers', project_id=project_id) }}"><i class="fa fa-users"></i> Participantes</a>
                     </li>
                     <li>
-                        <a href="index.html"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
-                    </li> -->
+                        <a href="#"><i class="fa fa-shopping-cart fa-fw"></i> Materiales</a>
+                    </li>
+                    <li>
+                        <a href="#"><i class="fa fa-wrench fa-fw"></i> Herramientas</a>
+                    </li>
+                    <li>
+                        <a href="{{ url_for('web.project_events', project_id=project_id) }}"><i class="fa fa-calendar fa-fw"></i> Eventos</a>
+                    </li>
                 {% endblock %}
                 <!--tengo que añadir esta ñapilla para evitar meter el block sidebar dentro de navigation 1 que no funcionaria-->
             </ul> 

@@ -1,0 +1,6 @@
+.panel .panel-heading {
+  background-size: cover;
+}
+.panel-project .panel-heading {
+  min-height: 150px;
+}
