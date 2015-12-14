@@ -65,6 +65,36 @@
   border: 0px;
   background-color: #58B957;
 }
+.skill-wrapper .title-image {
+  width: 214px;
+  height: 144px;
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: relative;
+}
+.skill-wrapper .skill-title {
+  position: absolute;
+  bottom: 0px;
+  text-align: right;
+  width: 100%;
+  font-family: 'Lato', sans-serif;
+  font-weight: 700;
+  font-size: 16px;
+  color: #4A4A4A;
+}
+.skill-wrapper .desc-text {
+  display: block;
+  font-family: 'Lato', sans-serif;
+  font-weight: 700;
+  font-size: 14px;
+  color: #666666;
+}
+.skill-wrapper .slider-handle {
+  /* Button: */
+  background-image: linear-gradient(-180deg, #F6F6F6 0%, #ECECEC 100%);
+  border: 1px solid rgba(150, 150, 150, 0.28);
+  background-color: #F6F6F6;
+}
 nav.navbar {
   background: rgba(241, 195, 15, 0.8);
   border: none;

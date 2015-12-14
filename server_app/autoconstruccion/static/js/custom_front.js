@@ -15,5 +15,12 @@ $(function() {
 		$(this).addClass('active');
 		e.preventDefault();
 	});
+	  
 
+	$('.slider').slider().on('slide', function(ev){
+		console.log(ev)
+		console.log($(this).parent().parent())
+		if(ev.value>0)
+	    	$(this).parent().parent().find('.desc-text').html("nuevo mensaje")
+	});
 });
