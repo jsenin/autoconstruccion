@@ -3,11 +3,13 @@
 
 
 {% block body %}
-
+<div id="page-wrapper">
+		<div class="row">
     {% include 'users/list.html' %}
 
-    <div class="container">
+    
         
         <a href="{{ url_for('web.project_join', project_id=project_id) }}" class="btn btn-primary pull-right">Add new user to this project</a>
-    </div>
+    	</div>
+	</div>
 {% endblock %}

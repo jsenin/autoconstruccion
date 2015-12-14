@@ -30,72 +30,81 @@
 
 </div>
 
-Esto de aquí hay que maquetarlo bien aún.
 
-
-<h2>Location</h2>
 <div class="row">
-
     <div class="col-md-6">
+        <div class="block-wrapper white-bg">
+            <div class="block-inner">
+                <h3 class="dark">Location</h3>
+                <a href="http://maps.google.com/maps?q={{ project.location|replace(' ','+')  }}" target="_blank">
+                     <img src="https://maps.googleapis.com/maps/api/staticmap?v=2&center={{ project.location|replace(' ','+') }}&size=400x200&zoom=15">
+                </a>
+                <address>
+                    <strong>Location</strong><br>
+                    {{ project.location }}<br/>
+                </address>
 
-    <a href="http://maps.google.com/maps?q={{ project.location|replace(' ','+')  }}" target="_blank">
-         <img src="https://maps.googleapis.com/maps/api/staticmap?v=2&center={{ project.location|replace(' ','+') }}&size=400x200&zoom=15">
-    </a>
-        <address>
-            <strong>Location</strong><br>
-            {{ project.location }}<br/>
-        </address>
-
-        <a href="http://maps.google.com/maps?q={{ project.location|replace(' ','+') }}" target="_blank">View map</a>
-
-    </div>
-
-</div>
-
-<h2>Events</h2>
-<div class="row">
-
-    {% for event in project.events %}
-    <div class="col-sm-4">
-        <div class="row">
-            <div class="col-md-4">
-                <h3><span class="label label-info">
-                    <a title="{{ event.name }}" href="{{ url_for('web.event_view', project_id=event.project_id, event_id=event.id) }}">
-                        {{ event.start_date }}
-                    </a>
-                </span></h3>
-            </div>
-            <div class="col-md-7">
-                <strong>{{ event.name }}</strong><br>
-                <em>{{ project.location }}</em><br>
-                <span class="small">10:00 AM</span>
+                <a href="http://maps.google.com/maps?q={{ project.location|replace(' ','+') }}" target="_blank">View map</a>
             </div>
         </div>
     </div>
-    {% endfor %}
+    <div class="col-md-6">
+         <div class="block-wrapper white-bg">
+            <div class="block-inner">
 
-</div>
-
-{% if not project.events %}
+                <h3 class="dark">Events</h3>
+                {% for event in project.events %}
+                <div class="row">
+                    <div class="col-md-4">
+                        <h3><span class="label label-info">
+                            <a title="{{ event.name }}" href="{{ url_for('web.event_view', project_id=event.project_id, event_id=event.id) }}">
+                                {{ event.start_date }}
+                            </a>
+                        </span></h3>
+                    </div>
+                    <div class="col-md-7">
+                        <strong>{{ event.name }}</strong><br>
+                        <em>{{ project.location }}</em><br>
+                        <span class="small">10:00 AM</span>
+                    </div>
+                </div>
+                {% endfor %}
+                {% if not project.events %}
 <p>There are any event yet</p>
 {% endif %}
-
-
-<h2>Volunteers for this projects ({{ project.users|length }})</h2>
-        <div class="list-group">
-        {% for volunteer in project.users %}
-<div class="media">
-    <a href="#" class="pull-left">        
-        <img alt="64x64" class="media-object img-thumbnail" style="width: 64px; height: 64px;" src="{{ url_for('static', filename='img/worker.png') }}">
-    </a>
-    <div class="media-body">
-      <h3 class="media-heading"><strong>{{ volunteer.full_name }}</strong></h3>
-      <p class="small">Volunteer</p>
-    </div>
-</div>  
-
-        {% endfor %}
+            </div>
         </div>
+
+    </div>
+</div>
+
+
+
+        
+
+
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="block-wrapper white-bg">
+            <div class="block-inner">
+                <h3 class="dark">Participantes inscritos ({{ project.users|length }})</h3>
+                <div class="list-group">
+                {% for volunteer in project.users %}
+                    <div class="media">
+                        <a href="#" class="pull-left">        
+                            <img alt="64x64" class="media-object img-thumbnail" style="width: 64px; height: 64px;" src="{{ url_for('static', filename='img/worker.png') }}">
+                        </a>
+                        <div class="media-body">
+                          <h4 class="media-heading"><strong>{{ volunteer.full_name }}</strong></h4>
+                        </div>
+                    </div>  
+                {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 </div> <!-- project page !-->
 {% endblock %}
