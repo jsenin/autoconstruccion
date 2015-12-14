@@ -2,15 +2,7 @@
 {% block title %}Autoconstruccion{% endblock %}
 
 {% block sidebar1 %}
-				<!-- < li>
-                   <a href="index.html"><i class="fa fa-dashboard fa-fw"></i> as</a>
-                </li>
-                <li>
-                    <a href="index.html"><i class="fa fa-dashboard fa-fw"></i> ddd</a>
-                </li>
-                <li>
-                    <a href="index.html"><i class="fa fa-dashboard fa-fw"></i> bbb</a>
-                </li>-->
+
                
 {% endblock %}
 
@@ -18,12 +10,30 @@
 {% block body %}
 <div id="page-wrapper">
 	<div class="row">
-		<h1>Proyectos</h1>
-		Aquí hay que listar los proyectos directamente :
-		 {% for project in projects %}                        
-            <td>{{ project.name }}</td>
-        {% endfor %}
+		<h1>Proyectos en activo</h1>
 
+		 {% for project in projects %}    
+		 	<div class="row">
+				<div class="col-md-3">
+					<a href="{{ url_for('web.project_edit', project_id=project.id) }}">
+			        <div class="panel panel-primary panel-project">	        	
+			            <div class="panel-heading" style="background-image:url({{url_for('static', filename='img/FOTO1.png')}})">			                
+			            </div>	            
+		                <div class="panel-footer">
+		                    <span class="pull-left">{{ project.name }}</span>
+		                    <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+		                    <div class="clearfix"></div>
+		                </div>			           
+			        </div>
+			        </a>
+		    	</div>
+		    </div>
+        {% endfor %}
+        <!-- meter esto dentro del for -->
+	</div>
+
+
+    	(Dejo este boton mientras para poder acceder al listado anterior)<br/>
 		<a href="{{ url_for('web.project_index') }}" class="btn btn-primary ">Proyectos</a>
 		<!--<a href="{{ url_for('web.user_index') }}" class="btn btn-primary ">Usuarios</a> -->
 
