@@ -17,8 +17,7 @@ class Project(db.Model):
     contact_phone = db.Column(db.String(15), nullable=False)
     manager_id = db.Column(db.Integer, db.ForeignKey('users.id'))
     manager = db.relationship('User', uselist=False)
-    users = db.relationship('User',
-                              secondary=users_projects)
+    users = db.relationship('User', secondary=users_projects)
 
     def __repr__(self):
         return "Project: {} \nDescription: {}".format(self.name, self.description)
@@ -35,9 +34,7 @@ class User(db.Model):
     availability = db.Column(db.Text(), nullable=True)
     tools = db.Column(db.Text(), nullable=True)
     materials = db.Column(db.Text(), nullable=True)
-
-    projects = db.relationship('Project',
-                            secondary=users_projects)
+    projects = db.relationship('Project', secondary=users_projects)
 
     def __repr__(self):
         text = "User: \t{}\n\t\tEmail: {}\n\t\tPhone Number: {}"
@@ -57,3 +54,31 @@ class Event(db.Model):
     def __repr__(self):
         text = "Event: \t{}\n\t\tDescription: {}\n\t\tDay: {}"
         return text.format(self.name, self.description, self.start_date)
+
+
+class Skill(db.Model):
+    __tablename__ = 'skills'
+
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    name = db.Column(db.String(250), nullable=False)
+    description = db.Column(db.String(255), nullable=False)
+    image = db.Column(db.LargeBinary)
+
+    def __repr__(self):
+        text = "Skill: \t{}\n\t\tDescription: {}"
+        return text.format(self.name, self.description)
+
+"""
+There could have an inconsistency: An user could have skills in a project where he/she is not signed up
+"""
+class SkillLevel(db.Model):
+    __tablename__ = 'skills_levels'
+
+    project_id = db.Column(db.Integer, db.ForeignKey('projects.id'), primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'), primary_key=True)
+    skill_id = db.Column(db.Integer, db.ForeignKey('skills.id'), primary_key=True)
+    level = db.Column(db.Integer, default=0, nullable=False)
+
+    def __repr__(self):
+        text = "Project_id: {}\n\t\tUser_id: {}\n\t\tSkill_id: {}\n\t\tLevel: {}"
+        return text.format(self.project_id, self.user_id, self.skill_id, self.level)
