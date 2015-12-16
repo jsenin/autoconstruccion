@@ -1,4 +1,5 @@
 import os
+from autoconstruccion.notifier import NotifierFactory
 
 
 class BaseConfig:
@@ -6,7 +7,8 @@ class BaseConfig:
     TESTING = False
     SECRET_KEY = 'secret'
     SQLALCHEMY_TRACK_MODIFICATIONS = False
-    SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join( '../','instance', 'app.db')
+    SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(os.path.abspath(os.path.dirname(os.path.dirname(__file__))),
+                                                          'instance', 'app.db')
     WTF_CSRF_SECRET_KEY = SECRET_KEY
     WTF_CSRF_ENABLED = True
 
@@ -60,3 +62,9 @@ def config_app(app, config_name='DEFAULT'):
     if app.config['TESTING']:
         if app.config['SQLALCHEMY_DATABASE_URI'] != 'sqlite:///:memory:':
             app.config['SQLALCHEMY_DATABASE_URI'] += '_test'
+
+
+def config_notifier(app):
+
+    notifier_transport = app.config[app.config['NOTIFIER_DEFAULT']]
+    app.notifier = NotifierFactory.factory(notifier_transport)
