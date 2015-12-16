@@ -1,22 +1,3 @@
-{% extends "admin_layout.html" %}
-                {% block sidebar1 %}
-                    <li>
-                        <a href="#"><i class="fa fa-dashboard fa-fw"></i> General</a>
-                    </li>
-                    <li>
-                        <a href="#"><i class="fa fa-dashboard fa-fw"></i> Participantes</a>
-                    </li>
-                    <li>
-                        <a href="#"><i class="fa fa-dashboard fa-fw"></i> Materiales</a>
-                    </li>
-                    <li>
-                        <a href="#"><i class="fa fa-dashboard fa-fw"></i> Herramientas</a>
-                    </li>
-                    <li>
-                        <a href="#"><i class="fa fa-dashboard fa-fw"></i> Calendario</a>
-                    </li>
-                {% endblock %}
-{% block body %}
 
     <div id="page-wrapper">
 
@@ -62,5 +43,3 @@
 
         <a href="{{ url_for('web.project_add') }}" class="btn btn-primary pull-right">Add new project</a>
     </div>
-
-    {% endblock %}

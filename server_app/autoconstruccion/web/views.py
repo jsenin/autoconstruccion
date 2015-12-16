@@ -15,6 +15,10 @@ def index():
     projects = Project.query.all()
     return render_template('index.html', projects=projects)
 
+@bp.route('login')
+def login():
+    projects = Project.query.all()
+    return render_template('login_sign.html', projects=projects)    
 
 @bp.route('projects')
 def project_index():
@@ -181,4 +185,5 @@ def user_edit(user_id):
             return redirect(url_for('web.user_index'))
         flash('Data not valid, please review the fields')
     return render_template('users/edit.html', form=form, user_id=user_id)
+
 
