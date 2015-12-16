@@ -4,11 +4,18 @@ from flask_login import login_required, login_user, logout_user
 import itsdangerous
 from autoconstruccion.models import db, User
 from .forms import LoginForm, RegisterForm
-from . import bp
+
+bp = Blueprint('login', __name__)
 
 
-@bp.route('register', method=['GET', 'POST'])
+@bp.route('register', methods=['GET', 'POST'])
 def register():
+    # This go here until we found a better place
+    def get_activation_link(user):
+        serializer = itsdangerous.URLSafeSerializer(secret_key=flask.current_app.config['SECRET_KEY'])
+        ACTIVATION_SALT = flask.current_app.config['USER_ACTIVATION_SALT']
+        return flask.url_for('activate', code=serializer.dumps(user.user_id, salt=ACTIVATION_SALT))
+
     login_form = LoginForm()
     register_form = RegisterForm()
     if register_form.validate_on_submit():
@@ -37,7 +44,6 @@ def register():
         # redirect to user data fill....
         return flask.redirect(flask.url_for('web.index'))
     return flask.render_template('login/login.html', login_form=login_form, reg_for=register_form)
-
 
 
 def next_is_valid(next_url):
@@ -75,18 +81,10 @@ def logout():
     return redirect(flask.url_for('web.index'))
 
 
-# User activation
-with flask.current_app.app_context:
-    serializer = itsdangerous.URLSafeSerializer(secret_key=flask.current_app.config['SECRET_KEY'])
-    ACTIVATION_SALT = flask.current_app.config['USER_ACTIVATION_SALT']
-
-
-def get_activation_link(user):
-    return flask.url_for('activate', code=serializer.dumps(user.user_id, salt=ACTIVATION_SALT))
-
-
 @bp.route('activate/<code>')
 def activate(code):
+    serializer = itsdangerous.URLSafeSerializer(secret_key=flask.current_app.config['SECRET_KEY'])
+    ACTIVATION_SALT = flask.current_app.config['USER_ACTIVATION_SALT']
     try:
         user_id = serializer.loads(code, salt=ACTIVATION_SALT)
     except itsdangerous.BadSignature:

@@ -18,11 +18,14 @@ use current_user proxy available on any template.
 
 ## use on views
 
+https://flask-login.readthedocs.org/en/latest/#flask.ext.login.current_user
+
 ```python
-from flask_login import login_required
+from flask_login import login_required, current_user
 
 @app.route("/settings")
 @login_required
 def settings():
+    user = current_user
     pass
 ```
