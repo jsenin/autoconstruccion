@@ -1,21 +1,21 @@
 language: python
 python:
-  - "3.3"
-  - "3.4"
-  - "3.5"
+    - "3.3"
+    - "3.4"
+    - "3.5"
 
 cache: pip
 
-# install dev dependencies and app dependencies
+    # install dev dependencies and app dependencies
 install:
-  - pip install -r requirements-dev.txt
-  - pip install -r requirements.txt
+    - pip install -r requirements-dev.txt
+    - pip install -r requirements.txt
 
 script:
-  - export PYTHONPATH=$PYTHONPATH:$(pwd)/server_app
-  - mkdir $(pwd)/server_app/instance
-  - touch $(pwd)/server_app/instance/config.py
-  - python $(pwd)/server_app/create_db.py
-  - py.test
+    - export PYTHONPATH=$PYTHONPATH:$(pwd)/server_app
+    - mkdir -p $(pwd)/server_app/instance
+    - touch $(pwd)/server_app/instance/config.py
+    - python $(pwd)/server_app/create_db.py
+    - py.test
 
 
