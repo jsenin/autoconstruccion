@@ -7,3 +7,7 @@ login_manager = LoginManager()
 def load_user(user_id):
     from autoconstruccion.models import User
     return User.query.get(user_id)
+
+
+
+

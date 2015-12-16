@@ -11,6 +11,8 @@ class BaseConfig:
     WTF_CSRF_SECRET_KEY = SECRET_KEY
     WTF_CSRF_ENABLED = True
 
+    USER_ACTIVATION_SALT = b'\xac\x98\xb2Z\xb9\x8aESIueQ?,\xf5g'
+
 
 class Development(BaseConfig):
     DEBUG = True
