@@ -85,13 +85,13 @@ KWOWN ISSUES
     Edit the `instance/config.py` file and add or edit this config:
 
 
-    ```
-    NOTIFIER_MAILGUN = {
-        "transport": "Mailgun",
-        "api-key": "key-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
-        "host": "https://api.mailgun.net/v3/sandboxceXXXXXXXXXXXXXXX.mailgun.org/messages",
-        "from": "from@email.com" 
-    }
+```
+NOTIFIER_MAILGUN = {
+    "transport": "Mailgun",
+    "api-key": "key-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+    "host": "https://api.mailgun.net/v3/sandboxceXXXXXXXXXXXXXXX.mailgun.org/messages",
+    "from": "from@email.com" 
+}
 
 NOTIFIER_DEFAULT = 'NOTIFIER_MAILGUN'
 
@@ -99,3 +99,14 @@ NOTIFIER_DEFAULT = 'NOTIFIER_MAILGUN'
 
 Stop and start the application in order to reload notifier configuration, it's readed only at startup process.
 
+## HOWTO DATABASE MIGRATION
+    Firstly define your new data structe at models.py, alembic will check this file
+
+    then sure your database it's to date
+    ```
+    alembic upgrade head
+    ``` 
+    and then add a new revision with a descriptive message
+    ```
+    alembic revision -m "descriptive message" --autogenerate
+    ```
