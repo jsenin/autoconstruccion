@@ -6,18 +6,30 @@ class NotifierFactory:
 
     @staticmethod
     def factory(options):
+
+        if (not type(options) is dict):
+            options = {}
+
         transport = options.get('transport', '')
         transport = str.upper(transport)
 
         if (transport == 'MAILGUN'):
             return MailgunTransport(options)
 
-        return SendmailTransport(options)
+        if (transport == 'SENDMAIL'):
+            return SendmailTransport(options)
+
+        return FooTransport(options)
 
 
 class MailTransport:
 
     def send(self, options):
+        pass
+
+
+class FooTransport(MailTransport):
+    def __init__(self, config):
         pass
 
 
@@ -79,7 +91,7 @@ class MailgunTransport(MailTransport):
 
         return requests.post(
             config.get('host'),
-            auth=("api", confi.get('api-key')),
+            auth=("api", config.get('api-key')),
             data={
                 "from": config.get('from'),
                 "to":  options.get('to'),

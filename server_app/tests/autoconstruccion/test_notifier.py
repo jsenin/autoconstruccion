@@ -1,5 +1,5 @@
 import pytest
-from autoconstruccion.notifier import NotifierFactory, MailgunTransport, SendmailTransport
+from autoconstruccion.notifier import NotifierFactory, MailgunTransport, SendmailTransport, FooTransport
 
 
 
@@ -42,10 +42,10 @@ def test_MailTransport_type_will_be_sendmail_when_its_configured(mail_fixture):
     assert isinstance(mailer, SendmailTransport)
 
 
-def test_MailTransport_type_will_be_sendmail_as_fallback(mail_fixture):
+def test_MailTransport_type_will_be_footransport_as_fallback(mail_fixture):
     config = {}
     mailer = NotifierFactory.factory(config)
-    assert isinstance(mailer, SendmailTransport)
+    assert isinstance(mailer, FooTransport)
 
 
 def test_mailgun_transport_needs_an_api_key(mailgun_fixture):

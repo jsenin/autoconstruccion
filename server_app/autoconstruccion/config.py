@@ -66,5 +66,7 @@ def config_app(app, config_name='DEFAULT'):
 
 def config_notifier(app):
 
-    notifier_transport = app.config[app.config['NOTIFIER_DEFAULT']]
+
+    notifier_default = app.config.get('NOTIFIER_DEFAULT','')
+    notifier_transport = app.config.get( notifier_default, '' )
     app.notifier = NotifierFactory.factory(notifier_transport)
