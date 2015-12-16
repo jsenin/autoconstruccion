@@ -4,9 +4,7 @@ from flask_login import login_required, login_user, logout_user
 import itsdangerous
 from autoconstruccion.models import db, User
 from .forms import LoginForm, RegisterForm
-
-
-bp = Blueprint('login', __name__)
+from . import bp
 
 
 @bp.route('register', method=['GET', 'POST'])
@@ -78,8 +76,9 @@ def logout():
 
 
 # User activation
-serializer = itsdangerous .URLSafeSerializer(secret_key=flask.current_app.config['SECRET_KEY'])
-ACTIVATION_SALT = flask.current_app.config['USER_ACTIVATION_SALT']
+with flask.current_app.app_context:
+    serializer = itsdangerous.URLSafeSerializer(secret_key=flask.current_app.config['SECRET_KEY'])
+    ACTIVATION_SALT = flask.current_app.config['USER_ACTIVATION_SALT']
 
 
 def get_activation_link(user):
