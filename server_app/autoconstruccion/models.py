@@ -1,7 +1,7 @@
 from autoconstruccion import db
 import hashlib
 import os
-HASH_SIZE = 64
+HASH_SIZE = 32  # sha256 -> 32 bytes
 
 users_projects = db.Table('users_projects', db.metadata,
                        db.Column('project_id', db.Integer, db.ForeignKey('projects.id')),
@@ -40,15 +40,17 @@ class User(db.Model):
     projects = db.relationship('Project', secondary=users_projects)
 
     # Login related properties and methods
-    _hashed_password = db.Column(db.String(HASH_SIZE, collation='binary'), nullable=False)
-    _salt = db.Column(db.String(HASH_SIZE, collation='binary'), nullable=False, default=os.urandom(HASH_SIZE))
+    _hashed_password = db.Column(db.Binary(HASH_SIZE), nullable=False)
+    _salt = db.Column(db.Binary(HASH_SIZE), nullable=False, default=os.urandom(HASH_SIZE))
 
     @property
     def hashed_password(self):
         return self._hashed_password
 
     def _generate_hashed_password(self, password):
-        return hashlib.sha256(self._salt + bytes(password, encoding='utf8'))
+        if not self._salt:
+            self._salt = os.urandom(HASH_SIZE)
+        return hashlib.sha256(self._salt + bytes(password, encoding='utf8')).digest()
 
     def store_password_hashed(self, password):
         hashed_password = self._generate_hashed_password(password)
