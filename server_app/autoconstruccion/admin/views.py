@@ -1,6 +1,5 @@
 from flask import Blueprint, render_template
-from autoconstruccion.models import Project, db, Event, User
-#Esto lo he cambiado yo(sergio espero no haber metido la pata) 
+from autoconstruccion.models import Project
 
 bp = Blueprint('admin', __name__,
                template_folder='templates',
