@@ -25,7 +25,7 @@ def register():
         if user:
             flask.flash('email already in use by another user.', 'error')
             register_form.email.errors.append('email already in use by another user.')
-            return flask.render_template('login/login.html', login_form=login_form, reg_for=register_form)
+            return flask.render_template('login_sign.html', login_form=login_form, register_form=register_form)
 
         new_user = User()
         register_form.populate_obj(new_user)
@@ -43,7 +43,7 @@ def register():
 
         # redirect to user data fill....
         return flask.redirect(flask.url_for('web.index'))
-    return flask.render_template('login/login.html', login_form=login_form, reg_for=register_form)
+    return flask.render_template('login_sign.html', login_form=login_form, register_form=register_form)
 
 
 def next_is_valid(next_url):
@@ -60,7 +60,7 @@ def login():
         user = User.query.filter_by(email=login_form.email.data).one_or_none()
         if not (user and user.test_password(login_form.password.data)):
             flask.flash('Incorrect user email or password.', 'error')
-            return flask.render_template('login/login.html', login_form=login_form, reg_for=register_form)
+            return flask.render_template('login_sign.html', login_form=login_form, register_form=register_form)
 
         login_user(user)
         flask.flash('Logged in successfully.', 'success')
@@ -71,7 +71,7 @@ def login():
             return flask.abort(400)
 
         return flask.redirect(next_url or flask.url_for('web.index'))
-    return flask.render_template('login/login.html', login_form=login_form, reg_for=register_form)
+    return flask.render_template('login_sign.html', login_form=login_form, register_form=register_form)
 
 
 @bp.route('logout')
