@@ -29,6 +29,13 @@ def create_app(config_name='PRODUCTION'):
         app.register_blueprint(web, url_prefix='/', static_folder='static')
         from autoconstruccion.admin import bp as admin
         app.register_blueprint(admin, url_prefix='/admin', static_folder='static')
+    # Register blueprints
+    from autoconstruccion.web import bp as web
+    app.register_blueprint(web, url_prefix='/', static_folder='static')
+    from autoconstruccion.admin import bp as admin
+    app.register_blueprint(admin, url_prefix='/admin', static_folder='static')
+    from autoconstruccion.errors import bp as errors_bp
+    app.register_blueprint(errors_bp)
 
     return app
 
