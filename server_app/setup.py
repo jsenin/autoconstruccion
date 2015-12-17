@@ -8,6 +8,7 @@ requires = [
     'alembic>=0.8.3',
     'Flask-Login==0.3.2',
     'itsdangerous==0.24',
+    'requests>=2.8.1'
 ]
 
 package_data={
