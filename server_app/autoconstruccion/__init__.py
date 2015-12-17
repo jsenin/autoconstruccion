@@ -18,13 +18,14 @@ def create_app(config_name='PRODUCTION'):
     # Init login
     login_manager.init_app(app)
 
-    # Register blueprints
-    from autoconstruccion.login import bp as login_bp
-    app.register_blueprint(login_bp, url_prefix='/')
-    from autoconstruccion.web import bp as web
-    app.register_blueprint(web, url_prefix='/', static_folder='static')
-    from autoconstruccion.admin import bp as admin
-    app.register_blueprint(admin, url_prefix='/admin', static_folder='static')
+    with app.app_context():
+        # Register blueprints
+        from autoconstruccion.login import bp as login_bp
+        app.register_blueprint(login_bp)
+        from autoconstruccion.web import bp as web
+        app.register_blueprint(web, url_prefix='/', static_folder='static')
+        from autoconstruccion.admin import bp as admin
+        app.register_blueprint(admin, url_prefix='/admin', static_folder='static')
 
     return app
 
