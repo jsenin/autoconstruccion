@@ -15,6 +15,20 @@ use current_user proxy available on any template.
 {% endif %}
 ```
 
+Also could know if current user is admin or manager
+
+```jinja2
+{% if current_user.is_admin %}
+  {# ...do admin things... #}
+{% endif %}
+```
+
+```jinja2
+{% if current_user.is_manager %}
+  {# ...view manager things... #}
+{% endif %}
+```
+
 
 ## use on views
 
