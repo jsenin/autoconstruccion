@@ -18,12 +18,6 @@ def index():
     return render_template('index.html', projects=projects)
 
 
-@bp.route('login')
-def login():
-    projects = Project.query.all()
-    return render_template('login_sign.html', projects=projects)
-
-
 @bp.route('projects')
 def project_index():
     projects = Project.query.all()
@@ -31,6 +25,7 @@ def project_index():
 
 
 @bp.route('projects/add', methods=['GET', 'POST'])
+@login_required
 def project_add():
 
     # Don't pass request.form as flask_wtf do it automatically, and
@@ -56,6 +51,7 @@ def project_view(project_id):
 
 
 @bp.route('projects/edit/<int:project_id>', methods=['GET', 'POST'])
+@login_required
 def project_edit(project_id):
     project = Project.query.get(project_id)
     form = ProjectForm(obj=project)
@@ -71,6 +67,7 @@ def project_edit(project_id):
 
 
 @bp.route('projects/<int:project_id>/join', methods=['GET', 'POST'])
+@login_required
 def project_join(project_id):
     project = Project.query.get(project_id)
     form = UserForm(request.form)
@@ -100,6 +97,7 @@ def get_project_image(project_id):
 
 
 @bp.route('projects/<int:project_id>/events/add', methods=['GET', 'POST'])
+@login_required
 def event_add(project_id):
     form = EventForm(request.form)
     if request.method == 'POST':
@@ -119,6 +117,7 @@ def event_add(project_id):
 
 
 @bp.route('projects/<int:project_id>/events/<int:event_id>/edit', methods=['GET', 'POST'])
+@login_required
 def event_edit(project_id, event_id):
     event = Event.query.get(event_id)
 
@@ -175,6 +174,7 @@ def user_index():
 
 
 @bp.route('users/add', methods=['GET', 'POST'])
+@login_required
 def user_add():
     form = UserForm(request.form)
     if request.method == 'POST':
@@ -192,6 +192,7 @@ def user_add():
 
 
 @bp.route('users/<int:user_id>', methods=['GET', 'POST'])
+@login_required
 def user_edit(user_id):
     user = User.query.get(user_id)
     form = UserForm(request.form, user)
