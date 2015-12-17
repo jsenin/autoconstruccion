@@ -37,7 +37,7 @@ class User(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     full_name = db.Column(db.String(250), nullable=False)
     email = db.Column(db.String(255), nullable=False)
-    phone_number = db.Column(db.String(9), nullable=True)
+    phone_number = db.Column(db.String(9), nullable=True, default='')
     abilities = db.Column(db.Text(), nullable=True)
     availability = db.Column(db.Text(), nullable=True)
     tools = db.Column(db.Text(), nullable=True)
