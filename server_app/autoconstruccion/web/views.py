@@ -1,6 +1,6 @@
 from io import BytesIO
 from flask import Blueprint, flash, send_file, render_template, request, redirect, url_for, abort
-from autoconstruccion.models import Project, db, Event, User
+from autoconstruccion.models import Project, db, Event, User, Skill, SkillLevel
 from autoconstruccion.web.forms import ProjectForm, UserForm, EventForm
 from .utils import get_image_from_file_field
 from flask.ext.login import login_required, current_user
@@ -70,20 +70,24 @@ def project_edit(project_id):
 @login_required
 def project_join(project_id):
     project = Project.query.get(project_id)
-    form = UserForm(request.form)
-
-    if form.validate_on_submit():
-        user = User()
-        form.populate_obj(user)
-        user._hashed_password = user._generate_hashed_password('123456')  # TODO: remove when users register
-        db.session.add(user)
-        db.session.commit()
+    user = User.query.get(current_user.id)
+    skills = Skill.query.all()
+    if request.method == 'POST':
+        skills_result = request.form
+        for skill_id in skills_result:
+            if skill_id != 'csrf_token':
+                skill_level = SkillLevel()
+                skill_level.project_id = project_id
+                skill_level.user_id = user.id
+                skill_level.skill_id = int(skill_id)
+                skill_level.level = int(skills_result[skill_id])
+                db.session.add(skill_level)
         user.projects.append(project)
         db.session.commit()
 
-        flash('Success', 'success')
+        flash('Data saved successfully', 'success')
         return redirect(url_for('web.project_view', project_id=project_id))
-    return render_template('projects/join.html', project=project, form=form)
+    return render_template('projects/join_skills.html', project=project, skills=skills)
 
 
 @bp.route('projects/<int:project_id>/image')
@@ -177,7 +181,7 @@ def user_index():
 @login_required
 def user_add():
     form = UserForm(request.form)
-    if request.method == 'POST':
+    if (request.method == 'POST'):
         if form.validate():
             user = User()
             form.populate_obj(user)
@@ -187,8 +191,10 @@ def user_add():
 
             flash('Data saved successfully', 'success')
             return redirect(url_for('web.user_index'))
+
         flash('Data not valid, please review the fields')
-        return render_template('users/add.html', form=form)
+
+    return render_template('users/add.html', form=form)
 
 
 @bp.route('users/<int:user_id>', methods=['GET', 'POST'])
