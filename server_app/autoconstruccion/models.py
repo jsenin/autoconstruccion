@@ -85,7 +85,7 @@ class User(db.Model):
 
     # auth methods
     _is_admin = db.Column(db.Boolean, nullable=False, default=False)
-    manages = db.relationship('Projects')
+    #manages = db.relationship('Projects')
 
     def is_admin(self):
         return self._is_admin
