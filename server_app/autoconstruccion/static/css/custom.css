@@ -367,3 +367,7 @@ h5.place {
   padding: 30px;
   margin-top: 30px;
 }
+#login-signin form {
+  padding-left: 1em;
+  padding-right: 1em;
+}
