@@ -19,11 +19,7 @@ def index():
 def login():
     projects = Project.query.all()
     return render_template('login_sign.html', projects=projects)    
-
-@bp.route('error')
-def error():
-    projects = Project.query.all()
-    return render_template('error/err_500.html', projects=projects)    
+ 
 
 
 @bp.route('projects')
