@@ -1,5 +1,5 @@
 from flask import Flask
-from autoconstruccion.config import config_app
+from autoconstruccion.config import config_app, config_notifier
 from flask_sqlalchemy import SQLAlchemy
 from autoconstruccion.login_manager import login_manager
 
@@ -11,6 +11,9 @@ def create_app(config_name='PRODUCTION'):
 
     # config app
     config_app(app, config_name)
+
+    # load notifier
+    config_notifier(app)
 
     # Load database
     db.init_app(app)

@@ -1,4 +1,5 @@
 import os
+from autoconstruccion.notifier import NotifierFactory
 
 
 class BaseConfig:
@@ -61,3 +62,11 @@ def config_app(app, config_name='DEFAULT'):
     if app.config['TESTING']:
         if app.config['SQLALCHEMY_DATABASE_URI'] != 'sqlite:///:memory:':
             app.config['SQLALCHEMY_DATABASE_URI'] += '_test'
+
+
+def config_notifier(app):
+
+
+    notifier_default = app.config.get('NOTIFIER_DEFAULT','')
+    notifier_transport = app.config.get( notifier_default, '' )
+    app.notifier = NotifierFactory.factory(notifier_transport)
