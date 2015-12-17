@@ -1,6 +1,7 @@
 from flask_wtf import Form
 from flask_wtf.file import FileField, FileAllowed
-from wtforms import StringField, TextAreaField, DateField, validators
+from wtforms import StringField, TextAreaField, DateField, validators, PasswordField
+
 from autoconstruccion.web.validators import remove_not_numbers
 
 
@@ -18,6 +19,7 @@ class UserForm(Form):
     full_name = StringField('Full name', [validators.DataRequired(), validators.Length(min=3, max=255)],
                             description='Your full name')
     email = StringField('Email', [validators.DataRequired(), validators.email('Email not valid')])
+    password = PasswordField('Password', validators=[validators.DataRequired(), validators.Length(min=6, max=32)])
     phone_number = StringField('Phone number', filters=(remove_not_numbers,))
     abilities = TextAreaField('Describe your abilities', [])
     availability = TextAreaField('Describe your availability', [])

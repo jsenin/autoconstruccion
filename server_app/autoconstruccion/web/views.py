@@ -3,6 +3,8 @@ from flask import Blueprint, flash, send_file, render_template, request, redirec
 from autoconstruccion.models import Project, db, Event, User
 from autoconstruccion.web.forms import ProjectForm, UserForm, EventForm
 from .utils import get_image_from_file_field
+from flask.ext.login import login_required, current_user
+
 
 bp = Blueprint('web', __name__,
                template_folder='templates',
@@ -15,11 +17,11 @@ def index():
     projects = Project.query.all()
     return render_template('index.html', projects=projects)
 
+
 @bp.route('login')
 def login():
     projects = Project.query.all()
-    return render_template('login_sign.html', projects=projects)    
- 
+    return render_template('login_sign.html', projects=projects)
 
 
 @bp.route('projects')
@@ -166,7 +168,7 @@ def user_add():
         if form.validate():
             user = User()
             form.populate_obj(user)
-            user._hashed_password = user._generate_hashed_password('123456')  # TODO: remove when users register
+            user.store_password_hashed(form.password.data)
             db.session.add(user)
             db.session.commit()
 
@@ -183,6 +185,7 @@ def user_edit(user_id):
     if request.method == 'POST':
         if form.validate():
             form.populate_obj(user)
+            user.store_password_hashed(form.password.data)
             db.session.commit()
 
             flash('Data saved successfully', 'success')
@@ -191,3 +194,24 @@ def user_edit(user_id):
     return render_template('users/edit.html', form=form, user_id=user_id)
 
 
+@bp.route('users/account', methods=['GET', 'POST'])
+@login_required
+def user_account():
+    user_id = current_user.get_id()
+    user = User.query.get(user_id)
+    if (not user):
+        raise Exception('User not found')
+
+    form = UserForm(request.form, user)
+    if request.method == 'POST':
+        if form.validate():
+            form.populate_obj(user)
+            user.store_password_hashed(form.password.data)
+            db.session.commit()
+
+            flash('Data saved successfully', 'success')
+            return redirect(url_for('web.user_index'))
+
+        flash('Data not valid, please review the fields')
+
+    return render_template('users/account.html', form=form, user_id=user_id)

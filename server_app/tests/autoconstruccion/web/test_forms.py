@@ -1,6 +1,5 @@
 import pytest
 from autoconstruccion.web.forms import ProjectForm, UserForm
-import datetime
 
 
 ############################################################
@@ -122,6 +121,7 @@ def user_form():
     """
     values = {'full_name': "Pepe Pérez Mengano",
               'email': "pepe.perez@fulano.es",
+              'password': "123456",
               'phone_number': "654321987",
               'abilities': "Hago de todo..",
               'availability': "24/7",
