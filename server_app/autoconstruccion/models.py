@@ -4,8 +4,12 @@ import os
 HASH_SIZE = 32  # sha256 -> 32 bytes
 
 users_projects = db.Table('users_projects', db.metadata,
-                       db.Column('project_id', db.Integer, db.ForeignKey('projects.id')),
-                       db.Column('user_id', db.Integer, db.ForeignKey('users.id')))
+                          db.Column('project_id', db.Integer, db.ForeignKey('projects.id')),
+                          db.Column('user_id', db.Integer, db.ForeignKey('users.id')))
+
+events_users = db.Table('events_users', db.metadata,
+                        db.Column('event_id', db.Integer, db.ForeignKey('events.id')),
+                        db.Column('user_id', db.Integer, db.ForeignKey('users.id')))
 
 class Project(db.Model):
     __tablename__ = 'projects'
@@ -38,6 +42,7 @@ class User(db.Model):
     tools = db.Column(db.Text(), nullable=True)
     materials = db.Column(db.Text(), nullable=True)
     projects = db.relationship('Project', secondary=users_projects)
+    events = db.relationship('Event', secondary=events_users)
 
     # Login related properties and methods
     _hashed_password = db.Column(db.Binary(HASH_SIZE), nullable=False)
@@ -91,6 +96,7 @@ class Event(db.Model):
     start_date = db.Column(db.Date, nullable=False)
     project_id = db.Column(db.Integer, db.ForeignKey('projects.id'))
     project = db.relationship('Project', backref=db.backref('events'))
+    users = db.relationship('User', secondary=events_users)
 
     def __repr__(self):
         text = "Event: \t{}\n\t\tDescription: {}\n\t\tDay: {}"

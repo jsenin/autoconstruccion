@@ -141,6 +141,19 @@ def event_view(project_id, event_id):
     return render_template('events/view.html', event=event) if event else abort(404)
 
 
+@bp.route('projects/<int:project_id>/events/<int:event_id>/join')
+@login_required
+def event_join(project_id, event_id):
+    user_id = current_user.get_id()
+    user = User.query.get(user_id)
+    event = Event.query.get(event_id)
+    user.events.append(event)
+    db.session.commit()
+
+    flash('Joined to event successfully', 'success')
+    return redirect(url_for('web.event_view', project_id=project_id, event_id=event_id))
+
+
 @bp.route('projects/<int:project_id>/events', methods=['GET'])
 def project_events(project_id):
     conditions = (Event.project_id == project_id,)
@@ -175,7 +188,7 @@ def user_add():
             flash('Data saved successfully', 'success')
             return redirect(url_for('web.user_index'))
         flash('Data not valid, please review the fields')
-    return render_template('users/add.html', form=form)
+        return render_template('users/add.html', form=form)
 
 
 @bp.route('users/<int:user_id>', methods=['GET', 'POST'])
@@ -191,6 +204,7 @@ def user_edit(user_id):
             flash('Data saved successfully', 'success')
             return redirect(url_for('web.user_index'))
         flash('Data not valid, please review the fields')
+
     return render_template('users/edit.html', form=form, user_id=user_id)
 
 
