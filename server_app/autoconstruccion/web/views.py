@@ -168,7 +168,7 @@ def user_add():
         if form.validate():
             user = User()
             form.populate_obj(user)
-            user._hashed_password = user._generate_hashed_password('123456')  # TODO: remove when users register
+            user.store_password_hashed(form.password.data)
             db.session.add(user)
             db.session.commit()
 
@@ -185,6 +185,7 @@ def user_edit(user_id):
     if request.method == 'POST':
         if form.validate():
             form.populate_obj(user)
+            user.store_password_hashed(form.password.data)
             db.session.commit()
 
             flash('Data saved successfully', 'success')
@@ -193,8 +194,8 @@ def user_edit(user_id):
     return render_template('users/edit.html', form=form, user_id=user_id)
 
 
+@bp.route('users/account', methods=['GET', 'POST'])
 @login_required
-@bp.route('users/accout', methods=['GET', 'POST'])
 def user_account():
     user_id = current_user.get_id()
     user = User.query.get(user_id)
@@ -205,9 +206,12 @@ def user_account():
     if request.method == 'POST':
         if form.validate():
             form.populate_obj(user)
+            user.store_password_hashed(form.password.data)
             db.session.commit()
 
             flash('Data saved successfully', 'success')
             return redirect(url_for('web.user_index'))
+
         flash('Data not valid, please review the fields')
+
     return render_template('users/account.html', form=form, user_id=user_id)
