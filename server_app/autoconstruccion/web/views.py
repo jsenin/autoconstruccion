@@ -19,6 +19,8 @@ def index():
 def login():
     projects = Project.query.all()
     return render_template('login_sign.html', projects=projects)    
+ 
+
 
 @bp.route('projects')
 def project_index():
