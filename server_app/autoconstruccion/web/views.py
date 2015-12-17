@@ -178,7 +178,7 @@ def user_index():
 @login_required
 def user_add():
     form = UserForm(request.form)
-    if request.method == 'POST':
+    if (request.method == 'POST'):
         if form.validate():
             user = User()
             form.populate_obj(user)
@@ -188,8 +188,10 @@ def user_add():
 
             flash('Data saved successfully', 'success')
             return redirect(url_for('web.user_index'))
+
         flash('Data not valid, please review the fields')
-        return render_template('users/add.html', form=form)
+
+    return render_template('users/add.html', form=form)
 
 
 @bp.route('users/<int:user_id>', methods=['GET', 'POST'])
