@@ -11,6 +11,7 @@ events_users = db.Table('events_users', db.metadata,
                         db.Column('event_id', db.Integer, db.ForeignKey('events.id')),
                         db.Column('user_id', db.Integer, db.ForeignKey('users.id')))
 
+
 class Project(db.Model):
     __tablename__ = 'projects'
 
@@ -36,7 +37,7 @@ class User(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     full_name = db.Column(db.String(250), nullable=False)
     email = db.Column(db.String(255), nullable=False)
-    phone_number = db.Column(db.String(9), nullable=False)
+    phone_number = db.Column(db.String(9), nullable=True, default='')
     abilities = db.Column(db.Text(), nullable=True)
     availability = db.Column(db.Text(), nullable=True)
     tools = db.Column(db.Text(), nullable=True)
@@ -81,6 +82,17 @@ class User(db.Model):
 
     def get_id(self):
         return str(self.id)
+
+    # auth methods
+    _is_admin = db.Column(db.Boolean, nullable=False, default=False)
+    #manages = db.relationship('Projects')
+
+    def is_admin(self):
+        return self._is_admin
+
+    def is_manager(self):
+        # change when properly add a manager to a project.
+        return self._is_admin
 
     def __repr__(self):
         text = "User: \t{}\n\t\tEmail: {}\n\t\tPhone Number: {}"

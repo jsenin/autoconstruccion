@@ -21,4 +21,6 @@ The configuration can be defined passing a config_name to create_app() and creat
 
 If the TESTING flag is True the sqlalchemy uri will be appended with '_test' to avoid data deletion or crushing.
 
+## Default admin user
 
+By default it creates a admin user who's emai is ```admin@autoconstruccion.org```, and it's password is ```Autoconstruccion```
