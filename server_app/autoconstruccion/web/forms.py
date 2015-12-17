@@ -1,7 +1,6 @@
 from flask_wtf import Form
 from flask_wtf.file import FileField, FileAllowed
 from wtforms import StringField, TextAreaField, DateField, validators, PasswordField
-
 from autoconstruccion.web.validators import remove_not_numbers
 
 
@@ -31,3 +30,9 @@ class EventForm(Form):
     name = StringField('Event name', [validators.DataRequired(), validators.Length(min=3, max=255)])
     description = TextAreaField('Describe event', [validators.DataRequired(), validators.Length(min=3, max=255)])
     start_date = DateField('Start event', format='%d/%m/%Y')
+
+
+class SkillForm(Form):
+    name = StringField('Skill name', [validators.DataRequired(), validators.Length(min=3, max=255)])
+    description = TextAreaField('Describe skill', [validators.Length(min=5, max=255)])
+    image = FileField('Image', validators=[FileAllowed(['jpg'], 'Only jpg images please.')])
