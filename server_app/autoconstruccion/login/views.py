@@ -19,16 +19,15 @@ def get_activation_link(user):
 
 @bp.route('/register', methods=['GET', 'POST'])
 def register():
-    login_form = LoginForm()
     register_form = RegisterForm()
     if register_form.validate_on_submit():
 
         # test duplication of user mail -> make in a better way in future, form validator
-        user = User.query.filter_by(email=login_form.email.data).one_or_none()
+        user = User.query.filter_by(email=register_form.email.data).one_or_none()
         if user:
             flash('email already in use by another user.', 'error')
             register_form.email.errors.append('email already in use by another user.')
-            return render_template('login_sign.html', login_form=login_form, register_form=register_form)
+            return render_template('register.html', register_form=register_form)
 
         new_user = User()
         register_form.populate_obj(new_user)
@@ -45,7 +44,9 @@ def register():
 
         # redirect to user data fill....
         return redirect(url_for('web.index'))
-    return render_template('login_sign.html', login_form=login_form, register_form=register_form)
+
+
+    return render_template('register.html', register_form=register_form)
 
 
 def next_is_valid(next_url):

@@ -13,4 +13,4 @@ class RegisterForm(Form):
     email = StringField('Email', validators=[DataRequired(), Email()])
     password = PasswordField('Password', validators=[DataRequired(), Length(min=6, max=32)])
     username = StringField('Name', validators=[DataRequired()])
-    confirm_password = PasswordField('Confirm password', validators=[EqualTo(password)])
+    confirm_password = PasswordField('Confirm password', validators=[EqualTo('password')])
