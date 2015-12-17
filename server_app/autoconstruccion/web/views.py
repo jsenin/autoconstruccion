@@ -83,6 +83,7 @@ def project_join(project_id):
 
         flash('Success', 'success')
         return redirect(url_for('web.project_view', project_id=project_id))
+
     return render_template('projects/join.html', project=project, form=form)
 
 

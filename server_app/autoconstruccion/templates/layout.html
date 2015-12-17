@@ -15,14 +15,15 @@
     <body class="body-main-container">
 
 {% include 'theme/update_your_browser_if_deprecated.html' %}
+
 {% block navigation %}
-{% include 'theme/navigation.html' %}
+    {% include 'theme/navigation.html' %}
 {% endblock %}
 
+<div class="container div-main-container" >
 {% from "_helpers.html" import show_flash_messages %}
 {{ show_flash_messages() }}
    
-<div class="container div-main-container" >
 {% block body %}
   <p>This is the page body.</p>
 {% endblock %}
