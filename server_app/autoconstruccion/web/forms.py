@@ -11,7 +11,7 @@ class ProjectForm(Form):
     start_date = DateField('Start date', format='%d/%m/%Y', validators=[validators.DataRequired()])
     end_date = DateField('End date', format='%d/%m/%Y', validators=[validators.DataRequired()])
     location = StringField('Location', validators=[validators.DataRequired()])
-    contact_phone = StringField('Phone number', validators=[validators.DataRequired()])
+    contact_phone = StringField('Phone number', filters=(remove_not_numbers,), validators=[validators.DataRequired(), validators.Length(max=9)])
     image = FileField('Image', validators=[FileAllowed(['jpg'], 'Only jpg images please.')])
 
 
@@ -20,7 +20,7 @@ class UserForm(Form):
                             description='Your full name')
     email = StringField('Email', [validators.DataRequired(), validators.email('Email not valid')])
     password = PasswordField('Password', validators=[validators.DataRequired(), validators.Length(min=6, max=32)])
-    phone_number = StringField('Phone number', filters=(remove_not_numbers,))
+    phone_number = StringField('Phone number', filters=(remove_not_numbers,), validators=[validators.Length(max=9)])
     abilities = TextAreaField('Describe your abilities', [])
     availability = TextAreaField('Describe your availability', [])
     tools = TextAreaField('Do you have some useful tools? What?', [])
