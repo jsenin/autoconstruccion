@@ -1,6 +1,7 @@
 from flask import Flask
 from autoconstruccion.config import config_app
 from flask_sqlalchemy import SQLAlchemy
+from autoconstruccion.login_manager import login_manager
 
 db = SQLAlchemy()
 
@@ -14,11 +15,17 @@ def create_app(config_name='PRODUCTION'):
     # Load database
     db.init_app(app)
 
-    # Register blueprints
-    from autoconstruccion.web import bp as web
-    app.register_blueprint(web, url_prefix='/', static_folder='static')
-    from autoconstruccion.admin import bp as admin
-    app.register_blueprint(admin, url_prefix='/admin', static_folder='static')
+    # Init login
+    login_manager.init_app(app)
+
+    with app.app_context():
+        # Register blueprints
+        from autoconstruccion.login import bp as login_bp
+        app.register_blueprint(login_bp)
+        from autoconstruccion.web import bp as web
+        app.register_blueprint(web, url_prefix='/', static_folder='static')
+        from autoconstruccion.admin import bp as admin
+        app.register_blueprint(admin, url_prefix='/admin', static_folder='static')
 
     return app
 

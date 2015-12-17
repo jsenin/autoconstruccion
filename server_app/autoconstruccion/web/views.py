@@ -76,6 +76,7 @@ def project_join(project_id):
     if form.validate_on_submit():
         user = User()
         form.populate_obj(user)
+        user._hashed_password = user._generate_hashed_password('123456')  # TODO: remove when users register
         db.session.add(user)
         db.session.commit()
         user.projects.append(project)
@@ -165,6 +166,7 @@ def user_add():
         if form.validate():
             user = User()
             form.populate_obj(user)
+            user._hashed_password = user._generate_hashed_password('123456')  # TODO: remove when users register
             db.session.add(user)
             db.session.commit()
 

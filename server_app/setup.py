@@ -5,7 +5,9 @@ requires = [
     'Flask-SQLAlchemy==2.1',
     'Flask-WTF==0.12',
     'SQLAlchemy==1.0.9',
-    'alembic>=0.8.3'
+    'alembic>=0.8.3',
+    'Flask-Login==0.3.2',
+    'itsdangerous==0.24',
 ]
 
 package_data={

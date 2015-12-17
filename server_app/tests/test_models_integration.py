@@ -24,6 +24,8 @@ def create_mock_user_by_id(id):
     user.full_name = "UserName"
     user.email = "username@user.com"
     user.phone_number = "666666666"
+    user._salt = bytes.fromhex('0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef')
+    user.store_password_hashed('123456')
     db.session.add(user)
 
 
@@ -36,7 +38,11 @@ def create_mock_skill_by_id(id):
     db.session.add(skill)
 
 
-def test_all_of_PK_must_unique(request_ctx):
+def test_all_of_PK_must_unique(request_ctx, app):
+    sqlalchem_uri = app.config.get('SQLALCHEMY_DATABASE_URI', '')
+    if sqlalchem_uri.startswith('sqlite'):
+        db.session.execute('pragma foreign_keys=on')
+
     create_mock_project_by_id(1)
     create_mock_user_by_id(1)
     create_mock_skill_by_id(1)
@@ -45,7 +51,6 @@ def test_all_of_PK_must_unique(request_ctx):
     create_mock_user_by_id(2)
     create_mock_skill_by_id(2)
 
-    db.session.execute('pragma foreign_keys=on')
     db.session.flush()
 
     skill_level_id_1 = SkillLevel()
@@ -64,8 +69,10 @@ def test_all_of_PK_must_unique(request_ctx):
     db.session.commit()
 
 
-def test_throw_exception_when_commit_id_non_existent(request_ctx):
-    db.session.execute('pragma foreign_keys=on')
+def test_throw_exception_when_commit_id_non_existent(request_ctx, app):
+    sqlalchem_uri = app.config.get('SQLALCHEMY_DATABASE_URI', '')
+    if sqlalchem_uri.startswith('sqlite'):
+        db.session.execute('pragma foreign_keys=on')
 
     skill_level = SkillLevel()
     skill_level.project_id = 1

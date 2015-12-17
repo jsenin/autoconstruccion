@@ -1,4 +1,7 @@
 from autoconstruccion import db
+import hashlib
+import os
+HASH_SIZE = 32  # sha256 -> 32 bytes
 
 users_projects = db.Table('users_projects', db.metadata,
                        db.Column('project_id', db.Integer, db.ForeignKey('projects.id')),
@@ -35,6 +38,44 @@ class User(db.Model):
     tools = db.Column(db.Text(), nullable=True)
     materials = db.Column(db.Text(), nullable=True)
     projects = db.relationship('Project', secondary=users_projects)
+
+    # Login related properties and methods
+    _hashed_password = db.Column(db.Binary(HASH_SIZE), nullable=False)
+    _salt = db.Column(db.Binary(HASH_SIZE), nullable=False, default=os.urandom(HASH_SIZE))
+
+    @property
+    def hashed_password(self):
+        return self._hashed_password
+
+    def _generate_hashed_password(self, password):
+        if not self._salt:
+            self._salt = os.urandom(HASH_SIZE)
+        return hashlib.sha256(self._salt + bytes(password, encoding='utf8')).digest()
+
+    def store_password_hashed(self, password):
+        hashed_password = self._generate_hashed_password(password)
+        self._hashed_password = hashed_password
+
+    def test_password(self, password):
+        password_under_test = self._generate_hashed_password(password)
+        return password_under_test == self._hashed_password
+
+    def is_authenticated(self):
+        return True
+
+    _active = db.Column(db.Boolean, default=True)
+
+    def is_active(self):
+        return self._active
+
+    def activate(self):
+        self._active = True
+
+    def is_anonymous(self):
+        return False
+
+    def get_id(self):
+        return str(self.id)
 
     def __repr__(self):
         text = "User: \t{}\n\t\tEmail: {}\n\t\tPhone Number: {}"
