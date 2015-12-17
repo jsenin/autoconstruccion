@@ -11,6 +11,7 @@ events_users = db.Table('events_users', db.metadata,
                         db.Column('event_id', db.Integer, db.ForeignKey('events.id')),
                         db.Column('user_id', db.Integer, db.ForeignKey('users.id')))
 
+
 class Project(db.Model):
     __tablename__ = 'projects'
 
@@ -81,6 +82,16 @@ class User(db.Model):
 
     def get_id(self):
         return str(self.id)
+
+    # auth methods
+    _is_admin = db.Column(db.Boolean, nullable=False, default=False)
+
+    def is_admin(self):
+        return self._is_admin
+
+    def is_manager(self):
+        # change when properly add a manager to a project.
+        return self._is_admin
 
     def __repr__(self):
         text = "User: \t{}\n\t\tEmail: {}\n\t\tPhone Number: {}"
