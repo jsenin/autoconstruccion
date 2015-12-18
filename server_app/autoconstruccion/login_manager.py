@@ -12,5 +12,5 @@ def load_user(user_id):
 login_manager.login_view = "login.login"
 
 # Default login flash message
-login_manager.login_message = "Login message: welcome user."
+login_manager.login_message = "This view is protected, please log in"
 login_manager.login_message_category = "info"
