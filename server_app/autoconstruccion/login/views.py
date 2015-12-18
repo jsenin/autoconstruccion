@@ -45,7 +45,7 @@ def register():
         # redirect to user data fill....
         return redirect(url_for('web.index'))
 
-
+    flash('Please correct the required fields.', 'error')
     return render_template('register.html', register_form=register_form)
 
 
