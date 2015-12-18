@@ -1,5 +1,6 @@
 from io import BytesIO
-from flask import Blueprint, flash, send_file, render_template, request, redirect, url_for, abort
+from flask import Blueprint, current_app
+from flask import flash, send_file, render_template, request, redirect, url_for, abort
 from autoconstruccion.models import Project, db, Event, User, Skill, SkillLevel
 from autoconstruccion.web.forms import ProjectForm, UserForm, EventForm
 from .utils import get_image_from_file_field
@@ -97,7 +98,7 @@ def get_project_image(project_id):
         return send_file(BytesIO(project.image), mimetype='image/jpg')
     else:
         # return default image for a project
-        return send_file('web/static/img/image_not_found.jpg', mimetype='image/jpg')
+        return send_file('static/img/project_default.jpg', mimetype='image/jpg')
 
 
 @bp.route('projects/<int:project_id>/events/add', methods=['GET', 'POST'])
@@ -181,7 +182,7 @@ def user_index():
 @login_required
 def user_add():
     form = UserForm(request.form)
-    if (request.method == 'POST'):
+    if request.method == 'POST':
         if form.validate():
             user = User()
             form.populate_obj(user)
@@ -220,7 +221,7 @@ def user_edit(user_id):
 def user_account():
     user_id = current_user.get_id()
     user = User.query.get(user_id)
-    if (not user):
+    if not user:
         raise Exception('User not found')
 
     form = UserForm(request.form, user)
