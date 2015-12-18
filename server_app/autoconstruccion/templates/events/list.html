@@ -15,6 +15,7 @@
                         <th> ID </th>
                         <th> Name </th>
                         <th> Starts at </th>
+                        <th> Volunteers </th>
                         <th> Actions </th>
                     </tr>
                 </thead>
@@ -24,10 +25,13 @@
                             <td>{{ event.id }}</td>
                             <td>{{ event.name }}</td>
                             <td>{{ event.start_date }}</td>
+                            <td>{{ event.users|length }}</td>
 
                             <td> 
                                 <a href="{{ url_for('web.event_edit', project_id=event.project.id, event_id=event.id) }}">Edit <i class="fa fa-edit"></i></a> 
                                 <a href="{{ url_for('web.event_view', project_id=event.project.id, event_id=event.id) }}">View <i class="fa fa-eye"></i></a> 
+                                <a href="{{ url_for('web.event_volunteers', project_id=event.project.id, event_id=event.id) }}">Volunteers <i class="fa fa-group"></i></a> 
+                                <a href="{{ url_for('web.event_reminder', project_id=event.project.id, event_id=event.id) }}">Send reminder<i class="fa fa-envelope"></i></a> 
                             </td>
                         </tr>
                        {% endfor %}

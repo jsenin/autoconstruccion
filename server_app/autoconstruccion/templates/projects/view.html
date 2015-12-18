@@ -58,12 +58,13 @@
                     <div class="col-md-4">
                         <h3><span class="label label-info">
                             <a title="{{ event.name }}" href="{{ url_for('web.event_view', project_id=event.project_id, event_id=event.id) }}">
-                                {{ event.start_date }}
-                            </a>
+                                {{ event.start_date }}                             </a>
                         </span></h3>
+                        <a href="{{ url_for('web.event_join', project_id=event.project.id, event_id=event.id) }}" class="btn btn-primary" >Apúntame al evento</a>
                     </div>
                     <div class="col-md-7">
-                        <strong>{{ event.name }}</strong><br>
+                        <strong>{{ event.name }}(<i class="fa fa-group"></i> {{ event.users|length }}  )
+</strong><br>
                         <em>{{ project.location }}</em><br>
                         <span class="small">10:00 AM</span>
                     </div>

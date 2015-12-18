@@ -158,6 +158,29 @@ def event_join(project_id, event_id):
     return redirect(url_for('web.event_view', project_id=project_id, event_id=event_id))
 
 
+@bp.route('projects/<int:project_id>/events/<int:event_id>/volunteers', methods=['GET', 'POST'])
+@login_required
+def event_volunteers(project_id, event_id):
+    event = Event.query.get(event_id)
+
+    return render_template('events/volunteers.html', users=event.users)
+
+
+
+@bp.route('projects/<int:project_id>/events/<int:event_id>/reminder', methods=['GET', 'POST'])
+@login_required
+def event_reminder(project_id, event_id):
+    event = Event.query.get(event_id)
+
+    text = "Recuerda que hay un evento {} el dia {} ".format (event.name, event.start_date)
+    subject = "Recordatorio cita {}".format(event.start_date)
+    for user in event.users:
+        message = {  'to': user.email, 'subject': subject, 'text': text  }
+        current_app.notifier.send(**message)
+
+    return redirect(url_for('web.event_view', project_id=project_id, event_id=event_id))
+
+
 @bp.route('projects/<int:project_id>/events', methods=['GET'])
 def project_events(project_id):
     conditions = (Event.project_id == project_id,)

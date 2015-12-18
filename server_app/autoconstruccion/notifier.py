@@ -24,13 +24,16 @@ class NotifierFactory:
 
 class MailTransport:
 
-    def send(self, options):
+    def send(self, **options):
         pass
 
 
 class FooTransport(MailTransport):
     def __init__(self, config):
         pass
+
+    def send(self, **options):
+        print("enviando email para {} asunto: {}".format(options.get('to'), options.get('subject')))
 
 
 class SendmailTransport(MailTransport):
