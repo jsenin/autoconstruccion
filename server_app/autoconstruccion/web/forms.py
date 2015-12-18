@@ -20,7 +20,7 @@ class UserForm(Form):
     email = StringField('Email', [validators.DataRequired(), validators.email('Email not valid')])
     password = PasswordField('Password', validators=[validators.DataRequired(), validators.Length(min=6, max=32)])
     phone_number = StringField('Phone number', filters=(remove_not_numbers,), validators=[validators.Length(max=9)])
-    is_admin = BooleanField('Is admin?', validators=[validators.DataRequired()])
+    is_admin = BooleanField('Is admin?', [])
     abilities = TextAreaField('Describe your abilities', [])
     availability = TextAreaField('Describe your availability', [])
     tools = TextAreaField('Do you have some useful tools? What?', [])

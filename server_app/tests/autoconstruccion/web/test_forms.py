@@ -127,6 +127,7 @@ def user_form():
               'availability': "24/7",
               'tools': "",
               'materials': "",
+              'is_admin': False,
               }
     return UserForm(data=values)
 
