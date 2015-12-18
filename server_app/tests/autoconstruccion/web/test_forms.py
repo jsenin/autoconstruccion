@@ -1,5 +1,5 @@
 import pytest
-from autoconstruccion.web.forms import ProjectForm, UserForm
+from autoconstruccion.web.forms import ProjectForm, UserForm, SkillForm
 
 
 ############################################################
@@ -127,6 +127,7 @@ def user_form():
               'availability': "24/7",
               'tools': "",
               'materials': "",
+              'is_admin': False,
               }
     return UserForm(data=values)
 
@@ -188,6 +189,66 @@ def test_should_have_a_tools_field(user_form):
 def test_should_have_a_materials_field(user_form):
     assert user_form.materials
 
+
+if __name__ == '__main__':
+    pytest.main()
+
+############################################################
+# ----- Test SkillForm -----
+############################################################
+
+
+# creates a fixture that returns a valid form
+@pytest.fixture()
+def skill_form():
+    """
+    Returns a Project Form with valid data populated.
+    """
+    values = {'name': "Cocinar",
+              'description': "Saber cocinar",
+              'image': None,
+              }
+    return SkillForm(data=values)
+
+
+def test_get_valid_skill_form(skill_form):
+    validity = skill_form.validate()
+    assert validity
+
+
+def test_skill_should_fail_if_full_name_is_empty_none(skill_form):
+    skill_form.name.data = None
+    assert not skill_form.validate()
+
+
+def test_skill_should_fail_if_full_name_is_empty_string(skill_form):
+    skill_form.name.data = ''
+    assert not skill_form.validate()
+
+
+def test_skill_should_fail_if_full_name_is_less_than_3_chars(skill_form):
+    skill_form.name.data = 'ab'
+    assert not skill_form.validate()
+
+
+def test_skill_should_fail_if_full_name_is_greater_than_255_chars(skill_form):
+    skill_form.name.data = 'a'*256
+    assert not skill_form.validate()
+
+
+def test_skill_should_fail_if_description_is_empty_none(skill_form):
+    skill_form.description.data = None
+    assert not skill_form.validate()
+
+
+def test_skill_should_accept_description_greater_than_5(skill_form):
+    skill_form.description.data = 'description'
+    assert skill_form.validate()
+
+
+def test_skill_should_fail_if_description_has_less_than_5_characters(skill_form):
+    skill_form.description.data = 'desc'
+    assert not skill_form.validate()
 
 if __name__ == '__main__':
     pytest.main()

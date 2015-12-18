@@ -1,6 +1,7 @@
 from io import BytesIO
-from flask import Blueprint, flash, send_file, render_template, request, redirect, url_for, abort
-from autoconstruccion.models import Project, db, Event, User
+from flask import Blueprint, current_app
+from flask import flash, send_file, render_template, request, redirect, url_for, abort
+from autoconstruccion.models import Project, db, Event, User, Skill, SkillLevel
 from autoconstruccion.web.forms import ProjectForm, UserForm, EventForm
 from .utils import get_image_from_file_field
 from flask.ext.login import login_required, current_user
@@ -70,21 +71,24 @@ def project_edit(project_id):
 @login_required
 def project_join(project_id):
     project = Project.query.get(project_id)
-    form = UserForm(request.form)
-
-    if form.validate_on_submit():
-        user = User()
-        form.populate_obj(user)
-        user._hashed_password = user._generate_hashed_password('123456')  # TODO: remove when users register
-        db.session.add(user)
-        db.session.commit()
+    user = User.query.get(current_user.id)
+    skills = Skill.query.all()
+    if request.method == 'POST':
+        skills_result = request.form
+        for skill_id in skills_result:
+            if skill_id != 'csrf_token':
+                skill_level = SkillLevel()
+                skill_level.project_id = project_id
+                skill_level.user_id = user.id
+                skill_level.skill_id = int(skill_id)
+                skill_level.level = int(skills_result[skill_id])
+                db.session.add(skill_level)
         user.projects.append(project)
         db.session.commit()
 
-        flash('Success', 'success')
+        flash('Data saved successfully', 'success')
         return redirect(url_for('web.project_view', project_id=project_id))
-
-    return render_template('projects/join.html', project=project, form=form)
+    return render_template('projects/join_skills.html', project=project, skills=skills)
 
 
 @bp.route('projects/<int:project_id>/image')
@@ -94,7 +98,7 @@ def get_project_image(project_id):
         return send_file(BytesIO(project.image), mimetype='image/jpg')
     else:
         # return default image for a project
-        return send_file('web/static/img/image_not_found.jpg', mimetype='image/jpg')
+        return send_file('static/img/project_default.jpg', mimetype='image/jpg')
 
 
 @bp.route('projects/<int:project_id>/events/add', methods=['GET', 'POST'])
@@ -154,6 +158,29 @@ def event_join(project_id, event_id):
     return redirect(url_for('web.event_view', project_id=project_id, event_id=event_id))
 
 
+@bp.route('projects/<int:project_id>/events/<int:event_id>/volunteers', methods=['GET', 'POST'])
+@login_required
+def event_volunteers(project_id, event_id):
+    event = Event.query.get(event_id)
+
+    return render_template('events/volunteers.html', users=event.users)
+
+
+
+@bp.route('projects/<int:project_id>/events/<int:event_id>/reminder', methods=['GET', 'POST'])
+@login_required
+def event_reminder(project_id, event_id):
+    event = Event.query.get(event_id)
+
+    text = "Recuerda que hay un evento {} el dia {} ".format (event.name, event.start_date)
+    subject = "Recordatorio cita {}".format(event.start_date)
+    for user in event.users:
+        message = {  'to': user.email, 'subject': subject, 'text': text  }
+        current_app.notifier.send(**message)
+
+    return redirect(url_for('web.event_view', project_id=project_id, event_id=event_id))
+
+
 @bp.route('projects/<int:project_id>/events', methods=['GET'])
 def project_events(project_id):
     conditions = (Event.project_id == project_id,)
@@ -188,8 +215,10 @@ def user_add():
 
             flash('Data saved successfully', 'success')
             return redirect(url_for('web.user_index'))
+
         flash('Data not valid, please review the fields')
-        return render_template('users/add.html', form=form)
+
+    return render_template('users/add.html', form=form)
 
 
 @bp.route('users/<int:user_id>', methods=['GET', 'POST'])
@@ -215,7 +244,7 @@ def user_edit(user_id):
 def user_account():
     user_id = current_user.get_id()
     user = User.query.get(user_id)
-    if (not user):
+    if not user:
         raise Exception('User not found')
 
     form = UserForm(request.form, user)
