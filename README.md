@@ -21,8 +21,8 @@ because pip it's not included with python3 package.
 Further information at
 http://askubuntu.com/questions/488529/pyvenv-3-4-error-returned-non-zero-exit-status-1
 
- 	pypthon3 -m venv --without-pip ./venv
-	source venvdir/bin/activate
+ 	python3 -m venv --without-pip ./venv
+	source venv/bin/activate
 	curl https://bootstrap.pypa.io/get-pip.py | python
 	deactivate
 
